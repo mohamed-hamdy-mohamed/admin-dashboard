@@ -19,17 +19,17 @@ const DashboardSalesChart = () => {
       transition={{ delay: 0.2, duration: 0.5 }}
       className="rounded-xl bg-white border border-slate-200 shadow-sm p-6"
     >
+      {/* Chart Title */}
       <div className="flex items-center justify-between mb-6">
         <div>
           <h2 className="text-lg font-semibold text-slate-900">
             Sales Overview
           </h2>
-
           <p className="text-sm text-slate-500">Monthly sales performance</p>
         </div>
       </div>
+      {/* Sales Chart  */}
       <div className="h-64 md:h-80">
-        {/* Sales Chart  */}
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={salesData}>
             <CartesianGrid strokeDasharray="3 3" stroke="#4b5563" />
