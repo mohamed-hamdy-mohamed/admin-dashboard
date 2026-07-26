@@ -11,6 +11,7 @@ import {
 export interface DashboardStats {
   title: string;
   value: number | string;
+  description?: string;
   icon: LucideIcon;
   iconBg?: string;
   iconColor?: string;
@@ -20,6 +21,7 @@ export const dashboardStats: DashboardStats[] = [
   {
     title: "Total Sales",
     value: formatPrice(12_845),
+    description: "Compared to last month",
     icon: DollarSign,
     iconBg: "bg-emerald-100",
     iconColor: "text-emerald-600",
@@ -27,6 +29,7 @@ export const dashboardStats: DashboardStats[] = [
   {
     title: "Total Clients",
     value: formatNumber(1437),
+    description: "Compared to last month",
     icon: UserRound,
     iconBg: "bg-sky-100",
     iconColor: "text-sky-600",
@@ -34,6 +37,7 @@ export const dashboardStats: DashboardStats[] = [
   {
     title: "Total Products",
     value: formatNumber(674),
+    description: "Compared to last month",
     icon: BriefcaseBusiness,
     iconBg: "bg-amber-100",
     iconColor: "text-amber-600",
@@ -41,6 +45,7 @@ export const dashboardStats: DashboardStats[] = [
   {
     title: "Stock",
     value: formatNumber(12845),
+    description: "Compared to last month",
     icon: Zap,
     iconBg: "bg-violet-100",
     iconColor: "text-violet-600",
