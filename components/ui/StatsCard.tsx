@@ -1,8 +1,8 @@
 "use client";
 
-import { DashboardStats, dashboardStats } from "@/constants/dashboard-stats";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
+import { LucideIcon } from "lucide-react";
 
 const containerVariants = {
   hidden: {},
@@ -23,9 +23,17 @@ const itemVariants = {
     y: 0,
   },
 };
+interface Stat {
+  title: string;
+  value: number | string;
+  description?: string;
+  icon: LucideIcon;
+  iconBg: string;
+  iconColor: string;
+}
 
 interface StatsCardProps {
-  stats: DashboardStats[];
+  stats: Stat[];
 }
 
 const StatsCard = ({ stats }: StatsCardProps) => {

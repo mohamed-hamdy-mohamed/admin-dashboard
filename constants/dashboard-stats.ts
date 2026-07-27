@@ -8,7 +8,7 @@ import {
   Zap,
 } from "lucide-react";
 
-export interface DashboardStats {
+export interface Stats {
   title: string;
   value: number | string;
   description?: string;
@@ -17,7 +17,7 @@ export interface DashboardStats {
   iconColor?: string;
 }
 
-export const dashboardStats: DashboardStats[] = [
+export const dashboardStats: Stats[] = [
   {
     title: "Total Sales",
     value: formatPrice(12_845),
