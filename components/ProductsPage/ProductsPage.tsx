@@ -8,9 +8,10 @@ import SearchInput from "../ui/SearchInput";
 import { useGetProducts } from "@/hooks/useGetProducts";
 import StatsCardsSkeleton from "../ui/StatsCardsSkeleton";
 import DataTableLayout from "../ui/DataTableLayout";
+import AppLoader from "../ui/AppLoader";
 
 const ProductsPage = () => {
-  const { data, isLoading } = useGetProducts();
+  const { data, isLoading, isFetching } = useGetProducts();
   const [search, setSearch] = useState("");
 
   const filteredProducts =
@@ -25,6 +26,7 @@ const ProductsPage = () => {
       ) : (
         data && <ProductsStats data={data} />
       )}
+      {isFetching && <AppLoader />}{" "}
       <DataTableLayout
         title="Product List"
         description="Browse, search and manage your products."

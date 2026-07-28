@@ -13,6 +13,7 @@ import ProductTableRow from "./ProductTableRow";
 
 interface ProductTableProps {
   products: ProductsResponse["products"];
+  
 }
 
 const ProductTable = ({ products }: ProductTableProps) => {
