@@ -20,8 +20,6 @@ const ProductsPage = () => {
 
   return (
     <main className="space-y-6 p-6">
-      {/* <ProductsHeader /> */}
-
       {isLoading ? (
         <StatsCardsSkeleton cards={4} />
       ) : (

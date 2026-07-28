@@ -29,14 +29,16 @@ const ProductsStats = ({ data }: ProductsStatsProps) => {
   interface Stats {
     title: string;
     value: number | string;
+    description?: string;
     icon: LucideIcon;
-    iconBg?: string;
-    iconColor?: string;
+    iconBg: string;
+    iconColor: string;
   }
   const productStats: Stats[] = [
     {
       title: "Total Products",
       value: totalProducts,
+      description: "Total number of products in the inventory.",
       icon: Package,
       iconBg: "bg-amber-100",
       iconColor: "text-amber-600",
@@ -44,6 +46,7 @@ const ProductsStats = ({ data }: ProductsStatsProps) => {
     {
       title: "Low Stock Products",
       value: stockProducts,
+      description: "Number of products that are low in stock.",
       icon: TriangleAlert,
       iconBg: "bg-red-100",
       iconColor: "text-red-600",
@@ -51,6 +54,7 @@ const ProductsStats = ({ data }: ProductsStatsProps) => {
     {
       title: "Unique Categories",
       value: categoryProducts,
+      description: "Number of unique product categories.",
       icon: Tags,
       iconBg: "bg-sky-100",
       iconColor: "text-sky-600",
@@ -58,6 +62,7 @@ const ProductsStats = ({ data }: ProductsStatsProps) => {
     {
       title: "Average Rating",
       value: averageRating,
+      description: "Average rating of all products.",
       icon: Star,
       iconBg: "bg-yellow-100",
       iconColor: "text-yellow-600",
