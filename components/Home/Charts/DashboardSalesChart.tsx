@@ -1,5 +1,6 @@
 "use client";
-import { salesData } from "@/constants/sales-data";
+
+import { salesDataChart } from "@/constants/sales-data";
 import { motion } from "framer-motion";
 import {
   CartesianGrid,
@@ -31,7 +32,7 @@ const DashboardSalesChart = () => {
       {/* Sales Chart  */}
       <div className="h-64 md:h-80">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={salesData}>
+          <LineChart data={salesDataChart}>
             <CartesianGrid strokeDasharray="3 3" stroke="#4b5563" />
             <XAxis
               dataKey="month"

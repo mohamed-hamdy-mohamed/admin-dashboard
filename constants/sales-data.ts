@@ -1,8 +1,9 @@
+import { SalesResponse } from "@/types/sales";
 interface SalesData {
   month: string;
   sales: number;
 }
-export const salesData: SalesData[] = [
+export const salesDataChart: SalesData[] = [
   { month: "Jan", sales: 4000 },
   { month: "Feb", sales: 3200 },
   { month: "Mar", sales: 5200 },
@@ -16,3 +17,76 @@ export const salesData: SalesData[] = [
   { month: "Nov", sales: 9200 },
   { month: "Dec", sales: 10400 },
 ];
+export const salesData: SalesResponse = {
+  sales: [
+    {
+      id: 1,
+      customer: "John Doe",
+      email: "john@example.com",
+      avatar: "https://i.pravatar.cc/150?img=1",
+      product: "iPhone 15 Pro",
+      category: "Electronics",
+      amount: 1299,
+      quantity: 1,
+      status: "Completed",
+      paymentMethod: "Visa",
+      date: "2026-07-28",
+    },
+
+    {
+      id: 2,
+      customer: "Emily Johnson",
+      email: "emily@example.com",
+      avatar: "https://i.pravatar.cc/150?img=5",
+      product: "MacBook Air M4",
+      category: "Laptops",
+      amount: 1699,
+      quantity: 1,
+      status: "Pending",
+      paymentMethod: "MasterCard",
+      date: "2026-07-29",
+    },
+
+    {
+      id: 3,
+      customer: "Michael Smith",
+      email: "michael@example.com",
+      avatar: "https://i.pravatar.cc/150?img=8",
+      product: "Sony WH-1000XM6",
+      category: "Audio",
+      amount: 499,
+      quantity: 2,
+      status: "Completed",
+      paymentMethod: "PayPal",
+      date: "2026-07-30",
+    },
+
+    {
+      id: 4,
+      customer: "Sarah Wilson",
+      email: "sarah@example.com",
+      avatar: "https://i.pravatar.cc/150?img=11",
+      product: "Apple Watch Ultra",
+      category: "Wearables",
+      amount: 899,
+      quantity: 1,
+      status: "Refunded",
+      paymentMethod: "Visa",
+      date: "2026-07-30",
+    },
+
+    {
+      id: 5,
+      customer: "David Brown",
+      email: "david@example.com",
+      avatar: "https://i.pravatar.cc/150?img=14",
+      product: "iPad Pro",
+      category: "Tablets",
+      amount: 1199,
+      quantity: 1,
+      status: "Cancelled",
+      paymentMethod: "Cash",
+      date: "2026-07-27",
+    },
+  ],
+};

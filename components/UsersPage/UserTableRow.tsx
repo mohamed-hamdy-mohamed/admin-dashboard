@@ -5,8 +5,9 @@ import { Badge } from "@/components/ui/badge";
 import { User } from "@/types/users";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import UserStatusBadge from "./UserStatusBadge";
-import UserRowActions from "./UserRowAction";
+
 import UserRoleBadge from "./UserRoleBadge";
+import RowActions from "../ui/RowActions";
 
 interface UserTableRowProps {
   user: User;
@@ -69,7 +70,7 @@ const UserTableRow = ({ user }: UserTableRowProps) => {
       </TableCell>
       {/* Actions */}
       <TableCell className="w-[120px] text-right">
-        <UserRowActions userId={user.id} />
+        <RowActions id={user.id} />
       </TableCell>
     </TableRow>
   );
