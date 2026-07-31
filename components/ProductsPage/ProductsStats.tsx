@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { LucideIcon } from "lucide-react";
 import { Package, TriangleAlert, Tags, Star } from "lucide-react";
 import StatsCard from "../ui/StatsCard";
+import { Stats } from "@/types/stats";
 
 export interface ProductsStatsProps {
   data: ProductsResponse;
@@ -26,14 +27,6 @@ const ProductsStats = ({ data }: ProductsStatsProps) => {
     totalProducts
   ).toFixed(2);
 
-  interface Stats {
-    title: string;
-    value: number | string;
-    description?: string;
-    icon: LucideIcon;
-    iconBg: string;
-    iconColor: string;
-  }
   const productStats: Stats[] = [
     {
       title: "Total Products",

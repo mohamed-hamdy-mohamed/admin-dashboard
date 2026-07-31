@@ -10,10 +10,10 @@ import {
 
 import { ProductsResponse } from "@/types/products";
 import UserTableRow from "./UserTableRow";
-import { UsersResponse } from "@/types/users";
+import { User, UsersResponse } from "@/types/users";
 
 interface UsersTableProps {
-  users: UsersResponse["users"];
+  users: User[];
 }
 
 const UsersTable = ({ users }: UsersTableProps) => {

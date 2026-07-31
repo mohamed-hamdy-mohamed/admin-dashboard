@@ -8,12 +8,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { ProductsResponse } from "@/types/products";
+import { Product } from "@/types/products";
 import ProductTableRow from "./ProductTableRow";
 
 interface ProductTableProps {
-  products: ProductsResponse["products"];
-  
+  products: Product[];
 }
 
 const ProductTable = ({ products }: ProductTableProps) => {

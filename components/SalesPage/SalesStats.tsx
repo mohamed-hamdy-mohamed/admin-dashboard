@@ -3,6 +3,7 @@ import { DollarSign, Receipt, ShoppingBag, TrendingUp } from "lucide-react";
 import StatsCard from "../ui/StatsCard";
 import { formatPrice } from "@/util/formatPrice";
 import { formatNumber } from "@/util/formatNumber";
+import { Stats } from "@/types/stats";
 
 interface SalesStatsProps {
   data: SalesResponse;
@@ -27,7 +28,7 @@ const SalesStats = ({ data }: SalesStatsProps) => {
   const completionRate =
     totalOrders > 0 ? ((completedOrders / totalOrders) * 100).toFixed(0) : "0";
 
-  const stats = [
+  const stats: Stats[] = [
     {
       title: "Revenue",
       value: formatPrice(totalRevenue),

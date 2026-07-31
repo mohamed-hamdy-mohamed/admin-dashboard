@@ -1,6 +1,7 @@
 import { UsersResponse } from "@/types/users";
 import { Cake, Globe, LucideIcon, ShieldCheck, Users } from "lucide-react";
 import StatsCard from "../ui/StatsCard";
+import { Stats } from "@/types/stats";
 
 interface UsersStatsProps {
   data: UsersResponse;
@@ -17,15 +18,7 @@ const UsersStats = ({ data }: UsersStatsProps) => {
     users.reduce((sum, user) => sum + user.age, 0) / totalUsers
   ).toFixed(1);
 
-  interface Stat {
-    title: string;
-    value: number | string;
-    description?: string;
-    icon: LucideIcon;
-    iconBg: string;
-    iconColor: string;
-  }
-  const stats: Stat[] = [
+  const stats: Stats[] = [
     {
       title: "Total Users",
       value: totalUsers,
