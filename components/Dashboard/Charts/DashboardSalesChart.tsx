@@ -1,6 +1,6 @@
 "use client";
 
-import { salesDataChart } from "@/constants/sales-data";
+import { salesDataChart } from "@/constants/analytics-charts";
 import { motion } from "framer-motion";
 import {
   CartesianGrid,
@@ -24,16 +24,18 @@ const DashboardSalesChart = () => {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h2 className="text-lg font-semibold text-slate-900">
-            Sales Overview
+            Monthly Revenue
           </h2>
-          <p className="text-sm text-slate-500">Monthly sales performance</p>
+          <p className="text-sm text-slate-500">
+            Revenue generated from food orders
+          </p>
         </div>
       </div>
       {/* Sales Chart  */}
       <div className="h-64 md:h-80">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={salesDataChart}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#4b5563" />
+            <CartesianGrid strokeDasharray="4 4" stroke="#e5e7eb" />
             <XAxis
               dataKey="month"
               stroke="#64748b"
@@ -53,11 +55,11 @@ const DashboardSalesChart = () => {
             />
             <Line
               type="monotone"
-              dataKey="sales"
-              stroke="#2563eb"
-              strokeWidth={2.5}
-              dot={{ fill: "#2563eb", strokeWidth: 2, r: 3 }}
-              activeDot={{ r: 4, strokeWidth: 2, fill: "#2563eb" }}
+              dataKey="revenue"
+              stroke="#22c55e"
+              strokeWidth={3}
+              dot={{ r: 4 }}
+              activeDot={{ r: 6 }}
             />
           </LineChart>
         </ResponsiveContainer>

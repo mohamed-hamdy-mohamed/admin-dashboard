@@ -1,6 +1,7 @@
 "use client";
+import { categoryChart } from "@/constants/analytics-charts";
 import { motion } from "framer-motion";
-import { categoryChart } from "@/constants/category-chart";
+
 import {
   Cell,
   Legend,

@@ -1,14 +1,16 @@
 "use client";
-import { useGetOrders } from "@/hooks/useGetOrders";
+
 import { useState } from "react";
 import StatsCardsSkeleton from "../ui/StatsCardsSkeleton";
 import DataTableLayout from "../ui/DataTableLayout";
 import SearchInput from "../ui/SearchInput";
 import RecipesStats from "./RecipesStats";
 import RecipesTable from "./RecipesTable";
+import AppLoader from "../ui/AppLoader";
+import { useGetRecipes } from "@/hooks/useGetOrders";
 
 const RecipesPage = () => {
-  const { data, isLoading } = useGetOrders();
+  const { data, isLoading, isFetching } = useGetRecipes();
   const [search, setSearch] = useState<string>("");
 
   const recipes = data?.recipes ?? [];
@@ -26,6 +28,8 @@ const RecipesPage = () => {
       ) : (
         data && <RecipesStats data={data} />
       )}
+
+      {isFetching && <AppLoader />}
 
       <DataTableLayout
         title="Recipes List"

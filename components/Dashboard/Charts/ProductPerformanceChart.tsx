@@ -1,6 +1,6 @@
 "use client";
 
-import { productPerformance } from "@/constants/product-performance";
+import { productPerformance } from "@/constants/analytics-charts";
 import { motion } from "framer-motion";
 import {
   Bar,
@@ -25,10 +25,10 @@ const ProductPerformanceChart = () => {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h2 className="text-lg font-semibold text-slate-900">
-            Product Performance
+            Best Selling Menu
           </h2>
           <p className="text-sm text-slate-500">
-            Performance of products based on sales and revenue
+            Top selling dishes this month
           </p>
         </div>
       </div>
@@ -36,7 +36,7 @@ const ProductPerformanceChart = () => {
       <div className="h-64 md:h-80">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={productPerformance} barGap={8} barCategoryGap="18%">
-            <CartesianGrid strokeDasharray="3 3" stroke="#4b5563" />
+            <CartesianGrid stroke="#e5e7eb" strokeDasharray="4 4" />
             <XAxis
               dataKey="name"
               stroke="#64748b"
@@ -63,10 +63,10 @@ const ProductPerformanceChart = () => {
                 color: "#fff",
                 paddingTop: 15,
               }}
-            />{" "}
-            <Bar dataKey="profit" fill="#67C56C" radius={[6, 6, 0, 0]} />
-            <Bar dataKey="retention" fill="#FF7849" radius={[6, 6, 0, 0]} />
-            <Bar dataKey="revenue" fill="#33B5FF" radius={[6, 6, 0, 0]} />
+            />
+            <Bar dataKey="orders" fill="#2563eb" radius={[6, 6, 0, 0]} />
+            <Bar dataKey="profit" fill="#22c55e" radius={[6, 6, 0, 0]} />
+            <Bar dataKey="revenue" fill="#f97316" radius={[6, 6, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>

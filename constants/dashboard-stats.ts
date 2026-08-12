@@ -1,53 +1,39 @@
+import { Stats } from "@/types/stats";
 import { formatNumber } from "@/util/formatNumber";
 import { formatPrice } from "@/util/formatPrice";
-import {
-  BriefcaseBusiness,
-  DollarSign,
-  LucideIcon,
-  UserRound,
-  Zap,
-} from "lucide-react";
-
-export interface Stats {
-  title: string;
-  value: number | string;
-  description?: string;
-  icon: LucideIcon;
-  iconBg?: string;
-  iconColor?: string;
-}
+import { ShoppingBag, DollarSign, Star, UtensilsCrossed } from "lucide-react";
 
 export const dashboardStats: Stats[] = [
   {
-    title: "Total Sales",
-    value: formatPrice(12_845),
-    description: "Compared to last month",
+    title: "Total Orders",
+    value: formatNumber(1254),
+    description: "+12.4% from last month",
+    icon: ShoppingBag,
+    iconBg: "bg-blue-100",
+    iconColor: "text-blue-600",
+  },
+  {
+    title: "Revenue",
+    value: formatPrice(84250),
+    description: "+18.2% from last month",
     icon: DollarSign,
     iconBg: "bg-emerald-100",
     iconColor: "text-emerald-600",
   },
   {
-    title: "Total Clients",
-    value: formatNumber(1437),
-    description: "Compared to last month",
-    icon: UserRound,
-    iconBg: "bg-sky-100",
-    iconColor: "text-sky-600",
+    title: "Menu Items",
+    value: formatNumber(128),
+    description: "Across all categories",
+    icon: UtensilsCrossed,
+    iconBg: "bg-orange-100",
+    iconColor: "text-orange-600",
   },
   {
-    title: "Total Products",
-    value: formatNumber(674),
-    description: "Compared to last month",
-    icon: BriefcaseBusiness,
-    iconBg: "bg-amber-100",
-    iconColor: "text-amber-600",
-  },
-  {
-    title: "Stock",
-    value: formatNumber(12845),
-    description: "Compared to last month",
-    icon: Zap,
-    iconBg: "bg-violet-100",
-    iconColor: "text-violet-600",
+    title: "Average Rating",
+    value: "4.8",
+    description: "Based on customer reviews",
+    icon: Star,
+    iconBg: "bg-yellow-100",
+    iconColor: "text-yellow-600",
   },
 ];

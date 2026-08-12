@@ -1,7 +1,8 @@
 "use client";
 
+import { orderDistribution } from "@/constants/analytics-charts";
 import { motion } from "framer-motion";
-import { orderDistribution } from "@/constants/order-chart";
+
 import {
   Cell,
   Legend,
@@ -21,11 +22,9 @@ const OrderDistributionChart = () => {
     >
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-lg font-semibold text-slate-900">
-            Order Distribution
-          </h2>
+          <h2 className="text-lg font-semibold text-slate-900">Order Status</h2>
           <p className="text-sm text-slate-500">
-            Sales distribution by order type
+            Current order processing status
           </p>
         </div>
       </div>
@@ -35,10 +34,11 @@ const OrderDistributionChart = () => {
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
+              outerRadius={85}
+              innerRadius={45}
               data={orderDistribution}
               cx="50%"
               cy="50%"
-              outerRadius={70}
               labelLine={false}
               dataKey="value"
               label={({ name, percent }) =>

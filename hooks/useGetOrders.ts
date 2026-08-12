@@ -3,7 +3,7 @@ import { RecipesResponse } from "@/types/recipes";
 
 import { useQuery } from "@tanstack/react-query";
 
-export const useGetOrders = () => {
+export const useGetRecipes = () => {
   return useQuery({
     queryKey: ["recipes"],
     queryFn: async (): Promise<RecipesResponse> => {
