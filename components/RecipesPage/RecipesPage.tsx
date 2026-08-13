@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { usePagination } from "@/hooks/usePagination";
 import StatsCardsSkeleton from "../ui/StatsCardsSkeleton";
 import DataTableLayout from "../ui/DataTableLayout";
 import SearchInput from "../ui/SearchInput";
@@ -8,18 +9,33 @@ import RecipesStats from "./RecipesStats";
 import RecipesTable from "./RecipesTable";
 import AppLoader from "../ui/AppLoader";
 import { useGetRecipes } from "@/hooks/useGetOrders";
+import TablePagination from "../ui/TablePagination";
 
 const RecipesPage = () => {
-  const { data, isLoading, isFetching } = useGetRecipes();
   const [search, setSearch] = useState<string>("");
+  const { data, isLoading, isFetching } = useGetRecipes();
 
-  const recipes = data?.recipes ?? [];
-
-  const filteredRecipes = recipes.filter(
-    (recipe) =>
-      recipe.name.toLowerCase().includes(search.toLowerCase()) ||
-      recipe.cuisine.toLowerCase().includes(search.toLowerCase()),
+  const filteredRecipes = useMemo(
+    () =>
+      data?.recipes.filter(
+        (recipe) =>
+          recipe.name.toLowerCase().includes(search.toLowerCase()) ||
+          recipe.cuisine.toLowerCase().includes(search.toLowerCase()),
+      ) ?? [],
+    [data?.recipes, search],
   );
+
+  const {
+    paginatedData,
+    currentPage,
+    totalPages,
+    prevPage,
+    nextPage,
+    goToPage,
+  } = usePagination({
+    data: filteredRecipes,
+    itemsPerPage: 10,
+  });
 
   return (
     <main className="space-y-6 p-6">
@@ -36,7 +52,14 @@ const RecipesPage = () => {
         description="Track and manage recipes."
         toolbar={<SearchInput value={search} onChange={setSearch} />}
       >
-        <RecipesTable recipes={filteredRecipes} />
+        <RecipesTable recipes={paginatedData} />
+        <TablePagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={goToPage}
+          onPrevious={prevPage}
+          onNext={nextPage}
+        />
       </DataTableLayout>
     </main>
   );

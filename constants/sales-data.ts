@@ -71,4 +71,7 @@ export const salesData: SalesResponse = {
       date: "2026-07-27",
     },
   ],
+  total: 5,
+  skip: 0,
+  limit: 5,
 };

@@ -3,6 +3,7 @@
 import {
   Table,
   TableBody,
+  TableCell,
   TableHead,
   TableHeader,
   TableRow,
@@ -32,9 +33,17 @@ const ProductTable = ({ products }: ProductTableProps) => {
         </TableHeader>
 
         <TableBody>
-          {products.map((product) => (
-            <ProductTableRow key={product.id} product={product} />
-          ))}
+          {products.length > 0 ? (
+            products.map((product) => (
+              <ProductTableRow key={product.id} product={product} />
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={7} className="h-24 text-center text-muted-foreground">
+                No products found.
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     </div>

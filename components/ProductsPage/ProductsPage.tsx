@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
+import { usePagination } from "@/hooks/usePagination";
 import ProductTable from "./ProductTable";
 import ProductsStats from "./ProductsStats";
 import SearchInput from "../ui/SearchInput";
@@ -9,15 +10,31 @@ import { useGetProducts } from "@/hooks/useGetProducts";
 import StatsCardsSkeleton from "../ui/StatsCardsSkeleton";
 import DataTableLayout from "../ui/DataTableLayout";
 import AppLoader from "../ui/AppLoader";
+import TablePagination from "../ui/TablePagination";
 
 const ProductsPage = () => {
-  const { data, isLoading, isFetching } = useGetProducts();
   const [search, setSearch] = useState<string>("");
+  const { data, isLoading, isFetching } = useGetProducts();
 
-  const filteredProducts =
-    data?.products.filter((product) =>
-      product.title.toLowerCase().includes(search.toLowerCase()),
-    ) ?? [];
+  const filteredProducts = useMemo(
+    () =>
+      data?.products.filter((product) =>
+        product.title.toLowerCase().includes(search.toLowerCase()),
+      ) ?? [],
+    [data?.products, search],
+  );
+
+  const {
+    paginatedData,
+    currentPage,
+    totalPages,
+    prevPage,
+    nextPage,
+    goToPage,
+  } = usePagination({
+    data: filteredProducts,
+    itemsPerPage: 10,
+  });
 
   return (
     <main className="space-y-6 p-6">
@@ -32,7 +49,14 @@ const ProductsPage = () => {
         description="Browse, search and manage your products."
         toolbar={<SearchInput value={search} onChange={setSearch} />}
       >
-        <ProductTable products={filteredProducts} />
+        <ProductTable products={paginatedData} />
+        <TablePagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={goToPage}
+          onPrevious={prevPage}
+          onNext={nextPage}
+        />
       </DataTableLayout>
     </main>
   );

@@ -3,14 +3,14 @@
 import {
   Table,
   TableBody,
+  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
 
-import { ProductsResponse } from "@/types/products";
 import UserTableRow from "./UserTableRow";
-import { User, UsersResponse } from "@/types/users";
+import { User } from "@/types/users";
 
 interface UsersTableProps {
   users: User[];
@@ -33,9 +33,17 @@ const UsersTable = ({ users }: UsersTableProps) => {
         </TableHeader>
 
         <TableBody>
-          {users.map((user) => (
-            <UserTableRow key={user.id} user={user} />
-          ))}
+          {users.length > 0 ? (
+            users.map((user) => (
+              <UserTableRow key={user.id} user={user} />
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={7} className="h-24 text-center text-muted-foreground">
+                No users found.
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     </div>

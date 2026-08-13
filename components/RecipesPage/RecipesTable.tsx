@@ -3,6 +3,7 @@
 import {
   Table,
   TableBody,
+  TableCell,
   TableHead,
   TableHeader,
   TableRow,
@@ -39,9 +40,17 @@ const RecipesTable = ({ recipes }: RecipesTableProps) => {
         </TableHeader>
 
         <TableBody>
-          {recipes.map((recipe) => (
-            <RecipesTableRow key={recipe.id} recipe={recipe} />
-          ))}
+          {recipes.length > 0 ? (
+            recipes.map((recipe) => (
+              <RecipesTableRow key={recipe.id} recipe={recipe} />
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={8} className="h-24 text-center text-muted-foreground">
+                No recipes found.
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     </div>

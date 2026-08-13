@@ -16,4 +16,7 @@ export interface Sale {
 
 export interface SalesResponse {
   sales: Sale[];
+  total: number;
+  skip: number;
+  limit: number;
 }

@@ -6,6 +6,7 @@ import {
   TableHead,
   TableRow,
   TableBody,
+  TableCell,
 } from "@/components/ui/table";
 
 import { Sale } from "@/types/sales";
@@ -33,9 +34,17 @@ const SalesTable = ({ sales }: Props) => {
         </TableHeader>
 
         <TableBody>
-          {sales.map((sale) => (
-            <SalesTableRow key={sale.id} sale={sale} />
-          ))}
+          {sales.length > 0 ? (
+            sales.map((sale) => (
+              <SalesTableRow key={sale.id} sale={sale} />
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={8} className="h-24 text-center text-muted-foreground">
+                No sales found.
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     </div>

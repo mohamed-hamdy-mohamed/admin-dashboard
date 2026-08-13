@@ -1,17 +1,23 @@
 import { useMemo, useState } from "react";
 
 interface UsePaginationProps<T> {
-  data: T[];
+  data?: T[];
   itemsPerPage?: number;
+  totalItems?: number;
 }
 
 export const usePagination = <T>({
-  data,
+  data = [],
   itemsPerPage = 10,
+  totalItems,
 }: UsePaginationProps<T>) => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPageState, setCurrentPageState] = useState<number>(1);
 
-  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const hasKnownTotal = totalItems !== undefined || data.length > 0;
+  const resolvedTotalItems = totalItems ?? data.length;
+  const totalPages =
+    resolvedTotalItems > 0 ? Math.ceil(resolvedTotalItems / itemsPerPage) : 1;
+  const currentPage = Math.min(currentPageState, totalPages);
 
   const paginatedData = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage;
@@ -19,19 +25,26 @@ export const usePagination = <T>({
   }, [data, currentPage, itemsPerPage]);
 
   const prevPage = () => {
-    setCurrentPage((prev) => Math.max(prev - 1, 1));
+    setCurrentPageState((prev) => Math.max(prev - 1, 1));
   };
 
   const nextPage = () => {
-    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+    setCurrentPageState((prev) => {
+      const next = prev + 1;
+      return hasKnownTotal ? Math.min(next, totalPages) : next;
+    });
   };
 
-  const goToPage = (page: number) => setCurrentPage(page);
+  const goToPage = (page: number) => {
+    const next = Math.max(1, page);
+    setCurrentPageState(hasKnownTotal ? Math.min(next, totalPages) : next);
+  };
 
   return {
     paginatedData,
     currentPage,
     totalPages,
+    itemsPerPage,
     prevPage,
     nextPage,
     goToPage,
