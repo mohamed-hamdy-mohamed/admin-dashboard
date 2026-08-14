@@ -14,9 +14,11 @@ import { User } from "@/types/users";
 
 interface UsersTableProps {
   users: User[];
+  onViewUser: (user: User) => void;
+  onEditUser: (user: User) => void;
 }
 
-const UsersTable = ({ users }: UsersTableProps) => {
+const UsersTable = ({ users, onViewUser, onEditUser }: UsersTableProps) => {
   return (
     <div className="rounded-xl border bg-card shadow-sm overflow-hidden">
       <Table>
@@ -35,7 +37,12 @@ const UsersTable = ({ users }: UsersTableProps) => {
         <TableBody>
           {users.length > 0 ? (
             users.map((user) => (
-              <UserTableRow key={user.id} user={user} />
+              <UserTableRow
+                key={user.id}
+                user={user}
+                onView={onViewUser}
+                onEdit={onEditUser}
+              />
             ))
           ) : (
             <TableRow>

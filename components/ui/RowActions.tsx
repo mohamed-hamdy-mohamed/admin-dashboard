@@ -6,44 +6,43 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { LucideIcon, MoreHorizontal } from "lucide-react";
 
-import { Eye, Pencil, MoreHorizontal } from "lucide-react";
-
-interface RowActionsProps {
-  id: number;
+export interface RowActionItem {
+  label: string;
+  icon: LucideIcon;
+  onClick: () => void;
 }
 
-const RowActions = ({ id }: RowActionsProps) => {
+interface RowActionsProps {
+  actions: RowActionItem[];
+  ariaLabel?: string;
+}
+
+const RowActions = ({
+  actions,
+  ariaLabel = "Row actions",
+}: RowActionsProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        className="
-          inline-flex
-          h-9
-          w-9
-          items-center
-          justify-center
-          rounded-lg
-          transition-colors
-          hover:bg-muted
-          focus:outline-none
-          focus:ring-2
-          focus:ring-ring
-        "
+        className="inline-flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring"
+        aria-label={ariaLabel}
       >
         <MoreHorizontal className="h-4 w-4" />
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end">
-        <DropdownMenuItem>
-          <Eye className="mr-2 h-4 w-4" />
-          View
-        </DropdownMenuItem>
+        {actions.map((action) => {
+          const Icon = action.icon;
 
-        <DropdownMenuItem>
-          <Pencil className="mr-2 h-4 w-4" />
-          Edit
-        </DropdownMenuItem>
+          return (
+            <DropdownMenuItem key={action.label} onClick={action.onClick}>
+              <Icon className="mr-2 h-4 w-4" />
+              {action.label}
+            </DropdownMenuItem>
+          );
+        })}
       </DropdownMenuContent>
     </DropdownMenu>
   );

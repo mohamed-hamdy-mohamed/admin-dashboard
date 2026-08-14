@@ -6,16 +6,18 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { Badge } from "@/components/ui/badge";
 
-import { Star } from "lucide-react";
+import { Eye, Pencil, Star } from "lucide-react";
 import { Recipe } from "@/types/recipes";
 import RowActions from "../ui/RowActions";
 import RecipeDifficultyBadge from "./RecipeDifficultyBadge";
 
 interface RecipesTableRowProps {
   recipe: Recipe;
+  onView: (recipe: Recipe) => void;
+  onEdit: (recipe: Recipe) => void;
 }
 
-const RecipesTableRow = ({ recipe }: RecipesTableRowProps) => {
+const RecipesTableRow = ({ recipe, onView, onEdit }: RecipesTableRowProps) => {
   return (
     <TableRow className="transition-colors hover:bg-muted/40">
       {/* Recipe */}
@@ -75,7 +77,21 @@ const RecipesTableRow = ({ recipe }: RecipesTableRowProps) => {
       {/* Actions */}
 
       <TableCell className="text-right">
-        <RowActions id={recipe.id} />
+        <RowActions
+          ariaLabel="Recipe actions"
+          actions={[
+            {
+              label: "View",
+              icon: Eye,
+              onClick: () => onView(recipe),
+            },
+            {
+              label: "Edit",
+              icon: Pencil,
+              onClick: () => onEdit(recipe),
+            },
+          ]}
+        />
       </TableCell>
     </TableRow>
   );

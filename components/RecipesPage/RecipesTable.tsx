@@ -13,9 +13,15 @@ import RecipesTableRow from "./RecipesTableRow";
 
 interface RecipesTableProps {
   recipes: Recipe[];
+  onViewRecipe: (recipe: Recipe) => void;
+  onEditRecipe: (recipe: Recipe) => void;
 }
 
-const RecipesTable = ({ recipes }: RecipesTableProps) => {
+const RecipesTable = ({
+  recipes,
+  onViewRecipe,
+  onEditRecipe,
+}: RecipesTableProps) => {
   return (
     <div className="overflow-hidden rounded-xl border bg-card shadow-sm">
       <Table>
@@ -42,7 +48,12 @@ const RecipesTable = ({ recipes }: RecipesTableProps) => {
         <TableBody>
           {recipes.length > 0 ? (
             recipes.map((recipe) => (
-              <RecipesTableRow key={recipe.id} recipe={recipe} />
+              <RecipesTableRow
+                key={recipe.id}
+                recipe={recipe}
+                onView={onViewRecipe}
+                onEdit={onEditRecipe}
+              />
             ))
           ) : (
             <TableRow>

@@ -8,12 +8,15 @@ import UserStatusBadge from "./UserStatusBadge";
 
 import UserRoleBadge from "./UserRoleBadge";
 import RowActions from "../ui/RowActions";
+import { Eye, Pencil } from "lucide-react";
 
 interface UserTableRowProps {
   user: User;
+  onView: (user: User) => void;
+  onEdit: (user: User) => void;
 }
 
-const UserTableRow = ({ user }: UserTableRowProps) => {
+const UserTableRow = ({ user, onView, onEdit }: UserTableRowProps) => {
   return (
     <TableRow className="cursor-pointer transition-colors hover:bg-muted/40">
       {/* User */}
@@ -70,7 +73,21 @@ const UserTableRow = ({ user }: UserTableRowProps) => {
       </TableCell>
       {/* Actions */}
       <TableCell className="w-[120px] text-right">
-        <RowActions id={user.id} />
+        <RowActions
+          ariaLabel="User actions"
+          actions={[
+            {
+              label: "View",
+              icon: Eye,
+              onClick: () => onView(user),
+            },
+            {
+              label: "Edit",
+              icon: Pencil,
+              onClick: () => onEdit(user),
+            },
+          ]}
+        />
       </TableCell>
     </TableRow>
   );

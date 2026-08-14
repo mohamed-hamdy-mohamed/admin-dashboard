@@ -5,7 +5,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Sale } from "@/types/sales";
 import SaleStatusBadge from "./SalesStatusBadge";
-import RowActions from "../ui/RowActions";
 
 interface Props {
   sale: Sale;
@@ -50,10 +49,6 @@ const SalesTableRow = ({ sale }: Props) => {
       </TableCell>
       {/* Date */}
       <TableCell>{sale.date}</TableCell>
-      {/* Actions */}
-      <TableCell className="text-right">
-        <RowActions id={sale.id} />
-      </TableCell>
     </TableRow>
   );
 };

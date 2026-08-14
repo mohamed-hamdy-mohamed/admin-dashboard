@@ -10,19 +10,51 @@ import RecipesTable from "./RecipesTable";
 import AppLoader from "../ui/AppLoader";
 import { useGetRecipes } from "@/hooks/useGetOrders";
 import TablePagination from "../ui/TablePagination";
+import RecipeViewDialog from "./RecipeViewDialog";
+import RecipeEditDialog from "./RecipeEditDialog";
+import { Recipe } from "@/types/recipes";
+import { RecipeEditValues } from "@/types/recipe-edits";
+import {
+  applyRecipeEdits,
+  loadRecipeEdits,
+  persistRecipeEdits,
+  RecipeEditsMap,
+} from "@/util/recipeEdits";
 
 const RecipesPage = () => {
   const [search, setSearch] = useState<string>("");
+  const [recipeEdits, setRecipeEdits] = useState<RecipeEditsMap>(() =>
+    loadRecipeEdits(),
+  );
+  const [activeRecipe, setActiveRecipe] = useState<Recipe | null>(null);
+  const [viewOpen, setViewOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
   const { data, isLoading, isFetching } = useGetRecipes();
+
+  const recipes = useMemo(
+    () => applyRecipeEdits(data?.recipes ?? [], recipeEdits),
+    [data?.recipes, recipeEdits],
+  );
+
+  const mergedData = useMemo(() => {
+    if (!data) {
+      return undefined;
+    }
+
+    return {
+      ...data,
+      recipes,
+    };
+  }, [data, recipes]);
 
   const filteredRecipes = useMemo(
     () =>
-      data?.recipes.filter(
+      recipes.filter(
         (recipe) =>
           recipe.name.toLowerCase().includes(search.toLowerCase()) ||
           recipe.cuisine.toLowerCase().includes(search.toLowerCase()),
-      ) ?? [],
-    [data?.recipes, search],
+      ),
+    [recipes, search],
   );
 
   const {
@@ -37,12 +69,41 @@ const RecipesPage = () => {
     itemsPerPage: 10,
   });
 
+  const handleViewRecipe = (recipe: Recipe) => {
+    setActiveRecipe(recipe);
+    setViewOpen(true);
+  };
+
+  const handleEditRecipe = (recipe: Recipe) => {
+    setActiveRecipe(recipe);
+    setEditOpen(true);
+  };
+
+  const handleSaveRecipe = (values: RecipeEditValues) => {
+    if (!activeRecipe) {
+      return;
+    }
+
+    const nextEdits: RecipeEditsMap = {
+      ...recipeEdits,
+      [activeRecipe.id]: values,
+    };
+
+    setRecipeEdits(nextEdits);
+    persistRecipeEdits(nextEdits);
+    setActiveRecipe({
+      ...activeRecipe,
+      ...values,
+    });
+    setEditOpen(false);
+  };
+
   return (
     <main className="space-y-6 p-6">
       {isLoading ? (
         <StatsCardsSkeleton cards={4} />
       ) : (
-        data && <RecipesStats data={data} />
+        mergedData && <RecipesStats data={mergedData} />
       )}
 
       {isFetching && <AppLoader />}
@@ -52,7 +113,11 @@ const RecipesPage = () => {
         description="Track and manage recipes."
         toolbar={<SearchInput value={search} onChange={setSearch} />}
       >
-        <RecipesTable recipes={paginatedData} />
+        <RecipesTable
+          recipes={paginatedData}
+          onViewRecipe={handleViewRecipe}
+          onEditRecipe={handleEditRecipe}
+        />
         <TablePagination
           currentPage={currentPage}
           totalPages={totalPages}
@@ -61,6 +126,19 @@ const RecipesPage = () => {
           onNext={nextPage}
         />
       </DataTableLayout>
+
+      <RecipeViewDialog
+        recipe={activeRecipe}
+        open={viewOpen}
+        onOpenChange={setViewOpen}
+      />
+
+      <RecipeEditDialog
+        recipe={activeRecipe}
+        open={editOpen}
+        onOpenChange={setEditOpen}
+        onSave={handleSaveRecipe}
+      />
     </main>
   );
 };

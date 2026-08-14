@@ -29,7 +29,6 @@ const SalesTable = ({ sales }: Props) => {
             <TableHead>Payment</TableHead>
             <TableHead>Status</TableHead>
             <TableHead>Date</TableHead>
-            <TableHead className="text-right">Action</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -40,7 +39,7 @@ const SalesTable = ({ sales }: Props) => {
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={8} className="h-24 text-center text-muted-foreground">
+              <TableCell colSpan={7} className="h-24 text-center text-muted-foreground">
                 No sales found.
               </TableCell>
             </TableRow>
