@@ -20,7 +20,7 @@ const HelpSearch = ({ value, onChange }: HelpSearchProps) => {
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder="Search FAQs..."
-        className="h-11 rounded-xl border-slate-200 bg-white pl-10 shadow-sm"
+        className="h-11 rounded-xl border-border bg-card pl-10 shadow-sm"
       />
     </div>
   );

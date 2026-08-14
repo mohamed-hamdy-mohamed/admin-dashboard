@@ -12,9 +12,9 @@ interface HelpFaqSectionProps {
 
 const HelpFaqSection = ({ faqs }: HelpFaqSectionProps) => {
   return (
-    <section className="w-full rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+    <section className="w-full rounded-xl border border-border bg-card p-6 shadow-sm sm:p-8">
       <div className="mb-6 text-center">
-        <h2 className="text-xl font-semibold text-slate-900">
+        <h2 className="text-xl font-semibold text-foreground">
           Frequently Asked Questions
         </h2>
         <p className="mt-2 text-sm text-muted-foreground">
@@ -28,9 +28,9 @@ const HelpFaqSection = ({ faqs }: HelpFaqSectionProps) => {
             <AccordionItem
               key={faq.id}
               value={faq.id}
-              className="border-slate-200"
+              className="border-border"
             >
-              <AccordionTrigger className="py-4 text-left text-base font-medium text-slate-900 hover:no-underline">
+              <AccordionTrigger className="py-4 text-left text-base font-medium text-foreground hover:no-underline">
                 {faq.question}
               </AccordionTrigger>
               <AccordionContent className="pb-4 text-sm leading-relaxed text-muted-foreground">

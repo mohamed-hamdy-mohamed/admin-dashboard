@@ -2,6 +2,8 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
+import ThemeSync from "@/components/ThemeSync";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   const [client] = useState(
@@ -17,5 +19,12 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
       }),
   );
 
-  return <QueryClientProvider client={client}>{children}</QueryClientProvider>;
+  return (
+    <QueryClientProvider client={client}>
+      <ThemeProvider disableTransitionOnChange>
+        <ThemeSync />
+        {children}
+      </ThemeProvider>
+    </QueryClientProvider>
+  );
 };

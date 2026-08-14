@@ -20,18 +20,18 @@ const ConversationItem = ({
       type="button"
       onClick={() => onSelect(conversation.id)}
       className={cn(
-        "flex w-full items-start gap-3 border-b border-slate-200 px-4 py-4 text-left transition-colors hover:bg-slate-50",
-        isSelected && "border-l-4 border-l-slate-800 bg-slate-100",
+        "flex w-full items-start gap-3 border-b border-border px-4 py-4 text-left transition-colors hover:bg-muted",
+        isSelected && "border-l-4 border-l-primary bg-muted",
       )}
     >
       <Avatar size="lg" className="relative">
         <AvatarImage src={conversation.avatar} alt={conversation.userName} />
         <AvatarBadge
           className={cn(
-            "size-3 ring-2 ring-white",
+            "size-3 ring-2 ring-card",
             conversation.status === "online"
               ? "bg-emerald-500"
-              : "bg-slate-400",
+              : "bg-muted-foreground",
           )}
         />
       </Avatar>
@@ -52,7 +52,7 @@ const ConversationItem = ({
           </p>
 
           {conversation.unreadCount > 0 && (
-            <Badge className="shrink-0 bg-slate-800 text-white hover:bg-slate-800">
+            <Badge className="shrink-0 bg-primary text-primary-foreground hover:bg-primary">
               {conversation.unreadCount}
             </Badge>
           )}

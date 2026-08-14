@@ -53,7 +53,7 @@ const HelpContactDialog = ({ open, onOpenChange }: HelpContactDialogProps) => {
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="rounded-xl border-slate-200 sm:max-w-lg">
+      <DialogContent className="rounded-xl border-border sm:max-w-lg">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>Contact Support</DialogTitle>
@@ -141,7 +141,7 @@ const HelpContactDialog = ({ open, onOpenChange }: HelpContactDialogProps) => {
             </Button>
             <Button
               type="submit"
-              className="bg-slate-800 text-white hover:bg-slate-700"
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
             >
               Send Message
             </Button>

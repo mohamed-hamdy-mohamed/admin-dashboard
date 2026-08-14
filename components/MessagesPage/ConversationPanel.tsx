@@ -67,7 +67,7 @@ const ConversationPanel = ({
 
   return (
     <div className="flex h-full min-h-0 flex-col">
-      <div className="flex items-center gap-3 border-b border-slate-200 px-4 py-4">
+      <div className="flex items-center gap-3 border-b border-border px-4 py-4">
         {showBackButton && (
           <Button
             type="button"
@@ -87,10 +87,10 @@ const ConversationPanel = ({
           />
           <AvatarBadge
             className={cn(
-              "size-3 ring-2 ring-white",
+              "size-3 ring-2 ring-card",
               conversation.status === "online"
                 ? "bg-emerald-500"
-                : "bg-slate-400",
+                : "bg-muted-foreground",
             )}
           />
         </Avatar>
@@ -114,7 +114,7 @@ const ConversationPanel = ({
 
       <form
         onSubmit={handleSubmit}
-        className="flex items-center gap-2 border-t border-slate-200 p-4"
+        className="flex items-center gap-2 border-t border-border p-4"
       >
         <Input
           value={draft}
@@ -126,7 +126,7 @@ const ConversationPanel = ({
         <Button
           type="submit"
           size="icon"
-          className="size-11 shrink-0 rounded-xl bg-slate-800 text-white hover:bg-slate-700"
+          className="size-11 shrink-0 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90"
           aria-label="Send message"
         >
           <Send />

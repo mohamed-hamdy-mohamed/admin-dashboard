@@ -12,14 +12,13 @@ const Sidebar = () => {
   return (
     <aside
       className={cn(
-        "h-screen bg-slate-800 text-white px-2 py-5 transition-all duration-300",
+        "h-screen border-r border-sidebar-border bg-sidebar px-2 py-5 text-sidebar-foreground transition-all duration-300",
         isSideBarOpen ? "w-64" : "w-20",
       )}
     >
-      {/* Expanding Menu */}
       <button
         aria-label="Toggle Sidebar"
-        className="text-lg font-semibold px-3 py-3 mb-4 cursor-pointer hover:bg-slate-700 rounded-xl"
+        className="mb-4 cursor-pointer rounded-xl px-3 py-3 text-lg font-semibold hover:bg-sidebar-accent"
         onClick={() => setIsSideBarOpen((prev) => !prev)}
       >
         <Menu />
@@ -32,8 +31,8 @@ const Sidebar = () => {
               <Link
                 href={route.path}
                 className={cn(
-                  "flex items-center px-4 py-3 rounded-xl hover:bg-slate-700 transition-colors",
-                  pathname === route.path ? "bg-gray-700" : "",
+                  "flex items-center rounded-xl px-4 py-3 transition-colors hover:bg-sidebar-accent",
+                  pathname === route.path ? "bg-sidebar-accent" : "",
                 )}
               >
                 <route.icon

@@ -89,7 +89,7 @@ const MessagesPage = () => {
     <main className="space-y-6 p-6">
       {conversations && <MessagesStats conversations={conversations} />}
 
-      <Card className="overflow-hidden border-slate-200 shadow-sm">
+      <Card className="overflow-hidden border-border shadow-sm">
         <CardContent className="p-0">
           <div className="grid min-h-[620px] lg:grid-cols-[360px_minmax(0,1fr)]">
             <div

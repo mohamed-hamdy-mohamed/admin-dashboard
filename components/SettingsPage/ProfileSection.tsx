@@ -1,0 +1,71 @@
+"use client";
+
+import { useState } from "react";
+import { ProfileSettings } from "@/types/settings";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import SettingsSection from "./SettingsSection";
+import EditProfileDialog from "./EditProfileDialog";
+
+interface ProfileSectionProps {
+  profile: ProfileSettings;
+  onSave: (profile: ProfileSettings) => void;
+}
+
+const ProfileSection = ({ profile, onSave }: ProfileSectionProps) => {
+  const [editOpen, setEditOpen] = useState(false);
+
+  const handleSave = (nextProfile: ProfileSettings) => {
+    onSave(nextProfile);
+    setEditOpen(false);
+  };
+
+  return (
+    <>
+      <SettingsSection
+        title="Profile"
+        description="Manage your account profile information."
+      >
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-4">
+            <Avatar className="h-16 w-16 border shadow-sm">
+              <AvatarImage src={profile.avatar} alt={profile.name} />
+              <AvatarFallback>
+                {profile.name
+                  .split(" ")
+                  .map((part) => part[0])
+                  .join("")
+                  .slice(0, 2)}
+              </AvatarFallback>
+            </Avatar>
+
+            <div>
+              <p className="text-lg font-semibold text-foreground">
+                {profile.name}
+              </p>
+              <p className="text-sm text-muted-foreground">{profile.email}</p>
+            </div>
+          </div>
+
+          <Button
+            type="button"
+            variant="outline"
+            className="h-11 rounded-xl"
+            onClick={() => setEditOpen(true)}
+          >
+            Edit Profile
+          </Button>
+        </div>
+      </SettingsSection>
+
+      <EditProfileDialog
+        profile={profile}
+        open={editOpen}
+        onOpenChange={setEditOpen}
+        onSave={handleSave}
+      />
+    </>
+  );
+};
+
+export default ProfileSection;

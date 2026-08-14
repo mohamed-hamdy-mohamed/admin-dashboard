@@ -28,7 +28,7 @@ const HelpPage = () => {
     <main className="px-4 py-10 sm:px-6 lg:px-8">
       <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-8">
         <section className="max-w-2xl text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+          <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Help & Support
           </h1>
           <p className="mt-3 text-base leading-relaxed text-muted-foreground">
@@ -44,7 +44,7 @@ const HelpPage = () => {
         <Button
           type="button"
           onClick={() => setContactOpen(true)}
-          className="h-11 rounded-xl bg-slate-800 px-6 text-white hover:bg-slate-700"
+          className="h-11 rounded-xl bg-primary px-6 text-primary-foreground hover:bg-primary/90"
         >
           <Mail data-icon="inline-start" />
           Contact Support

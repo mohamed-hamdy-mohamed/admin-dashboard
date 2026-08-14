@@ -1,6 +1,7 @@
 "use client";
 
 import { orderDistribution } from "@/constants/analytics-charts";
+import { chartLegendStyle, chartTooltipContentStyle } from "@/constants/chart-theme";
 import { motion } from "framer-motion";
 
 import {
@@ -18,12 +19,12 @@ const OrderDistributionChart = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2, duration: 0.5 }}
-      className="rounded-xl bg-white border border-slate-200 shadow-sm p-6"
+      className="rounded-xl bg-card border border-border shadow-sm p-6"
     >
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-lg font-semibold text-slate-900">Order Status</h2>
-          <p className="text-sm text-slate-500">
+          <h2 className="text-lg font-semibold text-foreground">Order Status</h2>
+          <p className="text-sm text-muted-foreground">
             Current order processing status
           </p>
         </div>
@@ -51,17 +52,12 @@ const OrderDistributionChart = () => {
             </Pie>
             <Tooltip
               formatter={(value, name) => [`${value}%`, `${name}`]}
-              contentStyle={{
-                background: `#fff`,
-                border: "1px solid #e2e8f0",
-                borderRadius: "12px",
-                boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
-              }}
+              contentStyle={chartTooltipContentStyle}
             />
             <Legend
               iconType="circle"
               layout="horizontal"
-              wrapperStyle={{ fontSize: 12 }}
+              wrapperStyle={chartLegendStyle}
               align="center"
             />
           </PieChart>

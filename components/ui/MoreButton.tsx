@@ -14,7 +14,7 @@ const MoreButton = ({ onClick }: MoreButtonProps) => {
       size="icon"
       onClick={onClick}
       aria-label="More Actions"
-      className="h-8 w-8 hover:bg-slate-100"
+      className="h-8 w-8 hover:bg-muted"
     >
       <MoreHorizontal className="h-4 w-4" />
     </Button>

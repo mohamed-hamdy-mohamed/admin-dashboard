@@ -1,12 +1,19 @@
-import DashboardStats from "./DashboardStats";
-import DashboardCharts from "./DashboardCharts";
+import dynamic from "next/dynamic";
+import StatsCardsSkeleton from "@/components/ui/StatsCardsSkeleton";
+import ChartsGridSkeleton from "./ChartsGridSkeleton";
+
+const DashboardStats = dynamic(() => import("./DashboardStats"), {
+  loading: () => <StatsCardsSkeleton />,
+});
+
+const DashboardCharts = dynamic(() => import("./DashboardCharts"), {
+  loading: () => <ChartsGridSkeleton />,
+});
 
 const DashboardPage = () => {
   return (
-    <section className="space-y-6 px-4 sm:px-6 lg:px-8 py-8">
-      {/* Dashboard Stats  */}
+    <section className="space-y-6 px-4 py-8 sm:px-6 lg:px-8">
       <DashboardStats />
-      {/* Dashboard Charts  */}
       <DashboardCharts />
     </section>
   );

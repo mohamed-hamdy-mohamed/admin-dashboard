@@ -1,6 +1,12 @@
 "use client";
 
 import { salesDataChart } from "@/constants/analytics-charts";
+import {
+  chartAxisStroke,
+  chartGridStroke,
+  chartTooltipContentStyle,
+  chartTooltipItemStyle,
+} from "@/constants/chart-theme";
 import { motion } from "framer-motion";
 import {
   CartesianGrid,
@@ -18,15 +24,15 @@ const DashboardSalesChart = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2, duration: 0.5 }}
-      className="rounded-xl bg-white border border-slate-200 shadow-sm p-6"
+      className="rounded-xl bg-card border border-border shadow-sm p-6"
     >
       {/* Chart Title */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-lg font-semibold text-slate-900">
+          <h2 className="text-lg font-semibold text-foreground">
             Monthly Revenue
           </h2>
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-muted-foreground">
             Revenue generated from food orders
           </p>
         </div>
@@ -35,23 +41,17 @@ const DashboardSalesChart = () => {
       <div className="h-64 md:h-80">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={salesDataChart}>
-            <CartesianGrid strokeDasharray="4 4" stroke="#e5e7eb" />
+            <CartesianGrid strokeDasharray="4 4" stroke={chartGridStroke} />
             <XAxis
               dataKey="month"
-              stroke="#64748b"
+              stroke={chartAxisStroke}
               tick={{ fontSize: 12 }}
               interval="preserveStartEnd"
             />
-            <YAxis stroke="#64748b" tick={{ fontSize: 12 }} width={40} />
+            <YAxis stroke={chartAxisStroke} tick={{ fontSize: 12 }} width={40} />
             <Tooltip
-              contentStyle={{
-                background: "#fff",
-                border: "1px solid #e2e8f0",
-                borderRadius: "12px",
-                color: "#0f172a",
-                fontSize: "14px",
-              }}
-              itemStyle={{ color: "#0f172a" }}
+              contentStyle={chartTooltipContentStyle}
+              itemStyle={chartTooltipItemStyle}
             />
             <Line
               type="monotone"

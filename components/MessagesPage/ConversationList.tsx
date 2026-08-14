@@ -18,8 +18,8 @@ const ConversationList = ({
   onSelectConversation,
 }: ConversationListProps) => {
   return (
-    <div className="flex h-full min-h-0 flex-col border-slate-200 lg:border-r">
-      <div className="border-b border-slate-200 p-4">
+    <div className="flex h-full min-h-0 flex-col border-border lg:border-r">
+      <div className="border-b border-border p-4">
         <MessageSearch value={search} onChange={onSearchChange} />
       </div>
 

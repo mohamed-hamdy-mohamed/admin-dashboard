@@ -15,7 +15,7 @@ const variants = {
 
   Cancelled: "bg-red-100 text-red-700 hover:bg-red-100 border-red-200",
 
-  Refunded: "bg-slate-100 text-slate-700 hover:bg-slate-100 border-slate-200",
+  Refunded: "bg-muted text-foreground hover:bg-muted border-border",
 };
 
 const SaleStatusBadge = ({ status }: SaleStatusBadgeProps) => {
