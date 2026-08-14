@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Egy from "@/public/Egy.png";
 import AdminPic from "@/public/Profile-picture.png";
-import { Bell } from "lucide-react";
 import { Avatar, AvatarImage } from "./ui/avatar";
+import AppNotifications from "./Header/NotificationsDropdown";
+
 
 const Header = () => {
   return (
@@ -19,9 +20,8 @@ const Header = () => {
             height={18}
             className="rounded-full shadow-md cursor-pointer hover:scale-105 "
           />
-          <div className="p-2 rounded-full hover:bg-slate-600">
-            <Bell className="text-white w-5 h-5 cursor-pointer" />
-          </div>
+          {/* Notifications  */}
+          <AppNotifications />
           {/* Avatar  */}
           <Avatar>
             <AvatarImage

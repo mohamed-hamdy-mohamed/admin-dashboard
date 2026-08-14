@@ -1,5 +1,4 @@
 import {
-  Bell,
   BriefcaseBusiness,
   DollarSign,
   HelpCircle,
@@ -24,7 +23,6 @@ export const sidebarRoutes = [
   { label: "Recipes", path: "/recipes", icon: ShoppingCart },
   { label: "Sales", path: "/sales", icon: DollarSign },
   { label: "Messages", path: "/messages", icon: Mail },
-  { label: "Notifications", path: "/notifications", icon: Bell },
   { label: "Help", path: "/help", icon: HelpCircle },
   { label: "Settings", path: "/settings", icon: Settings },
 ];
