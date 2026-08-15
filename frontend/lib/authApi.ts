@@ -11,6 +11,9 @@ import type {
   RegisterResponse,
   ResendVerificationRequest,
   VerifyEmailRequest,
+  VerifyEmailResponse,
+  VerificationStatusRequest,
+  VerificationStatusResponse,
 } from "@/types/auth";
 
 export const registerUser = async (payload: RegisterRequest) => {
@@ -41,8 +44,19 @@ export const forgotPassword = async (payload: ForgotPasswordRequest) => {
 };
 
 export const verifyEmail = async (payload: VerifyEmailRequest) => {
-  const { data } = await apiClient.post<MessageResponse>(
+  const { data } = await apiClient.post<VerifyEmailResponse>(
     `${API_BASE_URL}/auth/verify-email`,
+    payload
+  );
+
+  return data;
+};
+
+export const getVerificationStatus = async (
+  payload: VerificationStatusRequest
+) => {
+  const { data } = await apiClient.post<VerificationStatusResponse>(
+    `${API_BASE_URL}/auth/verification-status`,
     payload
   );
 

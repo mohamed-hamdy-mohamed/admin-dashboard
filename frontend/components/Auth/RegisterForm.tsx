@@ -48,14 +48,14 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="w-full max-w-[24rem]">
-      <div className="mb-8 flex items-center gap-3">
+    <div className="w-full max-w-[26.5rem]">
+      <div className="mb-9 flex items-center gap-3">
         <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
           <LayoutDashboard className="size-4" />
         </div>
         <div>
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            Admin Dashboard
+            Admin Operations Platform
           </p>
           <h1 className="text-xl font-semibold tracking-tight text-foreground">
             Create your account
@@ -63,16 +63,16 @@ const RegisterForm = () => {
         </div>
       </div>
 
-      <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+      <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-4 sm:grid-cols-2">
-          <div className="grid gap-1.5">
+          <div className="grid gap-2">
             <Label htmlFor="register-first-name">First Name</Label>
             <Input
               id="register-first-name"
               type="text"
               autoComplete="given-name"
               placeholder="Mohamed"
-              className="h-10 rounded-xl"
+              className="h-11 rounded-xl"
               disabled={isSubmitting}
               aria-invalid={Boolean(errors.firstName)}
               {...register("firstName")}
@@ -80,14 +80,14 @@ const RegisterForm = () => {
             <FieldError message={errors.firstName?.message} />
           </div>
 
-          <div className="grid gap-1.5">
+          <div className="grid gap-2">
             <Label htmlFor="register-last-name">Last Name</Label>
             <Input
               id="register-last-name"
               type="text"
               autoComplete="family-name"
               placeholder="Hamdy"
-              className="h-10 rounded-xl"
+              className="h-11 rounded-xl"
               disabled={isSubmitting}
               aria-invalid={Boolean(errors.lastName)}
               {...register("lastName")}
@@ -96,14 +96,14 @@ const RegisterForm = () => {
           </div>
         </div>
 
-        <div className="grid gap-1.5">
+        <div className="grid gap-2">
           <Label htmlFor="register-email">Email</Label>
           <Input
             id="register-email"
             type="email"
             autoComplete="email"
             placeholder="admin@company.com"
-            className="h-10 rounded-xl"
+            className="h-11 rounded-xl"
             disabled={isSubmitting}
             aria-invalid={Boolean(errors.email)}
             {...register("email")}
@@ -111,13 +111,13 @@ const RegisterForm = () => {
           <FieldError message={errors.email?.message} />
         </div>
 
-        <div className="grid gap-1.5">
+        <div className="grid gap-2">
           <Label htmlFor="register-password">Password</Label>
           <PasswordInput
             id="register-password"
             autoComplete="new-password"
             placeholder="Create a password"
-            className="h-10 rounded-xl"
+            className="h-11 rounded-xl"
             disabled={isSubmitting}
             aria-invalid={Boolean(errors.password)}
             {...register("password")}
@@ -125,13 +125,13 @@ const RegisterForm = () => {
           <FieldError message={errors.password?.message} />
         </div>
 
-        <div className="grid gap-1.5">
+        <div className="grid gap-2">
           <Label htmlFor="register-confirm-password">Confirm password</Label>
           <PasswordInput
             id="register-confirm-password"
             autoComplete="new-password"
             placeholder="Confirm your password"
-            className="h-10 rounded-xl"
+            className="h-11 rounded-xl"
             disabled={isSubmitting}
             aria-invalid={Boolean(errors.confirmPassword)}
             {...register("confirmPassword")}
@@ -144,7 +144,7 @@ const RegisterForm = () => {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="mt-2 h-10 w-full gap-2 rounded-xl"
+          className="mt-2 h-11 w-full gap-2 rounded-xl"
         >
           {isSubmitting ? <Spinner /> : null}
           {isSubmitting ? "Registering..." : "Register"}

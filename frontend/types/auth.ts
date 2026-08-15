@@ -62,6 +62,25 @@ export interface VerifyEmailRequest {
   token: string;
 }
 
+export interface VerifyEmailResponse {
+  success: boolean;
+  message: string;
+  data?: {
+    alreadyVerified?: boolean;
+  };
+}
+
+export interface VerificationStatusRequest {
+  email: string;
+}
+
+export interface VerificationStatusResponse {
+  success: boolean;
+  data: {
+    emailVerified: boolean;
+  };
+}
+
 export interface ResendVerificationRequest {
   email: string;
 }

@@ -32,15 +32,18 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [isReady, setIsReady] = useState(false);
+  const [hasToken, setHasToken] = useState(false);
 
   const login = useCallback((token: string, user: AuthUser) => {
     setAuthToken(token);
+    setHasToken(true);
     setUser(user);
     setIsReady(true);
   }, []);
 
   const logout = useCallback(() => {
     clearAuthToken();
+    setHasToken(false);
     setUser(null);
   }, []);
 
@@ -50,6 +53,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     return subscribeUnauthorized(() => {
+      setHasToken(false);
       setUser(null);
     });
   }, []);
@@ -61,9 +65,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const token = getAuthToken();
 
       if (!token) {
+        setHasToken(false);
         setIsReady(true);
         return;
       }
+
+      setHasToken(true);
+      setIsReady(true);
 
       try {
         const data = await getCurrentUser();
@@ -74,11 +82,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       } catch {
         if (!cancelled && getAuthToken() === token) {
           clearAuthToken();
+          setHasToken(false);
           setUser(null);
-        }
-      } finally {
-        if (!cancelled) {
-          setIsReady(true);
         }
       }
     };
@@ -93,13 +98,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const value = useMemo<AuthContextValue>(
     () => ({
       user,
-      isAuthenticated: Boolean(user),
+      isAuthenticated: Boolean(user) || hasToken,
       isReady,
       login,
       logout,
       updateUser,
     }),
-    [isReady, login, logout, updateUser, user]
+    [hasToken, isReady, login, logout, updateUser, user]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

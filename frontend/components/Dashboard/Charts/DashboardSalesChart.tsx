@@ -15,20 +15,19 @@ import {
   createChartTickFormatter,
   createChartTooltipPriceFormatter,
 } from "@/util/chartFormat";
-import { motion } from "framer-motion";
 import {
   CartesianGrid,
   Line,
   LineChart,
-  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
+import MeasuredChart from "../MeasuredChart";
 
 const DashboardSalesChart = () => {
   const { locale, t } = useTranslation();
-  const isMdUp = useMediaQuery(MEDIA_QUERIES.md, true);
+  const isMdUp = useMediaQuery(MEDIA_QUERIES.md);
   const salesDataChart = useMemo(() => getSalesDataChart(locale), [locale]);
   const tickFormatter = useMemo(
     () => createChartTickFormatter(locale),
@@ -40,12 +39,7 @@ const DashboardSalesChart = () => {
   );
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.2, duration: 0.5 }}
-      className="min-w-0 rounded-xl border border-border bg-card p-4 shadow-sm sm:p-6"
-    >
+    <div className="min-w-0 animate-in fade-in slide-in-from-bottom-5 rounded-xl border border-border bg-card p-4 shadow-sm fill-mode-both duration-500 delay-200 sm:p-6">
       <div className="mb-4 flex items-center justify-between sm:mb-6">
         <div className="min-w-0">
           <h2 className="text-base font-semibold text-foreground sm:text-lg">
@@ -57,38 +51,41 @@ const DashboardSalesChart = () => {
         </div>
       </div>
       <div className="h-56 sm:h-64 md:h-80">
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={salesDataChart}>
-            <CartesianGrid strokeDasharray="4 4" stroke={chartGridStroke} />
-            <XAxis
-              dataKey="month"
-              stroke={chartAxisStroke}
-              tick={{ fontSize: isMdUp ? 12 : 10 }}
-              interval="preserveStartEnd"
-            />
-            <YAxis
-              stroke={chartAxisStroke}
-              tick={{ fontSize: isMdUp ? 12 : 10 }}
-              width={isMdUp ? 40 : 32}
-              tickFormatter={tickFormatter}
-            />
-            <Tooltip
-              contentStyle={chartTooltipContentStyle}
-              itemStyle={chartTooltipItemStyle}
-              formatter={tooltipFormatter}
-            />
-            <Line
-              type="monotone"
-              dataKey="revenue"
-              stroke="#22c55e"
-              strokeWidth={3}
-              dot={{ r: isMdUp ? 4 : 3 }}
-              activeDot={{ r: isMdUp ? 6 : 5 }}
-            />
-          </LineChart>
-        </ResponsiveContainer>
+        <MeasuredChart>
+          {({ width, height }) => (
+            <LineChart width={width} height={height} data={salesDataChart}>
+              <CartesianGrid strokeDasharray="4 4" stroke={chartGridStroke} />
+              <XAxis
+                dataKey="month"
+                stroke={chartAxisStroke}
+                tick={{ fontSize: isMdUp ? 12 : 10 }}
+                interval="preserveStartEnd"
+              />
+              <YAxis
+                stroke={chartAxisStroke}
+                tick={{ fontSize: isMdUp ? 12 : 10 }}
+                width={isMdUp ? 40 : 32}
+                tickFormatter={tickFormatter}
+              />
+              <Tooltip
+                contentStyle={chartTooltipContentStyle}
+                itemStyle={chartTooltipItemStyle}
+                formatter={tooltipFormatter}
+              />
+              <Line
+                type="monotone"
+                dataKey="revenue"
+                stroke="#22c55e"
+                strokeWidth={3}
+                dot={{ r: isMdUp ? 4 : 3 }}
+                activeDot={{ r: isMdUp ? 6 : 5 }}
+                isAnimationActive={false}
+              />
+            </LineChart>
+          )}
+        </MeasuredChart>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

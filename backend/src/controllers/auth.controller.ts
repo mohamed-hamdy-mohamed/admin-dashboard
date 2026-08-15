@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import {
   getCurrentUser,
+  getVerificationStatus,
   loginUser,
   registerUser,
   requestPasswordReset,
@@ -42,11 +43,21 @@ export const forgotPassword = asyncHandler(async (req: Request, res: Response) =
 });
 
 export const verifyEmailAddress = asyncHandler(async (req: Request, res: Response) => {
-  await verifyEmail(req.body);
+  const { alreadyVerified } = await verifyEmail(req.body);
 
   res.status(200).json({
     success: true,
     message: "Email verified successfully",
+    data: { alreadyVerified },
+  });
+});
+
+export const verificationStatus = asyncHandler(async (req: Request, res: Response) => {
+  const { emailVerified } = await getVerificationStatus(req.body);
+
+  res.status(200).json({
+    success: true,
+    data: { emailVerified },
   });
 });
 

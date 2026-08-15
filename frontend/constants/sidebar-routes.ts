@@ -3,11 +3,11 @@ import {
   DollarSign,
   HelpCircle,
   Home,
-  LucideIcon,
   Mail,
   Settings,
   ShoppingCart,
   User,
+  type LucideIcon,
 } from "lucide-react";
 
 export interface SidebarRoute {

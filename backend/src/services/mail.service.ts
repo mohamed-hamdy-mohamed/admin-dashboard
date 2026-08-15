@@ -49,7 +49,7 @@ const buildVerificationEmailHtml = (firstName: string, verifyUrl: string) => {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Verify your Admin Dashboard account</title>
+    <title>Verify your Admin Operations Platform account</title>
   </head>
   <body style="margin:0;padding:0;background-color:#131c2e;">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#131c2e;">
@@ -59,7 +59,7 @@ const buildVerificationEmailHtml = (firstName: string, verifyUrl: string) => {
             <tr>
               <td style="background-color:#0f172a;padding:22px 32px;border-bottom:1px solid #334155;">
                 <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#94a3b8;">
-                  Admin Dashboard
+                  Admin Operations Platform
                 </p>
               </td>
             </tr>
@@ -72,7 +72,7 @@ const buildVerificationEmailHtml = (firstName: string, verifyUrl: string) => {
                   Hi ${safeName},
                 </p>
                 <p style="margin:0 0 28px;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#94a3b8;">
-                  Please confirm this email address to finish creating your Admin Dashboard account.
+                  Please confirm this email address to finish creating your Admin Operations Platform account.
                 </p>
                 <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                   <tr>
@@ -112,11 +112,11 @@ export const sendVerificationEmail = async ({
     );
   }
 
-  const subject = "Verify your Admin Dashboard account";
+  const subject = "Verify your Admin Operations Platform account";
   const text = [
     `Hi ${firstName},`,
     "",
-    "Please confirm this email address to finish creating your Admin Dashboard account.",
+    "Please confirm this email address to finish creating your Admin Operations Platform account.",
     "",
     "Verify My Account:",
     verifyUrl,
@@ -127,7 +127,7 @@ export const sendVerificationEmail = async ({
   ].join("\n");
 
   await transporter.sendMail({
-    from: `Admin Dashboard <${env.smtpUser}>`,
+    from: `Admin Operations Platform <${env.smtpUser}>`,
     to,
     subject,
     text,

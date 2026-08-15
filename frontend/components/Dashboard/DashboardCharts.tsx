@@ -1,30 +1,9 @@
-import dynamic from "next/dynamic";
-import ChartSkeleton from "./ChartSkeleton";
+"use client";
 
-const DashboardSalesChart = dynamic(() => import("./Charts/DashboardSalesChart"), {
-  loading: () => <ChartSkeleton />,
-});
-
-const CategoryDistributionChart = dynamic(
-  () => import("./Charts/CategoryDistributionChart"),
-  {
-    loading: () => <ChartSkeleton />,
-  },
-);
-
-const OrderDistributionChart = dynamic(
-  () => import("./Charts/OrderDistributionChart"),
-  {
-    loading: () => <ChartSkeleton />,
-  },
-);
-
-const ProductPerformanceChart = dynamic(
-  () => import("./Charts/ProductPerformanceChart"),
-  {
-    loading: () => <ChartSkeleton />,
-  },
-);
+import DashboardSalesChart from "./Charts/DashboardSalesChart";
+import CategoryDistributionChart from "./Charts/CategoryDistributionChart";
+import OrderDistributionChart from "./Charts/OrderDistributionChart";
+import ProductPerformanceChart from "./Charts/ProductPerformanceChart";
 
 const DashboardCharts = () => {
   return (

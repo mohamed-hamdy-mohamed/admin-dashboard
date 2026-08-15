@@ -1,7 +1,7 @@
 export const en = {
   meta: {
-    title: "Admin Dashboard",
-    description: "Admin Dashboard",
+    title: "Admin Operations Platform",
+    description: "Admin Operations Platform",
   },
   common: {
     cancel: "Cancel",
@@ -78,7 +78,7 @@ export const en = {
       {
         id: "notif-4",
         title: "New user registered",
-        message: "Michael Smith joined the admin dashboard.",
+        message: "Michael Smith joined the Admin Operations Platform.",
         time: "3 hrs ago",
       },
       {
@@ -587,7 +587,7 @@ export const en = {
     contactSupport: "Contact Support",
     faq: {
       title: "Frequently Asked Questions",
-      subtitle: "Quick answers to common admin dashboard questions.",
+      subtitle: "Quick answers to common Admin Operations Platform questions.",
       searchPlaceholder: "Search FAQs...",
       empty: "No FAQs match your search.",
     },

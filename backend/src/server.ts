@@ -26,9 +26,6 @@ const start = async () => {
 
   process.on("unhandledRejection", (reason) => {
     console.error("Unhandled rejection:", reason);
-    server.close(() => {
-      void disconnectDb().then(() => process.exit(1));
-    });
   });
 };
 

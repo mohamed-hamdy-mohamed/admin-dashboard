@@ -217,6 +217,10 @@ export const verifyEmail = async (input: VerifyEmailInput) => {
     throw new AppError("Verification link is invalid or has expired.", 400);
   }
 
+  if (user.emailVerified === true) {
+    return { alreadyVerified: true as const };
+  }
+
   const expiresAt = user.emailVerificationExpiresAt
     ? new Date(String(user.emailVerificationExpiresAt)).getTime()
     : 0;
@@ -229,16 +233,26 @@ export const verifyEmail = async (input: VerifyEmailInput) => {
   }
 
   user.emailVerified = true;
-  user.emailVerificationTokenHash = null;
   user.emailVerificationExpiresAt = null;
   await user.save();
 
-  return user.toJSON();
+  return { alreadyVerified: false as const };
+};
+
+export const getVerificationStatus = async (input: ForgotPasswordInput) => {
+  const email = validateForgotPasswordInput(input);
+  const user = await User.findOne({ email });
+
+  return {
+    emailVerified: user?.emailVerified === true,
+  };
 };
 
 export const resendVerificationEmail = async (input: ForgotPasswordInput) => {
   const email = validateForgotPasswordInput(input);
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).select(
+    "+emailVerificationTokenHash +emailVerificationExpiresAt"
+  );
 
   if (!user) {
     throw new AppError("Account does not exist", 404);
@@ -249,9 +263,21 @@ export const resendVerificationEmail = async (input: ForgotPasswordInput) => {
   }
 
   const verification = createEmailVerificationToken();
-  user.emailVerificationTokenHash = verification.tokenHash;
-  user.emailVerificationExpiresAt = verification.expiresAt;
-  await user.save();
+
+  const updated = await User.findOneAndUpdate(
+    { _id: user._id, emailVerified: false },
+    {
+      $set: {
+        emailVerificationTokenHash: verification.tokenHash,
+        emailVerificationExpiresAt: verification.expiresAt,
+      },
+    },
+    { returnDocument: "after" }
+  );
+
+  if (!updated) {
+    throw new AppError("Email is already verified.", 400);
+  }
 
   try {
     await sendVerificationEmail({

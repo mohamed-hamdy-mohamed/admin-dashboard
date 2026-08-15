@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Spinner } from "@/components/ui/spinner";
-import { resendVerification, verifyEmail } from "@/lib/authApi";
+import { getVerificationStatus, resendVerification, verifyEmail } from "@/lib/authApi";
 import { getApiErrorMessage } from "@/lib/apiError";
 import {
   resendVerificationSchema,
@@ -26,6 +26,7 @@ const VerifyEmail = () => {
   const searchParams = useSearchParams();
   const token = searchParams.get("token")?.trim() ?? "";
   const emailFromQuery = searchParams.get("email")?.trim() ?? "";
+  const [isChecking, setIsChecking] = useState(Boolean(token || emailFromQuery));
   const [isVerifying, setIsVerifying] = useState(Boolean(token));
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -46,6 +47,40 @@ const VerifyEmail = () => {
   }, [emailFromQuery, reset]);
 
   useEffect(() => {
+    if (token || !emailFromQuery) {
+      return;
+    }
+
+    let cancelled = false;
+
+    const checkStatus = async () => {
+      try {
+        const response = await getVerificationStatus({ email: emailFromQuery });
+        if (cancelled) {
+          return;
+        }
+
+        if (response.data.emailVerified) {
+          router.replace("/login");
+          return;
+        }
+      } catch {
+        // Keep the existing unverified page if status cannot be determined.
+      }
+
+      if (!cancelled) {
+        setIsChecking(false);
+      }
+    };
+
+    void checkStatus();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [emailFromQuery, router, token]);
+
+  useEffect(() => {
     if (!token) {
       return;
     }
@@ -59,12 +94,15 @@ const VerifyEmail = () => {
           return;
         }
 
-        toast.success(response.message);
+        if (!response.data?.alreadyVerified) {
+          toast.success(response.message);
+        }
         router.replace("/login");
       } catch (error) {
         if (!cancelled) {
           setErrorMessage(getApiErrorMessage(error));
           setIsVerifying(false);
+          setIsChecking(false);
         }
       }
     };
@@ -98,7 +136,7 @@ const VerifyEmail = () => {
         </div>
         <div>
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            Admin Dashboard
+            Admin Operations Platform
           </p>
           <h1 className="text-xl font-semibold tracking-tight text-foreground">
             Verify your email
@@ -106,10 +144,10 @@ const VerifyEmail = () => {
         </div>
       </div>
 
-      {isVerifying ? (
+      {isChecking || isVerifying ? (
         <div className="flex items-center gap-3 text-sm text-muted-foreground">
           <Spinner />
-          Verifying your email...
+          {isVerifying ? "Verifying your email..." : "Loading..."}
         </div>
       ) : (
         <>
@@ -144,8 +182,8 @@ const VerifyEmail = () => {
                 type="email"
                 autoComplete="email"
                 placeholder="admin@company.com"
-                className="h-10 rounded-xl"
-                disabled={isSubmitting}
+                readOnly
+                className="h-10 rounded-xl bg-muted"
                 aria-invalid={Boolean(errors.email)}
                 {...register("email")}
               />

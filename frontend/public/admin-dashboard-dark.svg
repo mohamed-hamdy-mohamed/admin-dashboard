@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="3360" height="1996" viewBox="0 0 3360 1996" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="rgba(0,0,0,.18)"/>
+    </filter>
+  </defs>
+  <rect width="3360" height="1996" fill="#111c2e"/>
+  <rect x="0" y="0" width="404" height="1996" fill="#11182a"/>
+  <line x1="404" y1="0" x2="404" y2="1996" stroke="#243044"/>
+  <g transform="translate(36 58) scale(1.0625)" stroke="#f8fafc" stroke-width="3.4" stroke-linecap="round"><path d="M4 8h24M4 16h24M4 24h24"/></g>
+  <g>
+    <rect x="12" y="138" width="378" height="76" rx="22" fill="#243044" stroke="none" stroke-width="1"/>
+    <g transform="translate(40 161) scale(1.0625)" fill="none" stroke="#f8fafc" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15L16 5l12 10"/><path d="M8 14v13h16V14"/><path d="M13 27v-8h6v8"/></g>
+    <text x="82" y="186" font-family="Georgia, 'Times New Roman', serif" font-size="25" font-weight="400" fill="#f8fafc" text-anchor="start">Dashboard</text>
+  </g>
+  <g>
+    
+    <g transform="translate(40 249) scale(1.0625)" fill="none" stroke="#f8fafc" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="22" height="16" rx="2"/><path d="M11 10V8c0-4 10-4 10 0v2"/><path d="M11 15c2 3 8 3 10 0"/></g>
+    <text x="82" y="274" font-family="Georgia, 'Times New Roman', serif" font-size="25" font-weight="400" fill="#f8fafc" text-anchor="start">Products</text>
+  </g>
+  <g>
+    
+    <g transform="translate(40 337) scale(1.0625)" fill="none" stroke="#f8fafc" stroke-width="2.7" stroke-linecap="round"><circle cx="16" cy="10" r="4"/><path d="M7 27v-3c0-5 18-5 18 0v3"/></g>
+    <text x="82" y="362" font-family="Georgia, 'Times New Roman', serif" font-size="25" font-weight="400" fill="#f8fafc" text-anchor="start">Users</text>
+  </g>
+  <g>
+    
+    <g transform="translate(40 425) scale(1.0625)" fill="none" stroke="#f8fafc" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h4l3 14h15l3-10H10"/><circle cx="13" cy="27" r="1.6" fill="#f8fafc"/><circle cx="25" cy="27" r="1.6" fill="#f8fafc"/></g>
+    <text x="82" y="450" font-family="Georgia, 'Times New Roman', serif" font-size="25" font-weight="400" fill="#f8fafc" text-anchor="start">Recipes</text>
+  </g>
+  <g>
+    
+    <g transform="translate(40 513) scale(1.0625)" fill="none" stroke="#f8fafc" stroke-width="2.7" stroke-linecap="round"><path d="M16 4v24"/><path d="M22 9c-2-2-10-3-12 1-3 6 13 5 12 11-1 5-10 4-14 1"/></g>
+    <text x="82" y="538" font-family="Georgia, 'Times New Roman', serif" font-size="25" font-weight="400" fill="#f8fafc" text-anchor="start">Sales</text>
+  </g>
+  <g>
+    
+    <g transform="translate(40 601) scale(1.0625)" fill="none" stroke="#f8fafc" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="24" height="18" rx="2"/><path d="M5 10l11 8 11-8"/></g>
+    <text x="82" y="626" font-family="Georgia, 'Times New Roman', serif" font-size="25" font-weight="400" fill="#f8fafc" text-anchor="start">Messages</text>
+  </g>
+  <g>
+    
+    <g transform="translate(40 689) scale(1.0625)" fill="none" stroke="#f8fafc" stroke-width="2.7" stroke-linecap="round"><circle cx="16" cy="16" r="12"/><path d="M12 12c1-5 9-4 9 1 0 4-5 4-5 8"/><path d="M16 25h.1"/></g>
+    <text x="82" y="714" font-family="Georgia, 'Times New Roman', serif" font-size="25" font-weight="400" fill="#f8fafc" text-anchor="start">Help</text>
+  </g>
+  <g>
+    
+    <g transform="translate(40 777) scale(1.0625)" fill="none" stroke="#f8fafc" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="4"/><path d="M16 3v5M16 24v5M3 16h5M24 16h5M6.8 6.8l3.6 3.6M21.6 21.6l3.6 3.6M6.8 25.2l3.6-3.6M21.6 10.4l3.6-3.6"/></g>
+    <text x="82" y="802" font-family="Georgia, 'Times New Roman', serif" font-size="25" font-weight="400" fill="#f8fafc" text-anchor="start">Settings</text>
+  </g>
+
+  <rect x="456" y="26" width="2848" height="118" rx="14" fill="#202b3e" stroke="#354357" stroke-width="1"/>
+  <text x="1680" y="96" font-family="Georgia, 'Times New Roman', serif" font-size="36" font-weight="700" fill="#f8fafc" text-anchor="middle">Dashboard</text>
+  <g transform="translate(2504 58) scale(1.0625)" fill="none" stroke="#f8fafc" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h16"/><path d="M11 22V13c0-7 10-7 10 0v9"/><path d="M14 26c1 2 3 2 4 0"/></g>
+  <circle cx="2522" cy="42" r="14" fill="#ef2b2d"/>
+  <text x="2522" y="49" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+  <circle cx="2592" cy="54" r="25" fill="#d8eadb" stroke="#354357"/>
+  <circle cx="2592" cy="45" r="9" fill="#7a4c35"/>
+  <path d="M2576 73c5-22 27-22 32 0" fill="#7fb38c"/>
+  <text x="2630" y="89" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="700" fill="#f8fafc" text-anchor="start">Mohamed Hamdy</text>
+  <g transform="translate(2794 76) scale(0.5625)" fill="none" stroke="#9aa7ba" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13l6 6 6-6"/></g>
+
+  <g>
+    <rect x="456" y="194" width="686" height="278" rx="18" fill="#202b3e" stroke="#354357" stroke-width="1.2" filter="url(#shadow)"/>
+    <text x="494" y="280" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#9aa7ba" text-anchor="start">Total Orders</text>
+    <text x="494" y="358" font-family="Georgia, 'Times New Roman', serif" font-size="56" font-weight="500" fill="#f8fafc" text-anchor="start">1,254</text>
+    <text x="494" y="404" font-family="Georgia, 'Times New Roman', serif" font-size="18" font-weight="400" fill="#9aa7ba" text-anchor="start">+12.4% from last month</text>
+    <rect x="1028" y="258" width="76" height="76" rx="24" fill="#dbeafe" stroke="none" stroke-width="1"/>
+    <g transform="translate(1050 280) scale(1.0625)" fill="none" stroke="#2563ff" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12h16v15H8z"/><path d="M10 12l4-5h8l4 5"/><path d="M12 17c2 4 6 4 8 0"/></g>
+  </g>
+  <g>
+    <rect x="1180" y="194" width="686" height="278" rx="18" fill="#202b3e" stroke="#354357" stroke-width="1.2" filter="url(#shadow)"/>
+    <text x="1218" y="280" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#9aa7ba" text-anchor="start">Revenue</text>
+    <text x="1218" y="358" font-family="Georgia, 'Times New Roman', serif" font-size="56" font-weight="500" fill="#f8fafc" text-anchor="start">$84,250</text>
+    <text x="1218" y="404" font-family="Georgia, 'Times New Roman', serif" font-size="18" font-weight="400" fill="#9aa7ba" text-anchor="start">+18.2% from last month</text>
+    <rect x="1752" y="258" width="76" height="76" rx="24" fill="#d1fae5" stroke="none" stroke-width="1"/>
+    <g transform="translate(1774 280) scale(1.0625)" fill="none" stroke="#059669" stroke-width="2.7" stroke-linecap="round"><path d="M16 4v24"/><path d="M22 9c-2-2-10-3-12 1-3 6 13 5 12 11-1 5-10 4-14 1"/></g>
+  </g>
+  <g>
+    <rect x="1904" y="194" width="686" height="278" rx="18" fill="#202b3e" stroke="#354357" stroke-width="1.2" filter="url(#shadow)"/>
+    <text x="1942" y="280" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#9aa7ba" text-anchor="start">Menu Items</text>
+    <text x="1942" y="358" font-family="Georgia, 'Times New Roman', serif" font-size="56" font-weight="500" fill="#f8fafc" text-anchor="start">128</text>
+    <text x="1942" y="404" font-family="Georgia, 'Times New Roman', serif" font-size="18" font-weight="400" fill="#9aa7ba" text-anchor="start">Across all categories</text>
+    <rect x="2476" y="258" width="76" height="76" rx="24" fill="#ffedd5" stroke="none" stroke-width="1"/>
+    <g transform="translate(2498 280) scale(1.0625)" fill="none" stroke="#f97316" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5v10M5 5v10M13 5v10M5 15c0 4 8 4 8 0M9 15v12"/><path d="M22 5v22"/><path d="M19 5c8 5 8 11 3 15"/></g>
+  </g>
+  <g>
+    <rect x="2628" y="194" width="686" height="278" rx="18" fill="#202b3e" stroke="#354357" stroke-width="1.2" filter="url(#shadow)"/>
+    <text x="2666" y="280" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#9aa7ba" text-anchor="start">Average Rating</text>
+    <text x="2666" y="358" font-family="Georgia, 'Times New Roman', serif" font-size="56" font-weight="500" fill="#f8fafc" text-anchor="start">4.8</text>
+    <text x="2666" y="404" font-family="Georgia, 'Times New Roman', serif" font-size="18" font-weight="400" fill="#9aa7ba" text-anchor="start">Based on customer reviews</text>
+    <rect x="3200" y="258" width="76" height="76" rx="24" fill="#fef3c7" stroke="none" stroke-width="1"/>
+    <g transform="translate(3222 280) scale(1.0625)" fill="none" stroke="#d99a00" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4l3.8 7.8 8.6 1.2-6.2 6.1 1.5 8.5-7.7-4-7.7 4 1.5-8.5L3.6 13l8.6-1.2z"/></g>
+  </g>
+
+  <rect x="456" y="508" width="1410" height="696" rx="18" fill="#202b3e" stroke="#354357" stroke-width="1.2" filter="url(#shadow)"/>
+  <text x="494" y="580" font-family="Georgia, 'Times New Roman', serif" font-size="28" font-weight="700" fill="#f8fafc" text-anchor="start">Monthly Revenue</text>
+  <text x="494" y="614" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#9aa7ba" text-anchor="start">Revenue generated from food orders</text>
+  <g>
+    
+    <line x1="574" y1="670" x2="1816" y2="670" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/><line x1="574" y1="778" x2="1816" y2="778" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/><line x1="574" y1="886" x2="1816" y2="886" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/><line x1="574" y1="994" x2="1816" y2="994" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/><line x1="574" y1="1102" x2="1816" y2="1102" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/>
+    <line x1="574" y1="670" x2="574" y2="1102" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/><line x1="781" y1="670" x2="781" y2="1102" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/><line x1="988" y1="670" x2="988" y2="1102" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/><line x1="1195" y1="670" x2="1195" y2="1102" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/><line x1="1402" y1="670" x2="1402" y2="1102" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/><line x1="1609" y1="670" x2="1609" y2="1102" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/><line x1="1816" y1="670" x2="1816" y2="1102" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/>
+    <line x1="574" y1="670" x2="574" y2="1102" stroke="#9aa7ba" stroke-width="1.3"/>
+    <line x1="574" y1="1102" x2="1816" y2="1102" stroke="#9aa7ba" stroke-width="1.3"/>
+    <path d="M574 866 L781 832 L988 786 L1195 808 L1402 754 L1609 726 L1816 684" fill="none" stroke="#22c55e" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="574" cy="866" r="8" fill="#202b3e" stroke="#22c55e" stroke-width="5"/><circle cx="781" cy="832" r="8" fill="#202b3e" stroke="#22c55e" stroke-width="5"/><circle cx="988" cy="786" r="8" fill="#202b3e" stroke="#22c55e" stroke-width="5"/><circle cx="1195" cy="808" r="8" fill="#202b3e" stroke="#22c55e" stroke-width="5"/><circle cx="1402" cy="754" r="8" fill="#202b3e" stroke="#22c55e" stroke-width="5"/><circle cx="1609" cy="726" r="8" fill="#202b3e" stroke="#22c55e" stroke-width="5"/><circle cx="1816" cy="684" r="8" fill="#202b3e" stroke="#22c55e" stroke-width="5"/>
+    <text x="560" y="682" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#9aa7ba" text-anchor="end">34,000</text><text x="560" y="790" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#9aa7ba" text-anchor="end">25,500</text><text x="560" y="898" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#9aa7ba" text-anchor="end">17,000</text><text x="560" y="1006" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#9aa7ba" text-anchor="end">8,500</text><text x="560" y="1114" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#9aa7ba" text-anchor="end">0</text>
+    <text x="574" y="1132" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#9aa7ba" text-anchor="middle">Jan</text><text x="781" y="1132" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#9aa7ba" text-anchor="middle">Feb</text><text x="988" y="1132" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#9aa7ba" text-anchor="middle">Mar</text><text x="1195" y="1132" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#9aa7ba" text-anchor="middle">Apr</text><text x="1402" y="1132" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#9aa7ba" text-anchor="middle">May</text><text x="1609" y="1132" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#9aa7ba" text-anchor="middle">Jun</text><text x="1816" y="1132" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#9aa7ba" text-anchor="middle">Jul</text>
+  </g>
+
+  <rect x="1904" y="508" width="1400" height="696" rx="18" fill="#202b3e" stroke="#354357" stroke-width="1.2" filter="url(#shadow)"/>
+  <text x="1942" y="580" font-family="Georgia, 'Times New Roman', serif" font-size="28" font-weight="700" fill="#f8fafc" text-anchor="start">Category Distribution</text>
+  <text x="1942" y="614" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#9aa7ba" text-anchor="start">Sales distribution by category</text>
+  <g>
+    <path d="M2610 884L2780.00 884.00A170 170 0 0 1 2510.08 1021.53Z" fill="#ef4444" stroke="#ffffff" stroke-width="2"/>
+    <path d="M2610 884L2510.08 1021.53A170 170 0 0 1 2466.46 792.91Z" fill="#f97316" stroke="#ffffff" stroke-width="2"/>
+    <path d="M2610 884L2466.46 792.91A170 170 0 0 1 2631.31 715.34Z" fill="#22c55e" stroke="#ffffff" stroke-width="2"/>
+    <path d="M2610 884L2631.31 715.34A170 170 0 0 1 2747.53 784.08Z" fill="#a855f7" stroke="#ffffff" stroke-width="2"/>
+    <path d="M2610 884L2747.53 784.08A170 170 0 0 1 2780.00 884.00Z" fill="#3b82f6" stroke="#ffffff" stroke-width="2"/>
+    <text x="2540" y="699" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#ef4444" text-anchor="middle">Pizza 35%</text>
+    <text x="2310" y="846" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#f97316" text-anchor="middle">Burger 24%</text>
+    <text x="2480" y="1069" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#22c55e" text-anchor="middle">Pasta 18%</text>
+    <text x="2780" y="1060" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#a855f7" text-anchor="middle">Dessert 13%</text>
+    <text x="2884" y="948" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#3b82f6" text-anchor="middle">Drinks 10%</text>
+  </g>
+  <circle cx="2364" cy="1142" r="12" fill="#f97316"/><text x="2384" y="1149" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#f97316" text-anchor="start">Burger</text><circle cx="2490" cy="1142" r="12" fill="#a855f7"/><text x="2510" y="1149" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#a855f7" text-anchor="start">Dessert</text><circle cx="2616" cy="1142" r="12" fill="#3b82f6"/><text x="2636" y="1149" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#3b82f6" text-anchor="start">Drinks</text><circle cx="2712" cy="1142" r="12" fill="#22c55e"/><text x="2732" y="1149" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#22c55e" text-anchor="start">Pasta</text><circle cx="2844" cy="1142" r="12" fill="#ef4444"/><text x="2864" y="1149" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#ef4444" text-anchor="start">Pizza</text>
+
+  <rect x="456" y="1242" width="1410" height="696" rx="18" fill="#202b3e" stroke="#354357" stroke-width="1.2" filter="url(#shadow)"/>
+  <text x="494" y="1312" font-family="Georgia, 'Times New Roman', serif" font-size="28" font-weight="700" fill="#f8fafc" text-anchor="start">Order Status</text>
+  <text x="494" y="1346" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#9aa7ba" text-anchor="start">Current order processing status</text>
+  <g>
+    <path d="M1296 1640A136 136 0 0 1 1259.139733329312 1733.0984064063016L1212.4857411743417 1689.2873916268657A72 72 0 0 0 1232 1640Z" fill="#ef4444" stroke="#202b3e" stroke-width="2"/>
+    <path d="M1259.139733329312 1733.0984064063016A136 136 0 0 1 1117.9736887650072 1769.343686216141L1137.7507764050038 1708.476069173251A72 72 0 0 0 1212.4857411743417 1689.2873916268657Z" fill="#f59e0b" stroke="#202b3e" stroke-width="2"/>
+    <path d="M1117.9736887650072 1769.343686216141A136 136 0 0 1 1025.072400621231 1622.9546802352547L1088.5677415053576 1630.97600718337A72 72 0 0 0 1137.7507764050038 1708.476069173251Z" fill="#3b82f6" stroke="#202b3e" stroke-width="2"/>
+    <path d="M1025.072400621231 1622.9546802352547A136 136 0 0 1 1296 1640L1232 1640A72 72 0 0 0 1088.5677415053576 1630.97600718337Z" fill="#22c55e" stroke="#202b3e" stroke-width="2"/>
+    <text x="1248" y="1435" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#22c55e" text-anchor="middle">Delivered 48%</text>
+    <text x="1370" y="1714" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#ef4444" text-anchor="middle">Cancelled 12%</text>
+    <text x="1252" y="1824" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#f59e0b" text-anchor="middle">Pending 18%</text>
+    <text x="926" y="1766" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#3b82f6" text-anchor="middle">Preparing 22%</text>
+  </g>
+  <circle cx="910" cy="1874" r="12" fill="#ef4444"/><text x="930" y="1881" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#ef4444" text-anchor="start">Cancelled</text><circle cx="1046" cy="1874" r="12" fill="#22c55e"/><text x="1066" y="1881" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#22c55e" text-anchor="start">Delivered</text><circle cx="1162" cy="1874" r="12" fill="#f59e0b"/><text x="1182" y="1881" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#f59e0b" text-anchor="start">Pending</text><circle cx="1288" cy="1874" r="12" fill="#3b82f6"/><text x="1308" y="1881" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#3b82f6" text-anchor="start">Preparing</text>
+
+  <rect x="1904" y="1242" width="1400" height="696" rx="18" fill="#202b3e" stroke="#354357" stroke-width="1.2" filter="url(#shadow)"/>
+  <text x="1942" y="1312" font-family="Georgia, 'Times New Roman', serif" font-size="28" font-weight="700" fill="#f8fafc" text-anchor="start">Best Selling Menu</text>
+  <text x="1942" y="1346" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#9aa7ba" text-anchor="start">Top selling dishes this month</text>
+  <g>
+    <line x1="2024" y1="1404" x2="3264" y2="1404" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/><line x1="2024" y1="1497.5" x2="3264" y2="1497.5" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/><line x1="2024" y1="1591" x2="3264" y2="1591" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/><line x1="2024" y1="1684.5" x2="3264" y2="1684.5" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/><line x1="2024" y1="1778" x2="3264" y2="1778" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/>
+    <line x1="2024" y1="1404" x2="2024" y2="1778" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/><line x1="2230.6666666666665" y1="1404" x2="2230.6666666666665" y2="1778" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/><line x1="2437.3333333333335" y1="1404" x2="2437.3333333333335" y2="1778" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/><line x1="2644" y1="1404" x2="2644" y2="1778" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/><line x1="2850.6666666666665" y1="1404" x2="2850.6666666666665" y2="1778" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/><line x1="3057.333333333333" y1="1404" x2="3057.333333333333" y2="1778" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/><line x1="3264" y1="1404" x2="3264" y2="1778" stroke="#38475d" stroke-width="1.5" stroke-dasharray="8 8"/>
+    <line x1="2024" y1="1404" x2="2024" y2="1778" stroke="#9aa7ba" stroke-width="1.3"/>
+    <line x1="2024" y1="1778" x2="3264" y2="1778" stroke="#9aa7ba" stroke-width="1.3"/><rect x="2154" y="1767.48125" width="42" height="10.51875" rx="10" fill="#2563eb"/><rect x="2212" y="1619.05" width="42" height="158.95" rx="10" fill="#22c55e"/><rect x="2270" y="1439.0625" width="42" height="338.9375" rx="10" fill="#f97316"/><text x="2222" y="1810" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#9aa7ba" text-anchor="middle">Margherita</text><rect x="2402" y="1765.845" width="42" height="12.155000000000001" rx="10" fill="#2563eb"/><rect x="2460" y="1637.75" width="42" height="140.25" rx="10" fill="#22c55e"/><rect x="2518" y="1469.45" width="42" height="308.55" rx="10" fill="#f97316"/><text x="2470" y="1810" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#9aa7ba" text-anchor="middle">Burger</text><rect x="2650" y="1766.78" width="42" height="11.219999999999999" rx="10" fill="#2563eb"/><rect x="2708" y="1654.1125" width="42" height="123.8875" rx="10" fill="#22c55e"/><rect x="2766" y="1502.175" width="42" height="275.825" rx="10" fill="#f97316"/><text x="2718" y="1810" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#9aa7ba" text-anchor="middle">Alfredo</text><rect x="2898" y="1768.1825" width="42" height="9.817499999999999" rx="10" fill="#2563eb"/><rect x="2956" y="1665.8" width="42" height="112.2" rx="10" fill="#22c55e"/><rect x="3014" y="1525.55" width="42" height="252.45000000000002" rx="10" fill="#f97316"/><text x="2966" y="1810" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#9aa7ba" text-anchor="middle">Pepperoni</text><rect x="3146" y="1770.0525" width="42" height="7.947500000000001" rx="10" fill="#2563eb"/><rect x="3204" y="1696.1875" width="42" height="81.8125" rx="10" fill="#22c55e"/><rect x="3262" y="1579.3125" width="42" height="198.6875" rx="10" fill="#f97316"/><text x="3214" y="1810" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="400" fill="#9aa7ba" text-anchor="middle">Chocolate</text><text x="2010" y="1412" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#9aa7ba" text-anchor="end">16,000</text><text x="2010" y="1505.5" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#9aa7ba" text-anchor="end">12,000</text><text x="2010" y="1599" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#9aa7ba" text-anchor="end">8,000</text><text x="2010" y="1692.5" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#9aa7ba" text-anchor="end">4,000</text><text x="2010" y="1786" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#9aa7ba" text-anchor="end">0</text></g>
+  <circle cx="2460" cy="1874" r="12" fill="#2563eb"/><text x="2480" y="1881" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#2563eb" text-anchor="start">orders</text><circle cx="2572" cy="1874" r="12" fill="#22c55e"/><text x="2592" y="1881" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#22c55e" text-anchor="start">profit</text><circle cx="2740" cy="1874" r="12" fill="#f97316"/><text x="2760" y="1881" font-family="Georgia, 'Times New Roman', serif" font-size="19" font-weight="400" fill="#f97316" text-anchor="start">revenue</text>
+</svg>

@@ -1,28 +1,6 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import { LucideIcon } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
-const containerVariants = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.08,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: {
-    opacity: 0,
-    y: 20,
-  },
-  show: {
-    opacity: 1,
-    y: 0,
-  },
-};
 interface Stat {
   title: string;
   value: number | string;
@@ -38,17 +16,16 @@ interface StatsCardProps {
 
 const StatsCard = ({ stats }: StatsCardProps) => {
   return (
-    <motion.section
-      className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4"
-      variants={containerVariants}
-      initial="hidden"
-      animate="show"
-    >
-      {stats.map((stat) => {
+    <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
+      {stats.map((stat, index) => {
         const Icon = stat.icon;
 
         return (
-          <motion.div key={stat.title} variants={itemVariants}>
+          <div
+            key={stat.title}
+            className="animate-in fade-in slide-in-from-bottom-5 fill-mode-both duration-300"
+            style={{ animationDelay: `${index * 80}ms` }}
+          >
             <Card className="border-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
               <CardContent className="p-4 sm:p-6">
                 <div className="flex items-start justify-between gap-3">
@@ -77,10 +54,10 @@ const StatsCard = ({ stats }: StatsCardProps) => {
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </div>
         );
       })}
-    </motion.section>
+    </section>
   );
 };
 

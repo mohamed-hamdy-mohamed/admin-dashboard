@@ -7,6 +7,7 @@ import {
   resendVerification,
   updateMe,
   uploadAvatar,
+  verificationStatus,
   verifyEmailAddress,
 } from "../controllers/auth.controller";
 import { authenticate } from "../middleware/auth";
@@ -18,6 +19,7 @@ router.post("/register", register);
 router.post("/login", login);
 router.post("/forgot-password", forgotPassword);
 router.post("/verify-email", verifyEmailAddress);
+router.post("/verification-status", verificationStatus);
 router.post("/resend-verification", resendVerification);
 router.get("/me", authenticate, getMe);
 router.patch("/me", authenticate, updateMe);

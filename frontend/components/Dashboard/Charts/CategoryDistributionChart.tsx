@@ -10,19 +10,12 @@ import {
   createChartPieLabelFormatter,
   createChartTooltipPercentFormatter,
 } from "@/util/chartFormat";
-import { motion } from "framer-motion";
-import {
-  Cell,
-  Legend,
-  Pie,
-  PieChart,
-  ResponsiveContainer,
-  Tooltip,
-} from "recharts";
+import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
+import MeasuredChart from "../MeasuredChart";
 
 const CategoryDistributionChart = () => {
   const { locale, t } = useTranslation();
-  const isMdUp = useMediaQuery(MEDIA_QUERIES.md, true);
+  const isMdUp = useMediaQuery(MEDIA_QUERIES.md);
   const categoryChart = useMemo(() => getCategoryChart(locale), [locale]);
   const pieLabelFormatter = useMemo(
     () => createChartPieLabelFormatter(locale),
@@ -34,12 +27,7 @@ const CategoryDistributionChart = () => {
   );
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.2, duration: 0.5 }}
-      className="min-w-0 rounded-xl border border-border bg-card p-4 shadow-sm sm:p-6"
-    >
+    <div className="min-w-0 animate-in fade-in slide-in-from-bottom-5 rounded-xl border border-border bg-card p-4 shadow-sm fill-mode-both duration-500 delay-200 sm:p-6">
       <div className="mb-4 flex items-center justify-between sm:mb-6">
         <div className="min-w-0">
           <h2 className="text-base font-semibold text-foreground sm:text-lg">
@@ -51,34 +39,37 @@ const CategoryDistributionChart = () => {
         </div>
       </div>
       <div className="h-56 sm:h-64 md:h-80">
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Pie
-              data={categoryChart}
-              cx="50%"
-              cy="50%"
-              labelLine={false}
-              dataKey="value"
-              label={isMdUp ? pieLabelFormatter : false}
-            >
-              {categoryChart.map((category, idx) => (
-                <Cell key={`cell-${idx}`} fill={category.color} />
-              ))}
-            </Pie>
-            <Tooltip
-              formatter={tooltipFormatter}
-              contentStyle={chartTooltipContentStyle}
-            />
-            <Legend
-              iconType="circle"
-              layout="horizontal"
-              wrapperStyle={chartLegendStyle}
-              align="center"
-            />
-          </PieChart>
-        </ResponsiveContainer>
+        <MeasuredChart>
+          {({ width, height }) => (
+            <PieChart width={width} height={height}>
+              <Pie
+                data={categoryChart}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                dataKey="value"
+                label={isMdUp ? pieLabelFormatter : false}
+                isAnimationActive={false}
+              >
+                {categoryChart.map((category, idx) => (
+                  <Cell key={`cell-${idx}`} fill={category.color} />
+                ))}
+              </Pie>
+              <Tooltip
+                formatter={tooltipFormatter}
+                contentStyle={chartTooltipContentStyle}
+              />
+              <Legend
+                iconType="circle"
+                layout="horizontal"
+                wrapperStyle={chartLegendStyle}
+                align="center"
+              />
+            </PieChart>
+          )}
+        </MeasuredChart>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

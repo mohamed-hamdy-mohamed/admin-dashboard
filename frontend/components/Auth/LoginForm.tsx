@@ -54,14 +54,14 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="w-full max-w-[24rem]">
-      <div className="mb-8 flex items-center gap-3">
+    <div className="w-full max-w-[26.5rem]">
+      <div className="mb-9 flex items-center gap-3">
         <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
           <LayoutDashboard className="size-4" />
         </div>
         <div>
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            Admin Dashboard
+            Admin Operations Platform
           </p>
           <h1 className="text-xl font-semibold tracking-tight text-foreground">
             Welcome back
@@ -69,15 +69,15 @@ const LoginForm = () => {
         </div>
       </div>
 
-      <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid gap-1.5">
+      <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+        <div className="grid gap-2">
           <Label htmlFor="login-email">Email</Label>
           <Input
             id="login-email"
             type="email"
             autoComplete="email"
             placeholder="admin@company.com"
-            className="h-10 rounded-xl"
+            className="h-11 rounded-xl"
             disabled={isSubmitting}
             aria-invalid={Boolean(errors.email)}
             {...register("email")}
@@ -85,13 +85,13 @@ const LoginForm = () => {
           <FieldError message={errors.email?.message} />
         </div>
 
-        <div className="grid gap-1.5">
+        <div className="grid gap-2">
           <Label htmlFor="login-password">Password</Label>
           <PasswordInput
             id="login-password"
             autoComplete="current-password"
             placeholder="Enter your password"
-            className="h-10 rounded-xl"
+            className="h-11 rounded-xl"
             disabled={isSubmitting}
             aria-invalid={Boolean(errors.password)}
             {...register("password")}
@@ -122,7 +122,7 @@ const LoginForm = () => {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="mt-2 h-10 w-full gap-2 rounded-xl"
+          className="mt-2 h-11 w-full gap-2 rounded-xl"
         >
           {isSubmitting ? <Spinner /> : null}
           {isSubmitting ? "Signing in..." : "Sign in"}

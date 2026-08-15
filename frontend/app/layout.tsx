@@ -1,5 +1,4 @@
-import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 import { cookies } from "next/headers";
 import "./globals.css";
 import { Providers } from "@/providers/providers";
@@ -7,19 +6,24 @@ import { getLocaleDirection, normalizeLocale } from "@/lib/i18n";
 import { LOCALE_COOKIE } from "@/util/localeStorage";
 import { Locale } from "@/types/i18n";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const cookieStore = await cookies();
   const locale = normalizeLocale(cookieStore.get(LOCALE_COOKIE)?.value) as Locale;
 
   return {
-    title: locale === "ar" ? "لوحة تحكم المسؤول" : "Admin Dashboard",
-    description: locale === "ar" ? "لوحة تحكم المسؤول" : "Admin Dashboard",
+    title: locale === "ar" ? "منصة عمليات الإدارة" : "Admin Operations Platform",
+    description: locale === "ar" ? "منصة عمليات الإدارة" : "Admin Operations Platform",
+    icons: {
+      icon: [
+        { url: "/favicon-rounded.svg", type: "image/svg+xml" },
+        { url: "/favicon.ico", sizes: "32x32" },
+      ],
+    },
   };
 }
 
@@ -37,7 +41,7 @@ export default async function RootLayout({
       lang={locale}
       dir={direction}
       suppressHydrationWarning
-      className={`${geistSans.variable} h-full antialiased`}
+      className="h-full antialiased"
     >
       <body suppressHydrationWarning className="min-h-svh bg-background antialiased">
         <Providers initialLocale={locale}>{children}</Providers>

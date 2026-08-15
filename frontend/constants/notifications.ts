@@ -26,7 +26,7 @@ export const notificationsData: NotificationsData = {
     {
       id: "notif-4",
       title: "New user registered",
-      message: "Michael Smith joined the admin dashboard.",
+      message: "Michael Smith joined the Admin Operations Platform.",
       time: "3 hrs ago",
       read: true,
     },

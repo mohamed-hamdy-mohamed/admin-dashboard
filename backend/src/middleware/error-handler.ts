@@ -21,6 +21,20 @@ export const errorHandler = (
     return;
   }
 
+  const isDbConnectionError =
+    err.name === "MongooseServerSelectionError" ||
+    err.name === "MongoServerSelectionError" ||
+    err.name === "MongoNetworkError" ||
+    /ECONNREFUSED/.test(err.message);
+
+  if (isDbConnectionError) {
+    res.status(503).json({
+      success: false,
+      message: "Database unavailable. Please try again.",
+    });
+    return;
+  }
+
   const statusCode = err.statusCode || 500;
 
   res.status(statusCode).json({

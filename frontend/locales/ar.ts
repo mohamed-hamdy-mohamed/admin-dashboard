@@ -1,7 +1,7 @@
 export const ar = {
   meta: {
-    title: "لوحة تحكم الإدارة",
-    description: "لوحة تحكم الإدارة",
+    title: "منصة عمليات الإدارة",
+    description: "منصة عمليات الإدارة",
   },
   common: {
     cancel: "إلغاء",
@@ -78,7 +78,7 @@ export const ar = {
       {
         id: "notif-4",
         title: "مستخدم جديد مسجل",
-        message: "انضم Michael Smith إلى لوحة تحكم الإدارة.",
+        message: "انضم Michael Smith إلى منصة عمليات الإدارة.",
         time: "منذ 3 ساعات",
       },
       {
@@ -587,7 +587,7 @@ export const ar = {
     contactSupport: "تواصل مع الدعم",
     faq: {
       title: "الأسئلة الشائعة",
-      subtitle: "إجابات سريعة لأسئلة لوحة تحكم الإدارة الشائعة.",
+      subtitle: "إجابات سريعة لأسئلة منصة عمليات الإدارة الشائعة.",
       searchPlaceholder: "البحث في الأسئلة الشائعة...",
       empty: "لا توجد أسئلة شائعة تطابق بحثك.",
     },

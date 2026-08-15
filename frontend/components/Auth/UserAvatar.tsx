@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { getAvatarSrc } from "@/util/avatar";
 import { getFullName } from "@/util/getFullName";
@@ -22,29 +21,15 @@ const UserAvatar = ({
   name,
   avatar,
   className,
+  sizes = "32px",
 }: UserAvatarProps) => {
   const src = getAvatarSrc(avatar);
-  const [hasError, setHasError] = useState(false);
   const displayName = getFullName(firstName, lastName, name);
-
-  useEffect(() => {
-    setHasError(false);
-  }, [src]);
-
-  const showImage = Boolean(src) && !hasError;
 
   return (
     <Avatar className={cn("overflow-hidden", className)}>
-      {showImage ? (
-        <img
-          src={src}
-          alt={displayName}
-          className="relative z-[1] size-full rounded-[inherit] object-cover"
-          onError={() => setHasError(true)}
-        />
-      ) : (
-        <AvatarFallback>{getInitials(firstName, lastName)}</AvatarFallback>
-      )}
+      {src ? <AvatarImage src={src} alt={displayName} sizes={sizes} /> : null}
+      <AvatarFallback>{getInitials(firstName, lastName)}</AvatarFallback>
     </Avatar>
   );
 };

@@ -54,6 +54,7 @@ const Sidebar = ({
             <li key={route.path} className="mb-2">
               <Link
                 href={route.path}
+                prefetch={false}
                 onClick={onCloseMobile}
                 className={cn(
                   "flex items-center rounded-xl px-4 py-3 transition-colors hover:bg-sidebar-accent",

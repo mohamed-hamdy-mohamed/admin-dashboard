@@ -33,7 +33,7 @@ const Header = ({ onOpenMobileSidebar }: HeaderProps) => {
             {t("header.dashboardTitle")}
           </h1>
         </div>
-        <div className="flex shrink-0 items-center gap-2 sm:gap-4">
+        <div className="flex h-10 shrink-0 items-center gap-2 sm:gap-4">
           <AppNotifications />
           <UserMenuDropdown />
         </div>

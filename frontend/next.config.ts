@@ -2,10 +2,22 @@ import path from "node:path";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  poweredByHeader: false,
+  compress: true,
+  compiler: {
+    removeConsole: {
+      exclude: ["error"],
+    },
+  },
+  experimental: {
+    optimizePackageImports: ["@base-ui/react"],
+  },
   turbopack: {
     root: path.resolve(process.cwd()),
   },
   images: {
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 60 * 60 * 24 * 30,
     remotePatterns: [
       {
         protocol: "https",
