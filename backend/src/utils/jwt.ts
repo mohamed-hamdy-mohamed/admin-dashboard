@@ -7,13 +7,18 @@ export type AuthTokenPayload = {
   role: UserRole;
 };
 
-export const signToken = (payload: AuthTokenPayload) => {
+export const SESSION_JWT_EXPIRES_IN = "12h";
+
+export const signToken = (
+  payload: AuthTokenPayload,
+  expiresIn = env.jwtExpiresIn,
+) => {
   if (!env.jwtSecret) {
     throw new Error("JWT_SECRET is not defined");
   }
 
   const options: SignOptions = {
-    expiresIn: env.jwtExpiresIn as SignOptions["expiresIn"],
+    expiresIn: expiresIn as SignOptions["expiresIn"],
   };
 
   return jwt.sign(payload, env.jwtSecret, options);

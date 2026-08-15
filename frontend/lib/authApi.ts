@@ -10,6 +10,8 @@ import type {
   RegisterRequest,
   RegisterResponse,
   ResendVerificationRequest,
+  ResetPasswordRequest,
+  ChangePasswordRequest,
   VerifyEmailRequest,
   VerifyEmailResponse,
   VerificationStatusRequest,
@@ -37,6 +39,24 @@ export const loginUser = async (payload: LoginRequest) => {
 export const forgotPassword = async (payload: ForgotPasswordRequest) => {
   const { data } = await apiClient.post<ForgotPasswordResponse>(
     `${API_BASE_URL}/auth/forgot-password`,
+    payload
+  );
+
+  return data;
+};
+
+export const resetPassword = async (payload: ResetPasswordRequest) => {
+  const { data } = await apiClient.post<MessageResponse>(
+    `${API_BASE_URL}/auth/reset-password`,
+    payload
+  );
+
+  return data;
+};
+
+export const changePassword = async (payload: ChangePasswordRequest) => {
+  const { data } = await apiClient.post<MessageResponse>(
+    `${API_BASE_URL}/auth/change-password`,
     payload
   );
 

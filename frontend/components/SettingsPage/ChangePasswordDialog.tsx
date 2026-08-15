@@ -1,6 +1,9 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import FieldError from "@/components/Auth/FieldError";
 import {
   Dialog,
   DialogContent,
@@ -8,11 +11,19 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from "@/components/atoms/ui/dialog";
+import { Button } from "@/components/atoms/ui/button";
+import { Input } from "@/components/atoms/ui/input";
+import { Label } from "@/components/atoms/ui/label";
+import { Spinner } from "@/components/atoms/ui/spinner";
+import { changePassword } from "@/lib/authApi";
+import { getApiErrorMessage } from "@/lib/apiError";
+import {
+  changePasswordSchema,
+  type ChangePasswordFormValues,
+} from "@/lib/schemas/auth";
 import { useTranslation } from "@/providers/LanguageProvider";
+import toast from "react-hot-toast";
 
 interface ChangePasswordDialogProps {
   open: boolean;
@@ -24,38 +35,59 @@ const ChangePasswordDialog = ({
   onOpenChange,
 }: ChangePasswordDialogProps) => {
   const { t } = useTranslation();
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<ChangePasswordFormValues>({
+    resolver: zodResolver(changePasswordSchema),
+    defaultValues: {
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    },
+  });
 
-  const resetForm = () => {
-    setCurrentPassword("");
-    setNewPassword("");
-    setConfirmPassword("");
-  };
+  useEffect(() => {
+    if (open) {
+      reset({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
+    }
+  }, [open, reset]);
 
   const handleOpenChange = (nextOpen: boolean) => {
     onOpenChange(nextOpen);
 
     if (!nextOpen) {
-      resetForm();
+      reset({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
     }
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (!currentPassword || !newPassword || newPassword !== confirmPassword) {
-      return;
+  const onSubmit = async ({
+    currentPassword,
+    newPassword,
+  }: ChangePasswordFormValues) => {
+    try {
+      const response = await changePassword({ currentPassword, newPassword });
+      toast.success(response.message);
+      handleOpenChange(false);
+    } catch (error) {
+      toast.error(getApiErrorMessage(error));
     }
-
-    handleOpenChange(false);
   };
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="rounded-xl border-border sm:max-w-md" closeLabel={t("common.close")}>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <DialogHeader>
             <DialogTitle>{t("settings.security.changePasswordDialog.title")}</DialogTitle>
             <DialogDescription>
@@ -71,11 +103,13 @@ const ChangePasswordDialog = ({
               <Input
                 id="currentPassword"
                 type="password"
-                value={currentPassword}
-                onChange={(event) => setCurrentPassword(event.target.value)}
+                autoComplete="current-password"
                 className="h-11 rounded-xl"
-                required
+                disabled={isSubmitting}
+                aria-invalid={Boolean(errors.currentPassword)}
+                {...register("currentPassword")}
               />
+              <FieldError message={errors.currentPassword?.message} />
             </div>
 
             <div className="grid gap-2">
@@ -85,11 +119,13 @@ const ChangePasswordDialog = ({
               <Input
                 id="newPassword"
                 type="password"
-                value={newPassword}
-                onChange={(event) => setNewPassword(event.target.value)}
+                autoComplete="new-password"
                 className="h-11 rounded-xl"
-                required
+                disabled={isSubmitting}
+                aria-invalid={Boolean(errors.newPassword)}
+                {...register("newPassword")}
               />
+              <FieldError message={errors.newPassword?.message} />
             </div>
 
             <div className="grid gap-2">
@@ -99,11 +135,13 @@ const ChangePasswordDialog = ({
               <Input
                 id="confirmPassword"
                 type="password"
-                value={confirmPassword}
-                onChange={(event) => setConfirmPassword(event.target.value)}
+                autoComplete="new-password"
                 className="h-11 rounded-xl"
-                required
+                disabled={isSubmitting}
+                aria-invalid={Boolean(errors.confirmPassword)}
+                {...register("confirmPassword")}
               />
+              <FieldError message={errors.confirmPassword?.message} />
             </div>
           </div>
 
@@ -111,14 +149,17 @@ const ChangePasswordDialog = ({
             <Button
               type="button"
               variant="outline"
+              disabled={isSubmitting}
               onClick={() => handleOpenChange(false)}
             >
               {t("common.cancel")}
             </Button>
             <Button
               type="submit"
-              className="bg-primary text-primary-foreground hover:bg-primary/90"
+              disabled={isSubmitting}
+              className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
             >
+              {isSubmitting ? <Spinner /> : null}
               {t("common.updatePassword")}
             </Button>
           </DialogFooter>

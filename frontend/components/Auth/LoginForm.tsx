@@ -5,14 +5,14 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LayoutDashboard } from "lucide-react";
 import FieldError from "@/components/Auth/FieldError";
+import AuthBrandHeader from "@/components/molecules/AuthBrandHeader";
 import ForgotPasswordDialog from "@/components/Auth/ForgotPasswordDialog";
 import PasswordInput from "@/components/Auth/PasswordInput";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Spinner } from "@/components/ui/spinner";
+import { Button } from "@/components/atoms/ui/button";
+import { Input } from "@/components/atoms/ui/input";
+import { Label } from "@/components/atoms/ui/label";
+import { Spinner } from "@/components/atoms/ui/spinner";
 import { loginUser } from "@/lib/authApi";
 import { getApiErrorMessage } from "@/lib/apiError";
 import { loginSchema, type LoginFormValues } from "@/lib/schemas/auth";
@@ -37,10 +37,14 @@ const LoginForm = () => {
     },
   });
 
-  const onSubmit = async ({ email, password }: LoginFormValues) => {
+  const onSubmit = async ({ email, password, rememberMe }: LoginFormValues) => {
     try {
-      const response = await loginUser({ email, password });
-      login(response.data.token, response.data.user);
+      const response = await loginUser({
+        email,
+        password,
+        rememberMe: Boolean(rememberMe),
+      });
+      login(response.data.token, response.data.user, Boolean(rememberMe));
       toast.success("Welcome back");
       router.replace("/");
     } catch (error) {
@@ -54,20 +58,8 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="w-full max-w-[26.5rem]">
-      <div className="mb-9 flex items-center gap-3">
-        <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-          <LayoutDashboard className="size-4" />
-        </div>
-        <div>
-          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            Admin Operations Platform
-          </p>
-          <h1 className="text-xl font-semibold tracking-tight text-foreground">
-            Welcome back
-          </h1>
-        </div>
-      </div>
+    <div className="w-full">
+      <AuthBrandHeader title="Welcome back" />
 
       <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-2">

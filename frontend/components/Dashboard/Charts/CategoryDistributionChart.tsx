@@ -11,6 +11,7 @@ import {
   createChartTooltipPercentFormatter,
 } from "@/util/chartFormat";
 import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
+import ChartCard from "@/components/molecules/ChartCard";
 import MeasuredChart from "../MeasuredChart";
 
 const CategoryDistributionChart = () => {
@@ -27,49 +28,40 @@ const CategoryDistributionChart = () => {
   );
 
   return (
-    <div className="min-w-0 animate-in fade-in slide-in-from-bottom-5 rounded-xl border border-border bg-card p-4 shadow-sm fill-mode-both duration-500 delay-200 sm:p-6">
-      <div className="mb-4 flex items-center justify-between sm:mb-6">
-        <div className="min-w-0">
-          <h2 className="text-base font-semibold text-foreground sm:text-lg">
-            {t("charts.categoryDistribution.title")}
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            {t("charts.categoryDistribution.subtitle")}
-          </p>
-        </div>
-      </div>
-      <div className="h-56 sm:h-64 md:h-80">
-        <MeasuredChart>
-          {({ width, height }) => (
-            <PieChart width={width} height={height}>
-              <Pie
-                data={categoryChart}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                dataKey="value"
-                label={isMdUp ? pieLabelFormatter : false}
-                isAnimationActive={false}
-              >
-                {categoryChart.map((category, idx) => (
-                  <Cell key={`cell-${idx}`} fill={category.color} />
-                ))}
-              </Pie>
-              <Tooltip
-                formatter={tooltipFormatter}
-                contentStyle={chartTooltipContentStyle}
-              />
-              <Legend
-                iconType="circle"
-                layout="horizontal"
-                wrapperStyle={chartLegendStyle}
-                align="center"
-              />
-            </PieChart>
-          )}
-        </MeasuredChart>
-      </div>
-    </div>
+    <ChartCard
+      title={t("charts.categoryDistribution.title")}
+      subtitle={t("charts.categoryDistribution.subtitle")}
+    >
+      <MeasuredChart>
+        {({ width, height }) => (
+          <PieChart width={width} height={height}>
+            <Pie
+              data={categoryChart}
+              cx="50%"
+              cy="50%"
+              labelLine={false}
+              dataKey="value"
+              label={isMdUp ? pieLabelFormatter : false}
+              isAnimationActive={false}
+            >
+              {categoryChart.map((category, idx) => (
+                <Cell key={`cell-${idx}`} fill={category.color} />
+              ))}
+            </Pie>
+            <Tooltip
+              formatter={tooltipFormatter}
+              contentStyle={chartTooltipContentStyle}
+            />
+            <Legend
+              iconType="circle"
+              layout="horizontal"
+              wrapperStyle={chartLegendStyle}
+              align="center"
+            />
+          </PieChart>
+        )}
+      </MeasuredChart>
+    </ChartCard>
   );
 };
 

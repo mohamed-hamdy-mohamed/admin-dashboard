@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { UsersResponse } from "@/types/users";
 import { Cake, Globe, ShieldCheck, Users } from "lucide-react";
-import StatsCard from "../ui/StatsCard";
+import StatsCard from "../atoms/ui/StatsCard";
 import { Stats } from "@/types/stats";
 import { useTranslation } from "@/providers/LanguageProvider";
 import { formatDecimal, formatNumber } from "@/util/formatNumber";

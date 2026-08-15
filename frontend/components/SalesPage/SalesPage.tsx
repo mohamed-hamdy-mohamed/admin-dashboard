@@ -1,16 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { PAGE_CONTENT_CLASSNAME } from "@/constants/layout";
 import { usePagination } from "@/hooks/usePagination";
 import { useGetSales } from "@/hooks/useGetSales";
 import SalesStats from "./SalesStats";
-import AppLoader from "../ui/AppLoader";
-import DataTableLayout from "../ui/DataTableLayout";
-import SearchInput from "../ui/SearchInput";
 import SalesTable from "./SalesTable";
-import StatsCardsSkeleton from "../ui/StatsCardsSkeleton";
-import TablePagination from "../ui/TablePagination";
+import StatsCardsSkeleton from "../atoms/ui/StatsCardsSkeleton";
+import CatalogPageTemplate from "@/components/templates/CatalogPageTemplate";
 import { useTranslation } from "@/providers/LanguageProvider";
 
 const SalesPage = () => {
@@ -39,33 +35,28 @@ const SalesPage = () => {
   });
 
   return (
-    <main className={PAGE_CONTENT_CLASSNAME}>
-      {isLoading && <StatsCardsSkeleton />}
-      {isError && <p>{t("sales.errorLoading")}</p>}
-      {sales && <SalesStats data={sales} />}
-
-      {isFetching && <AppLoader />}
-      <DataTableLayout
-        title={t("sales.listTitle")}
-        description={t("sales.listDescription")}
-        toolbar={
-          <SearchInput
-            value={search}
-            onChange={setSearch}
-            placeholder={t("sales.searchPlaceholder")}
-          />
-        }
-      >
-        <SalesTable sales={paginatedData} />
-        <TablePagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={goToPage}
-          onPrevious={prevPage}
-          onNext={nextPage}
-        />
-      </DataTableLayout>
-    </main>
+    <CatalogPageTemplate
+      header={
+        <>
+          {isLoading && <StatsCardsSkeleton />}
+          {isError && <p>{t("sales.errorLoading")}</p>}
+          {sales && <SalesStats data={sales} />}
+        </>
+      }
+      isFetching={isFetching}
+      title={t("sales.listTitle")}
+      description={t("sales.listDescription")}
+      search={search}
+      onSearchChange={setSearch}
+      searchPlaceholder={t("sales.searchPlaceholder")}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      onPageChange={goToPage}
+      onPrevious={prevPage}
+      onNext={nextPage}
+    >
+      <SalesTable sales={paginatedData} />
+    </CatalogPageTemplate>
   );
 };
 

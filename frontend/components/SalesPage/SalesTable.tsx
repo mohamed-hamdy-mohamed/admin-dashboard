@@ -1,14 +1,7 @@
 "use client";
 
-import {
-  Table,
-  TableHeader,
-  TableHead,
-  TableRow,
-  TableBody,
-  TableCell,
-} from "@/components/ui/table";
-
+import { TableHead } from "@/components/atoms/ui/table";
+import CatalogTable from "@/components/molecules/CatalogTable";
 import { Sale } from "@/types/sales";
 import SalesTableRow from "./SalesTableRow";
 import { useTranslation } from "@/providers/LanguageProvider";
@@ -21,35 +14,26 @@ const SalesTable = ({ sales }: Props) => {
   const { t } = useTranslation();
 
   return (
-    <div className="overflow-x-auto rounded-xl border bg-card shadow-sm">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>{t("sales.table.customer")}</TableHead>
-            <TableHead>{t("sales.table.product")}</TableHead>
-            <TableHead>{t("sales.table.amount")}</TableHead>
-            <TableHead>{t("sales.table.qty")}</TableHead>
-            <TableHead>{t("sales.table.payment")}</TableHead>
-            <TableHead>{t("sales.table.status")}</TableHead>
-            <TableHead>{t("sales.table.date")}</TableHead>
-          </TableRow>
-        </TableHeader>
-
-        <TableBody>
-          {sales.length > 0 ? (
-            sales.map((sale) => (
-              <SalesTableRow key={sale.id} sale={sale} />
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={7} className="h-24 text-center text-muted-foreground">
-                {t("sales.empty")}
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-    </div>
+    <CatalogTable
+      colSpan={7}
+      emptyMessage={t("sales.empty")}
+      isEmpty={sales.length === 0}
+      columns={
+        <>
+          <TableHead>{t("sales.table.customer")}</TableHead>
+          <TableHead>{t("sales.table.product")}</TableHead>
+          <TableHead>{t("sales.table.amount")}</TableHead>
+          <TableHead>{t("sales.table.qty")}</TableHead>
+          <TableHead>{t("sales.table.payment")}</TableHead>
+          <TableHead>{t("sales.table.status")}</TableHead>
+          <TableHead>{t("sales.table.date")}</TableHead>
+        </>
+      }
+    >
+      {sales.map((sale) => (
+        <SalesTableRow key={sale.id} sale={sale} />
+      ))}
+    </CatalogTable>
   );
 };
 

@@ -4,8 +4,8 @@ import { Conversation } from "@/types/messages";
 import { cn } from "@/lib/utils";
 import { formatConversationTime } from "@/util/formatMessageTime";
 import { formatNumber } from "@/util/formatNumber";
-import { Avatar, AvatarBadge, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarBadge, AvatarImage } from "@/components/atoms/ui/avatar";
+import { Badge } from "@/components/atoms/ui/badge";
 import { useTranslation } from "@/providers/LanguageProvider";
 
 interface ConversationItemProps {

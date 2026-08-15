@@ -11,8 +11,8 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
+} from "@/components/atoms/ui/dropdown-menu";
+import { Button } from "@/components/atoms/ui/button";
 
 const AppNotifications = () => {
   const { locale, t } = useTranslation();

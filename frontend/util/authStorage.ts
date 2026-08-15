@@ -2,20 +2,32 @@ const AUTH_TOKEN_KEY = "admin-dashboard-token";
 
 const unauthorizedListeners = new Set<() => void>();
 
+const getStorage = (persistent: boolean) =>
+  persistent ? window.localStorage : window.sessionStorage;
+
 export const getAuthToken = () => {
   if (typeof window === "undefined") {
     return null;
   }
 
-  return localStorage.getItem(AUTH_TOKEN_KEY);
+  return (
+    window.localStorage.getItem(AUTH_TOKEN_KEY) ??
+    window.sessionStorage.getItem(AUTH_TOKEN_KEY)
+  );
 };
 
-export const setAuthToken = (token: string) => {
-  localStorage.setItem(AUTH_TOKEN_KEY, token);
+export const setAuthToken = (token: string, rememberMe = true) => {
+  clearAuthToken();
+  getStorage(rememberMe).setItem(AUTH_TOKEN_KEY, token);
 };
 
 export const clearAuthToken = () => {
-  localStorage.removeItem(AUTH_TOKEN_KEY);
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  window.localStorage.removeItem(AUTH_TOKEN_KEY);
+  window.sessionStorage.removeItem(AUTH_TOKEN_KEY);
 };
 
 export const subscribeUnauthorized = (listener: () => void) => {

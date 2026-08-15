@@ -7,9 +7,9 @@ interface AuthSplitLayoutProps {
 const AuthSplitLayout = ({ children }: AuthSplitLayoutProps) => {
   return (
     <div className="min-h-svh bg-background text-foreground">
-      <div className="grid min-h-svh grid-cols-1 lg:grid-cols-[minmax(0,1.45fr)_minmax(26rem,0.9fr)]">
-        <aside className="relative flex min-h-[16rem] items-center justify-center sm:min-h-[22rem] lg:min-h-svh">
-          <div className="relative aspect-[16/10] w-full sm:max-lg:max-w-4xl lg:absolute lg:inset-0 lg:aspect-auto">
+      <div className="grid min-h-svh grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(32rem,1.2fr)]">
+        <aside className="relative hidden min-h-svh items-center justify-center lg:flex">
+          <div className="relative aspect-[16/10] w-full lg:absolute lg:inset-0 lg:aspect-auto">
             <Image
               src="/admin-dashboard-light.svg"
               alt="Light mode Admin Operations Platform preview showing orders, revenue, category distribution, and sales charts"
@@ -33,8 +33,10 @@ const AuthSplitLayout = ({ children }: AuthSplitLayoutProps) => {
           </div>
         </aside>
 
-        <section className="flex items-center justify-center px-4 py-8 sm:px-8 sm:py-10 lg:px-10 lg:py-12 xl:px-14">
-          {children}
+        <section className="flex min-h-svh items-center justify-center px-5 py-8 sm:px-8 lg:px-8 lg:py-10 xl:px-10">
+          <div className="flex w-full max-w-[30rem] justify-center">
+            {children}
+          </div>
         </section>
       </div>
     </div>

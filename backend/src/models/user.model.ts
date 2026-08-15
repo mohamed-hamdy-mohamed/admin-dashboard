@@ -70,6 +70,16 @@ const userSchema = new Schema(
       default: null,
       select: false,
     },
+    passwordResetTokenHash: {
+      type: String,
+      default: null,
+      select: false,
+    },
+    passwordResetExpiresAt: {
+      type: Date,
+      default: null,
+      select: false,
+    },
   },
   {
     timestamps: true,
@@ -98,6 +108,8 @@ const userSchema = new Schema(
         delete user.passwordHash;
         delete user.emailVerificationTokenHash;
         delete user.emailVerificationExpiresAt;
+        delete user.passwordResetTokenHash;
+        delete user.passwordResetExpiresAt;
       },
     },
   }

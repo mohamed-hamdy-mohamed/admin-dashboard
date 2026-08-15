@@ -1,8 +1,8 @@
 "use client";
 
-import { TableCell, TableRow } from "@/components/ui/table";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
+import { TableCell, TableRow } from "@/components/atoms/ui/table";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/atoms/ui/avatar";
+import { Badge } from "@/components/atoms/ui/badge";
 import { Sale } from "@/types/sales";
 import SaleStatusBadge from "./SalesStatusBadge";
 import { useTranslation } from "@/providers/LanguageProvider";

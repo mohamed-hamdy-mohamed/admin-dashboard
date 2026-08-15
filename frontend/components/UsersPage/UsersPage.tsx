@@ -1,18 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { PAGE_CONTENT_CLASSNAME } from "@/constants/layout";
 import { usePagination } from "@/hooks/usePagination";
 import { useGetUsers } from "@/hooks/useGetUsers";
-import StatsCardsSkeleton from "../ui/StatsCardsSkeleton";
-import DataTableLayout from "../ui/DataTableLayout";
-import SearchInput from "../ui/SearchInput";
+import StatsCardsSkeleton from "../atoms/ui/StatsCardsSkeleton";
 import UsersTable from "./UsersTable";
-import AppLoader from "../ui/AppLoader";
 import UsersStats from "./UsersStats";
-import TablePagination from "../ui/TablePagination";
 import UserViewDialog from "./UserViewDialog";
 import UserEditDialog from "./UserEditDialog";
+import CatalogPageTemplate from "@/components/templates/CatalogPageTemplate";
 import { User } from "@/types/users";
 import { UserEditValues } from "@/types/user-edits";
 import {
@@ -98,51 +94,48 @@ const UsersPage = () => {
   };
 
   return (
-    <main className={PAGE_CONTENT_CLASSNAME}>
-      {isLoading ? (
-        <StatsCardsSkeleton cards={4} />
-      ) : (
-        mergedData && <UsersStats data={mergedData} />
-      )}
-      {isFetching && <AppLoader />}
-      <DataTableLayout
-        title={t("users.listTitle")}
-        description={t("users.listDescription")}
-        toolbar={
-          <SearchInput
-            value={search}
-            onChange={setSearch}
-            placeholder={t("users.searchPlaceholder")}
+    <CatalogPageTemplate
+      header={
+        isLoading ? (
+          <StatsCardsSkeleton cards={4} />
+        ) : (
+          mergedData && <UsersStats data={mergedData} />
+        )
+      }
+      isFetching={isFetching}
+      title={t("users.listTitle")}
+      description={t("users.listDescription")}
+      search={search}
+      onSearchChange={setSearch}
+      searchPlaceholder={t("users.searchPlaceholder")}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      onPageChange={goToPage}
+      onPrevious={prevPage}
+      onNext={nextPage}
+      footer={
+        <>
+          <UserViewDialog
+            user={activeUser}
+            open={viewOpen}
+            onOpenChange={setViewOpen}
           />
-        }
-      >
-        <UsersTable
-          users={paginatedData}
-          onViewUser={handleViewUser}
-          onEditUser={handleEditUser}
-        />
-        <TablePagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={goToPage}
-          onPrevious={prevPage}
-          onNext={nextPage}
-        />
-      </DataTableLayout>
 
-      <UserViewDialog
-        user={activeUser}
-        open={viewOpen}
-        onOpenChange={setViewOpen}
+          <UserEditDialog
+            user={activeUser}
+            open={editOpen}
+            onOpenChange={setEditOpen}
+            onSave={handleSaveUser}
+          />
+        </>
+      }
+    >
+      <UsersTable
+        users={paginatedData}
+        onViewUser={handleViewUser}
+        onEditUser={handleEditUser}
       />
-
-      <UserEditDialog
-        user={activeUser}
-        open={editOpen}
-        onOpenChange={setEditOpen}
-        onSave={handleSaveUser}
-      />
-    </main>
+    </CatalogPageTemplate>
   );
 };
 

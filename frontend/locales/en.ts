@@ -714,7 +714,7 @@ export const en = {
       },
       changePasswordDialog: {
         title: "Change Password",
-        description: "Update your password. This action is mocked locally for now.",
+        description: "Enter your current password, then choose a new one.",
         currentPassword: "Current Password",
         newPassword: "New Password",
         confirmPassword: "Confirm Password",

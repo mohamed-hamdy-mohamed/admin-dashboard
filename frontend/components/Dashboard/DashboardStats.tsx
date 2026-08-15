@@ -6,7 +6,7 @@ import { useTranslation } from "@/providers/LanguageProvider";
 import { Stats } from "@/types/stats";
 import { formatDecimal, formatNumber } from "@/util/formatNumber";
 import { formatPrice } from "@/util/formatPrice";
-import StatsCard from "../ui/StatsCard";
+import StatsCard from "../atoms/ui/StatsCard";
 
 const DashboardStats = () => {
   const { locale, t } = useTranslation();

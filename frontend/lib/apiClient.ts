@@ -18,6 +18,7 @@ const isPublicAuthRequest = (url?: string) =>
   (url.includes("/auth/login") ||
     url.includes("/auth/register") ||
     url.includes("/auth/forgot-password") ||
+    url.includes("/auth/reset-password") ||
     url.includes("/auth/verify-email") ||
     url.includes("/auth/verification-status") ||
     url.includes("/auth/resend-verification"));

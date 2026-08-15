@@ -23,6 +23,7 @@ export interface RegisterRequest {
 export interface LoginRequest {
   email: string;
   password: string;
+  rememberMe?: boolean;
 }
 
 export interface RegisterResponse {
@@ -83,6 +84,16 @@ export interface VerificationStatusResponse {
 
 export interface ResendVerificationRequest {
   email: string;
+}
+
+export interface ResetPasswordRequest {
+  token: string;
+  password: string;
+}
+
+export interface ChangePasswordRequest {
+  currentPassword: string;
+  newPassword: string;
 }
 
 export interface MessageResponse {

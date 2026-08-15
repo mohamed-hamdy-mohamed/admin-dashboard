@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { SalesResponse } from "@/types/sales";
 import { DollarSign, Receipt, ShoppingBag, TrendingUp } from "lucide-react";
-import StatsCard from "../ui/StatsCard";
+import StatsCard from "../atoms/ui/StatsCard";
 import { formatPrice } from "@/util/formatPrice";
 import { formatNumber, formatDecimal, formatPercent } from "@/util/formatNumber";
 import { Stats } from "@/types/stats";

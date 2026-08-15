@@ -1,18 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { PAGE_CONTENT_CLASSNAME } from "@/constants/layout";
 import { usePagination } from "@/hooks/usePagination";
-import StatsCardsSkeleton from "../ui/StatsCardsSkeleton";
-import DataTableLayout from "../ui/DataTableLayout";
-import SearchInput from "../ui/SearchInput";
+import StatsCardsSkeleton from "../atoms/ui/StatsCardsSkeleton";
 import RecipesStats from "./RecipesStats";
 import RecipesTable from "./RecipesTable";
-import AppLoader from "../ui/AppLoader";
 import { useGetRecipes } from "@/hooks/useGetOrders";
-import TablePagination from "../ui/TablePagination";
 import RecipeViewDialog from "./RecipeViewDialog";
 import RecipeEditDialog from "./RecipeEditDialog";
+import CatalogPageTemplate from "@/components/templates/CatalogPageTemplate";
 import { Recipe } from "@/types/recipes";
 import { RecipeEditValues } from "@/types/recipe-edits";
 import {
@@ -102,53 +98,48 @@ const RecipesPage = () => {
   };
 
   return (
-    <main className={PAGE_CONTENT_CLASSNAME}>
-      {isLoading ? (
-        <StatsCardsSkeleton cards={4} />
-      ) : (
-        mergedData && <RecipesStats data={mergedData} />
-      )}
-
-      {isFetching && <AppLoader />}
-
-      <DataTableLayout
-        title={t("recipes.listTitle")}
-        description={t("recipes.listDescription")}
-        toolbar={
-          <SearchInput
-            value={search}
-            onChange={setSearch}
-            placeholder={t("recipes.searchPlaceholder")}
+    <CatalogPageTemplate
+      header={
+        isLoading ? (
+          <StatsCardsSkeleton cards={4} />
+        ) : (
+          mergedData && <RecipesStats data={mergedData} />
+        )
+      }
+      isFetching={isFetching}
+      title={t("recipes.listTitle")}
+      description={t("recipes.listDescription")}
+      search={search}
+      onSearchChange={setSearch}
+      searchPlaceholder={t("recipes.searchPlaceholder")}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      onPageChange={goToPage}
+      onPrevious={prevPage}
+      onNext={nextPage}
+      footer={
+        <>
+          <RecipeViewDialog
+            recipe={activeRecipe}
+            open={viewOpen}
+            onOpenChange={setViewOpen}
           />
-        }
-      >
-        <RecipesTable
-          recipes={paginatedData}
-          onViewRecipe={handleViewRecipe}
-          onEditRecipe={handleEditRecipe}
-        />
-        <TablePagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={goToPage}
-          onPrevious={prevPage}
-          onNext={nextPage}
-        />
-      </DataTableLayout>
 
-      <RecipeViewDialog
-        recipe={activeRecipe}
-        open={viewOpen}
-        onOpenChange={setViewOpen}
+          <RecipeEditDialog
+            recipe={activeRecipe}
+            open={editOpen}
+            onOpenChange={setEditOpen}
+            onSave={handleSaveRecipe}
+          />
+        </>
+      }
+    >
+      <RecipesTable
+        recipes={paginatedData}
+        onViewRecipe={handleViewRecipe}
+        onEditRecipe={handleEditRecipe}
       />
-
-      <RecipeEditDialog
-        recipe={activeRecipe}
-        open={editOpen}
-        onOpenChange={setEditOpen}
-        onSave={handleSaveRecipe}
-      />
-    </main>
+    </CatalogPageTemplate>
   );
 };
 

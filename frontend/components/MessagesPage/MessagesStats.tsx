@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { Conversation } from "@/types/messages";
 import { Mail, MessageCircle, MessagesSquare } from "lucide-react";
-import StatsCard from "../ui/StatsCard";
+import StatsCard from "../atoms/ui/StatsCard";
 import { Stats } from "@/types/stats";
 import { useTranslation } from "@/providers/LanguageProvider";
 import { formatNumber } from "@/util/formatNumber";

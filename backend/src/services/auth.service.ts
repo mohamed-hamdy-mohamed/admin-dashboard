@@ -3,13 +3,21 @@ import path from "path";
 import bcrypt from "bcrypt";
 import { User, type UserRole } from "../models/user.model";
 import { AppError } from "../utils/AppError";
-import { signToken } from "../utils/jwt";
+import { signToken, SESSION_JWT_EXPIRES_IN } from "../utils/jwt";
 import { env } from "../config/env";
-import { sendVerificationEmail } from "./mail.service";
+import {
+  sendPasswordChangedEmail,
+  sendPasswordResetEmail,
+  sendVerificationEmail,
+} from "./mail.service";
 import {
   createEmailVerificationToken,
   hashEmailVerificationToken,
 } from "../utils/emailVerification";
+import {
+  createPasswordResetToken,
+  hashPasswordResetToken,
+} from "../utils/passwordReset";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SALT_ROUNDS = 12;
@@ -117,11 +125,13 @@ export const registerUser = async (input: RegisterInput) => {
 type LoginInput = {
   email?: unknown;
   password?: unknown;
+  rememberMe?: unknown;
 };
 
 const validateLoginInput = (input: LoginInput) => {
   const email = typeof input.email === "string" ? input.email.trim().toLowerCase() : "";
   const password = typeof input.password === "string" ? input.password : "";
+  const rememberMe = input.rememberMe === true || input.rememberMe === "true";
 
   if (!email) {
     throw new AppError("Email is required", 400);
@@ -135,11 +145,25 @@ const validateLoginInput = (input: LoginInput) => {
     throw new AppError("Password is required", 400);
   }
 
-  return { email, password };
+  return { email, password, rememberMe };
+};
+
+const validatePassword = (password: unknown, label = "Password") => {
+  const value = typeof password === "string" ? password : "";
+
+  if (!value) {
+    throw new AppError(`${label} is required`, 400);
+  }
+
+  if (value.length < 8 || value.length > 72) {
+    throw new AppError(`${label} must be between 8 and 72 characters`, 400);
+  }
+
+  return value;
 };
 
 export const loginUser = async (input: LoginInput) => {
-  const { email, password } = validateLoginInput(input);
+  const { email, password, rememberMe } = validateLoginInput(input);
 
   const user = await User.findOne({ email }).select("+passwordHash");
   if (!user) {
@@ -159,10 +183,13 @@ export const loginUser = async (input: LoginInput) => {
     throw new AppError("Please verify your email before signing in.", 403);
   }
 
-  const token = signToken({
-    userId: String(user._id),
-    role: user.role as UserRole,
-  });
+  const token = signToken(
+    {
+      userId: String(user._id),
+      role: user.role as UserRole,
+    },
+    rememberMe ? env.jwtExpiresIn : SESSION_JWT_EXPIRES_IN,
+  );
 
   return {
     token,
@@ -190,10 +217,130 @@ const validateForgotPasswordInput = (input: ForgotPasswordInput) => {
 
 export const requestPasswordReset = async (input: ForgotPasswordInput) => {
   const email = validateForgotPasswordInput(input);
-  const user = await User.exists({ email });
+  const user = await User.findOne({ email }).select(
+    "+passwordResetTokenHash +passwordResetExpiresAt"
+  );
 
   if (!user) {
     throw new AppError("Account does not exist", 404);
+  }
+
+  const reset = createPasswordResetToken();
+
+  user.passwordResetTokenHash = reset.tokenHash;
+  user.passwordResetExpiresAt = reset.expiresAt;
+  await user.save();
+
+  try {
+    await sendPasswordResetEmail({
+      to: email,
+      firstName: String(user.firstName || "there"),
+      resetUrl: `${env.appUrl}/reset-password?token=${encodeURIComponent(reset.token)}`,
+    });
+  } catch (err) {
+    user.passwordResetTokenHash = null;
+    user.passwordResetExpiresAt = null;
+    await user.save();
+
+    if (err instanceof AppError) {
+      throw err;
+    }
+
+    throw new AppError("Failed to send password reset email. Please try again.", 500);
+  }
+};
+
+type ResetPasswordInput = {
+  token?: unknown;
+  password?: unknown;
+};
+
+export const resetPassword = async (input: ResetPasswordInput) => {
+  const token = typeof input.token === "string" ? input.token.trim() : "";
+  const password = validatePassword(input.password, "Password");
+
+  if (!token) {
+    throw new AppError("Reset token is required", 400);
+  }
+
+  const tokenHash = hashPasswordResetToken(token);
+  const user = await User.findOne({ passwordResetTokenHash: tokenHash }).select(
+    "+passwordHash +passwordResetTokenHash +passwordResetExpiresAt"
+  );
+
+  if (!user) {
+    throw new AppError("Reset link is invalid or has expired.", 400);
+  }
+
+  const expiresAt = user.passwordResetExpiresAt
+    ? new Date(String(user.passwordResetExpiresAt)).getTime()
+    : 0;
+
+  if (!expiresAt || expiresAt < Date.now()) {
+    user.passwordResetTokenHash = null;
+    user.passwordResetExpiresAt = null;
+    await user.save();
+    throw new AppError("Reset link is invalid or has expired.", 400);
+  }
+
+  user.passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
+  user.passwordResetTokenHash = null;
+  user.passwordResetExpiresAt = null;
+  await user.save();
+};
+
+type ChangePasswordInput = {
+  currentPassword?: unknown;
+  newPassword?: unknown;
+};
+
+export const changePassword = async (userId: string, input: ChangePasswordInput) => {
+  const currentPassword = typeof input.currentPassword === "string" ? input.currentPassword : "";
+  const newPassword = validatePassword(input.newPassword, "New password");
+
+  if (!currentPassword) {
+    throw new AppError("Current password is required", 400);
+  }
+
+  if (currentPassword === newPassword) {
+    throw new AppError("New password must be different from the current password", 400);
+  }
+
+  const user = await User.findById(userId).select(
+    "+passwordHash +passwordResetTokenHash +passwordResetExpiresAt"
+  );
+  if (!user) {
+    throw new AppError("Authentication required", 401);
+  }
+
+  if (!user.passwordHash) {
+    throw new AppError("Incorrect password.", 401);
+  }
+
+  const isMatch = await bcrypt.compare(currentPassword, String(user.passwordHash));
+  if (!isMatch) {
+    throw new AppError("Incorrect password.", 401);
+  }
+
+  user.passwordHash = await bcrypt.hash(newPassword, SALT_ROUNDS);
+  user.passwordResetTokenHash = null;
+  user.passwordResetExpiresAt = null;
+  await user.save();
+
+  try {
+    await sendPasswordChangedEmail({
+      to: String(user.email),
+      firstName: String(user.firstName || "there"),
+    });
+  } catch (err) {
+    if (err instanceof AppError) {
+      throw err;
+    }
+
+    throw new AppError(
+      "Password updated, but the confirmation email could not be sent.",
+      500
+    );
   }
 };
 

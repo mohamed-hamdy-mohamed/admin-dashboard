@@ -5,12 +5,12 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LayoutDashboard } from "lucide-react";
 import FieldError from "@/components/Auth/FieldError";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Spinner } from "@/components/ui/spinner";
+import AuthBrandHeader from "@/components/molecules/AuthBrandHeader";
+import { Button } from "@/components/atoms/ui/button";
+import { Input } from "@/components/atoms/ui/input";
+import { Label } from "@/components/atoms/ui/label";
+import { Spinner } from "@/components/atoms/ui/spinner";
 import { getVerificationStatus, resendVerification, verifyEmail } from "@/lib/authApi";
 import { getApiErrorMessage } from "@/lib/apiError";
 import {
@@ -130,19 +130,7 @@ const VerifyEmail = () => {
 
   return (
     <div className="w-full max-w-[24rem]">
-      <div className="mb-8 flex items-center gap-3">
-        <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-          <LayoutDashboard className="size-4" />
-        </div>
-        <div>
-          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            Admin Operations Platform
-          </p>
-          <h1 className="text-xl font-semibold tracking-tight text-foreground">
-            Verify your email
-          </h1>
-        </div>
-      </div>
+      <AuthBrandHeader title="Verify your email" className="mb-8" />
 
       {isChecking || isVerifying ? (
         <div className="flex items-center gap-3 text-sm text-muted-foreground">

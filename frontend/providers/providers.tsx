@@ -13,7 +13,7 @@ import { LanguageProvider } from "@/providers/LanguageProvider";
 import { AuthProvider } from "@/providers/AuthProvider";
 import { Locale } from "@/types/i18n";
 
-const AppToaster = dynamic(() => import("@/components/ui/AppToaster"), {
+const AppToaster = dynamic(() => import("@/components/atoms/ui/AppToaster"), {
   ssr: false,
 });
 

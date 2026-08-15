@@ -713,7 +713,7 @@ export const ar = {
       },
       changePasswordDialog: {
         title: "تغيير كلمة المرور",
-        description: "حدّث كلمة المرور. هذا الإجراء محاكى محلياً حالياً.",
+        description: "أدخل كلمة المرور الحالية، ثم اختر كلمة مرور جديدة.",
         currentPassword: "كلمة المرور الحالية",
         newPassword: "كلمة المرور الجديدة",
         confirmPassword: "تأكيد كلمة المرور",

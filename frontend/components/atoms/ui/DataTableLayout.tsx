@@ -4,7 +4,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/components/atoms/ui/card";
 
 interface DataTableLayoutProps {
   title: string;

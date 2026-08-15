@@ -1,6 +1,6 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/atoms/ui/badge";
 import { SaleStatus } from "@/types/sales";
 import { useTranslation } from "@/providers/LanguageProvider";
 

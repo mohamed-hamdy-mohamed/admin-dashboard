@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 
-import { TableCell, TableRow } from "@/components/ui/table";
+import { TableCell, TableRow } from "@/components/atoms/ui/table";
 
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/atoms/ui/badge";
 
 import { Product } from "@/types/products";
 import { useTranslation } from "@/providers/LanguageProvider";

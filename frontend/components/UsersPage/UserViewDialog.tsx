@@ -7,9 +7,10 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+} from "@/components/atoms/ui/dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/atoms/ui/avatar";
 import UserRoleBadge from "./UserRoleBadge";
+import DetailItem from "@/components/atoms/ui/DetailItem";
 import { useTranslation } from "@/providers/LanguageProvider";
 
 interface UserViewDialogProps {
@@ -17,21 +18,6 @@ interface UserViewDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
-
-const DetailItem = ({
-  label,
-  value,
-}: {
-  label: string;
-  value: string | number;
-}) => {
-  return (
-    <div className="space-y-1">
-      <p className="text-xs font-medium text-muted-foreground">{label}</p>
-      <p className="text-sm font-medium text-foreground">{value}</p>
-    </div>
-  );
-};
 
 const UserViewDialog = ({ user, open, onOpenChange }: UserViewDialogProps) => {
   const { t } = useTranslation();

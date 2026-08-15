@@ -5,6 +5,8 @@ import {
   loginUser,
   registerUser,
   requestPasswordReset,
+  resetPassword,
+  changePassword,
   resendVerificationEmail,
   updateProfile,
   updateUserAvatar,
@@ -39,6 +41,28 @@ export const forgotPassword = asyncHandler(async (req: Request, res: Response) =
   res.status(200).json({
     success: true,
     message: "Password reset instructions have been sent",
+  });
+});
+
+export const resetPasswordWithToken = asyncHandler(async (req: Request, res: Response) => {
+  await resetPassword(req.body);
+
+  res.status(200).json({
+    success: true,
+    message: "Password has been reset successfully",
+  });
+});
+
+export const changeCurrentPassword = asyncHandler(async (req: Request, res: Response) => {
+  if (!req.user) {
+    throw new AppError("Authentication required", 401);
+  }
+
+  await changePassword(req.user.userId, req.body);
+
+  res.status(200).json({
+    success: true,
+    message: "Password updated successfully",
   });
 });
 

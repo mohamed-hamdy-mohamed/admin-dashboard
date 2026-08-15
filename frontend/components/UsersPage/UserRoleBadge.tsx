@@ -1,6 +1,6 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/atoms/ui/badge";
 import { useTranslation } from "@/providers/LanguageProvider";
 import { Shield, ShieldCheck, User } from "lucide-react";
 

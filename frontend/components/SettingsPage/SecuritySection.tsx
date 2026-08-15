@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { SecuritySettings } from "@/types/settings";
-import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
+import { Button } from "@/components/atoms/ui/button";
+import { Switch } from "@/components/atoms/ui/switch";
 import SettingsSection from "./SettingsSection";
 import ChangePasswordDialog from "./ChangePasswordDialog";
 import { useTranslation } from "@/providers/LanguageProvider";

@@ -7,11 +7,11 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+} from "@/components/atoms/ui/dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/atoms/ui/avatar";
 import RecipeDifficultyBadge from "./RecipeDifficultyBadge";
+import DetailItem from "@/components/atoms/ui/DetailItem";
 import { useTranslation } from "@/providers/LanguageProvider";
-import { Locale } from "@/types/i18n";
 import { formatDisplayValue } from "@/util/formatLocale";
 
 interface RecipeViewDialogProps {
@@ -19,25 +19,6 @@ interface RecipeViewDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
-
-const DetailItem = ({
-  label,
-  value,
-  locale,
-}: {
-  label: string;
-  value: string | number;
-  locale: Locale;
-}) => {
-  return (
-    <div className="space-y-1">
-      <p className="text-xs font-medium text-muted-foreground">{label}</p>
-      <p className="text-sm font-medium text-foreground">
-        {formatDisplayValue(value, locale)}
-      </p>
-    </div>
-  );
-};
 
 const RecipeViewDialog = ({
   recipe,
@@ -76,32 +57,53 @@ const RecipeViewDialog = ({
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <DetailItem label={t("recipes.dialogs.view.rating")} value={recipe.rating} locale={locale} />
-              <DetailItem label={t("recipes.dialogs.view.reviews")} value={recipe.reviewCount} locale={locale} />
-              <DetailItem label={t("recipes.dialogs.view.servings")} value={recipe.servings} locale={locale} />
+              <DetailItem
+                label={t("recipes.dialogs.view.rating")}
+                value={formatDisplayValue(recipe.rating, locale)}
+              />
+              <DetailItem
+                label={t("recipes.dialogs.view.reviews")}
+                value={formatDisplayValue(recipe.reviewCount, locale)}
+              />
+              <DetailItem
+                label={t("recipes.dialogs.view.servings")}
+                value={formatDisplayValue(recipe.servings, locale)}
+              />
               <DetailItem
                 label={t("recipes.dialogs.view.calories")}
-                value={t("recipes.dialogs.view.caloriesValue", {
-                  value: recipe.caloriesPerServing,
-                })}
-                locale={locale}
+                value={formatDisplayValue(
+                  t("recipes.dialogs.view.caloriesValue", {
+                    value: recipe.caloriesPerServing,
+                  }),
+                  locale,
+                )}
               />
               <DetailItem
                 label={t("recipes.dialogs.view.prepTime")}
-                value={t("recipes.dialogs.view.prepTimeValue", {
-                  value: recipe.prepTimeMinutes,
-                })}
-                locale={locale}
+                value={formatDisplayValue(
+                  t("recipes.dialogs.view.prepTimeValue", {
+                    value: recipe.prepTimeMinutes,
+                  }),
+                  locale,
+                )}
               />
               <DetailItem
                 label={t("recipes.dialogs.view.cookTime")}
-                value={t("recipes.dialogs.view.cookTimeValue", {
-                  value: recipe.cookTimeMinutes,
-                })}
-                locale={locale}
+                value={formatDisplayValue(
+                  t("recipes.dialogs.view.cookTimeValue", {
+                    value: recipe.cookTimeMinutes,
+                  }),
+                  locale,
+                )}
               />
-              <DetailItem label={t("recipes.dialogs.view.mealType")} value={recipe.mealType.join(", ")} locale={locale} />
-              <DetailItem label={t("recipes.dialogs.view.tags")} value={recipe.tags.join(", ")} locale={locale} />
+              <DetailItem
+                label={t("recipes.dialogs.view.mealType")}
+                value={formatDisplayValue(recipe.mealType.join(", "), locale)}
+              />
+              <DetailItem
+                label={t("recipes.dialogs.view.tags")}
+                value={formatDisplayValue(recipe.tags.join(", "), locale)}
+              />
             </div>
           </>
         )}

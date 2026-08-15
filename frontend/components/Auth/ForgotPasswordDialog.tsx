@@ -11,11 +11,11 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Spinner } from "@/components/ui/spinner";
+} from "@/components/atoms/ui/dialog";
+import { Button } from "@/components/atoms/ui/button";
+import { Input } from "@/components/atoms/ui/input";
+import { Label } from "@/components/atoms/ui/label";
+import { Spinner } from "@/components/atoms/ui/spinner";
 import { forgotPassword } from "@/lib/authApi";
 import { getApiErrorMessage } from "@/lib/apiError";
 import {
@@ -70,7 +70,7 @@ const ForgotPasswordDialog = ({
           <DialogHeader>
             <DialogTitle>Forgot password</DialogTitle>
             <DialogDescription>
-              Enter your email and we will check your account.
+              Enter your email and we will send a one-time reset link that expires in 15 minutes.
             </DialogDescription>
           </DialogHeader>
 
@@ -100,7 +100,7 @@ const ForgotPasswordDialog = ({
             </Button>
             <Button type="submit" disabled={isSubmitting} className="gap-2">
               {isSubmitting ? <Spinner /> : null}
-              {isSubmitting ? "Checking..." : "Continue"}
+              {isSubmitting ? "Sending..." : "Send reset link"}
             </Button>
           </DialogFooter>
         </form>

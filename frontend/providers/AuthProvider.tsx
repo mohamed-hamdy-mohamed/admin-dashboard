@@ -22,7 +22,7 @@ interface AuthContextValue {
   user: AuthUser | null;
   isAuthenticated: boolean;
   isReady: boolean;
-  login: (token: string, user: AuthUser) => void;
+  login: (token: string, user: AuthUser, rememberMe?: boolean) => void;
   logout: () => void;
   updateUser: (user: AuthUser) => void;
 }
@@ -34,8 +34,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isReady, setIsReady] = useState(false);
   const [hasToken, setHasToken] = useState(false);
 
-  const login = useCallback((token: string, user: AuthUser) => {
-    setAuthToken(token);
+  const login = useCallback((token: string, user: AuthUser, rememberMe = true) => {
+    setAuthToken(token, rememberMe);
     setHasToken(true);
     setUser(user);
     setIsReady(true);

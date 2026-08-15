@@ -1,13 +1,7 @@
 "use client";
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { TableHead } from "@/components/atoms/ui/table";
+import CatalogTable from "@/components/molecules/CatalogTable";
 import { Recipe } from "@/types/recipes";
 import RecipesTableRow from "./RecipesTableRow";
 import { useTranslation } from "@/providers/LanguageProvider";
@@ -26,41 +20,32 @@ const RecipesTable = ({
   const { t } = useTranslation();
 
   return (
-    <div className="overflow-x-auto rounded-xl border bg-card shadow-sm">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[320px]">{t("recipes.table.recipe")}</TableHead>
-            <TableHead>{t("recipes.table.cuisine")}</TableHead>
-            <TableHead>{t("recipes.table.difficulty")}</TableHead>
-            <TableHead>{t("recipes.table.rating")}</TableHead>
-            <TableHead>{t("recipes.table.reviews")}</TableHead>
-            <TableHead>{t("recipes.table.servings")}</TableHead>
-            <TableHead>{t("recipes.table.calories")}</TableHead>
-            <TableHead className="text-end">{t("recipes.table.actions")}</TableHead>
-          </TableRow>
-        </TableHeader>
-
-        <TableBody>
-          {recipes.length > 0 ? (
-            recipes.map((recipe) => (
-              <RecipesTableRow
-                key={recipe.id}
-                recipe={recipe}
-                onView={onViewRecipe}
-                onEdit={onEditRecipe}
-              />
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={8} className="h-24 text-center text-muted-foreground">
-                {t("recipes.empty")}
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-    </div>
+    <CatalogTable
+      colSpan={8}
+      emptyMessage={t("recipes.empty")}
+      isEmpty={recipes.length === 0}
+      columns={
+        <>
+          <TableHead className="w-[320px]">{t("recipes.table.recipe")}</TableHead>
+          <TableHead>{t("recipes.table.cuisine")}</TableHead>
+          <TableHead>{t("recipes.table.difficulty")}</TableHead>
+          <TableHead>{t("recipes.table.rating")}</TableHead>
+          <TableHead>{t("recipes.table.reviews")}</TableHead>
+          <TableHead>{t("recipes.table.servings")}</TableHead>
+          <TableHead>{t("recipes.table.calories")}</TableHead>
+          <TableHead className="text-end">{t("recipes.table.actions")}</TableHead>
+        </>
+      }
+    >
+      {recipes.map((recipe) => (
+        <RecipesTableRow
+          key={recipe.id}
+          recipe={recipe}
+          onView={onViewRecipe}
+          onEdit={onEditRecipe}
+        />
+      ))}
+    </CatalogTable>
   );
 };
 

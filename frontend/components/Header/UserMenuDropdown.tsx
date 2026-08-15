@@ -21,7 +21,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/components/atoms/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 
 const UserMenuDropdown = () => {

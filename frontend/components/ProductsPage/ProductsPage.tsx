@@ -1,17 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
-
-import { PAGE_CONTENT_CLASSNAME } from "@/constants/layout";
 import { usePagination } from "@/hooks/usePagination";
 import ProductTable from "./ProductTable";
 import ProductsStats from "./ProductsStats";
-import SearchInput from "../ui/SearchInput";
 import { useGetProducts } from "@/hooks/useGetProducts";
-import StatsCardsSkeleton from "../ui/StatsCardsSkeleton";
-import DataTableLayout from "../ui/DataTableLayout";
-import AppLoader from "../ui/AppLoader";
-import TablePagination from "../ui/TablePagination";
+import StatsCardsSkeleton from "../atoms/ui/StatsCardsSkeleton";
+import CatalogPageTemplate from "@/components/templates/CatalogPageTemplate";
 import { useTranslation } from "@/providers/LanguageProvider";
 
 const ProductsPage = () => {
@@ -40,34 +35,28 @@ const ProductsPage = () => {
   });
 
   return (
-    <main className={PAGE_CONTENT_CLASSNAME}>
-      {isLoading ? (
-        <StatsCardsSkeleton cards={4} />
-      ) : (
-        data && <ProductsStats data={data} />
-      )}
-      {isFetching && <AppLoader />}
-      <DataTableLayout
-        title={t("products.listTitle")}
-        description={t("products.listDescription")}
-        toolbar={
-          <SearchInput
-            value={search}
-            onChange={setSearch}
-            placeholder={t("products.searchPlaceholder")}
-          />
-        }
-      >
-        <ProductTable products={paginatedData} />
-        <TablePagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={goToPage}
-          onPrevious={prevPage}
-          onNext={nextPage}
-        />
-      </DataTableLayout>
-    </main>
+    <CatalogPageTemplate
+      header={
+        isLoading ? (
+          <StatsCardsSkeleton cards={4} />
+        ) : (
+          data && <ProductsStats data={data} />
+        )
+      }
+      isFetching={isFetching}
+      title={t("products.listTitle")}
+      description={t("products.listDescription")}
+      search={search}
+      onSearchChange={setSearch}
+      searchPlaceholder={t("products.searchPlaceholder")}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      onPageChange={goToPage}
+      onPrevious={prevPage}
+      onNext={nextPage}
+    >
+      <ProductTable products={paginatedData} />
+    </CatalogPageTemplate>
   );
 };
 

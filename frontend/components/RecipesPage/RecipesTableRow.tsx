@@ -1,14 +1,14 @@
 "use client";
 
-import { TableCell, TableRow } from "@/components/ui/table";
+import { TableCell, TableRow } from "@/components/atoms/ui/table";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/atoms/ui/avatar";
 
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/atoms/ui/badge";
 
 import { Eye, Pencil, Star } from "lucide-react";
 import { Recipe } from "@/types/recipes";
-import RowActions from "../ui/RowActions";
+import RowActions from "../atoms/ui/RowActions";
 import RecipeDifficultyBadge from "./RecipeDifficultyBadge";
 import { useTranslation } from "@/providers/LanguageProvider";
 import { formatDecimal, formatNumber } from "@/util/formatNumber";
