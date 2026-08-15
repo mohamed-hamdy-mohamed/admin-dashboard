@@ -22,7 +22,7 @@ const SalesTableRow = ({ sale }: Props) => {
       <TableCell>
         <div className="flex items-center gap-3">
           <Avatar className="h-11 w-11">
-            <AvatarImage src={sale.avatar} />
+            <AvatarImage src={sale.avatar} alt={sale.customer} sizes="44px" />
             <AvatarFallback>{sale.customer.charAt(0)}</AvatarFallback>
           </Avatar>
           <div>

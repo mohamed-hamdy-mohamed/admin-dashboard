@@ -22,13 +22,13 @@ const DataTableLayout = ({
   return (
     <Card className="shadow-sm">
       <CardHeader className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-        <div>
+        <div className="min-w-0">
           <CardTitle>{title}</CardTitle>
 
           <CardDescription>{description}</CardDescription>
         </div>
 
-        {toolbar}
+        {toolbar ? <div className="w-full min-w-0 lg:w-auto">{toolbar}</div> : null}
       </CardHeader>
 
       <CardContent>{children}</CardContent>

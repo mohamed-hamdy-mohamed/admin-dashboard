@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { cookies } from "next/headers";
 import "./globals.css";
-import { languageInitScript } from "@/constants/language";
 import { Providers } from "@/providers/providers";
 import { getLocaleDirection, normalizeLocale } from "@/lib/i18n";
 import { LOCALE_COOKIE } from "@/util/localeStorage";
@@ -40,12 +39,6 @@ export default async function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} h-full antialiased`}
     >
-      <head>
-        <script
-          suppressHydrationWarning
-          dangerouslySetInnerHTML={{ __html: languageInitScript }}
-        />
-      </head>
       <body suppressHydrationWarning className="min-h-svh bg-background antialiased">
         <Providers initialLocale={locale}>{children}</Providers>
       </body>

@@ -25,7 +25,11 @@ const UserTableRow = ({ user, onView, onEdit }: UserTableRowProps) => {
       <TableCell>
         <div className="flex items-center gap-3">
           <Avatar className="h-11 w-11 border shadow-sm">
-            <AvatarImage src={user.image} />
+            <AvatarImage
+              src={user.image}
+              alt={`${user.firstName} ${user.lastName}`}
+              sizes="44px"
+            />
             <AvatarFallback>
               {user.firstName[0]}
               {user.lastName[0]}

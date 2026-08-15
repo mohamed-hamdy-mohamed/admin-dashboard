@@ -48,9 +48,13 @@ const UserViewDialog = ({ user, open, onOpenChange }: UserViewDialogProps) => {
               </DialogDescription>
             </DialogHeader>
 
-            <div className="flex items-center gap-4">
+            <div className="flex min-w-0 items-center gap-4">
               <Avatar className="h-16 w-16 border shadow-sm">
-                <AvatarImage src={user.image} alt={user.username} />
+                <AvatarImage
+                  src={user.image}
+                  alt={`${user.firstName} ${user.lastName}`}
+                  sizes="64px"
+                />
                 <AvatarFallback>
                   {user.firstName[0]}
                   {user.lastName[0]}

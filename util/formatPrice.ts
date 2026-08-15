@@ -7,5 +7,5 @@ export const formatPrice = (price: number, locale: Locale = "en") => {
     currency: "USD",
     minimumFractionDigits: 0,
     maximumFractionDigits: 2,
-  });
+  }).replaceAll("US$", "$");
 };

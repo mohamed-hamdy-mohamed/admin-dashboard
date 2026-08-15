@@ -12,24 +12,24 @@ const AuthSplitLayout = ({ children }: AuthSplitLayoutProps) => {
           <div className="relative aspect-[16/10] w-full lg:absolute lg:inset-0 lg:aspect-auto">
             <Image
               src="/Admin-Dashboard-Light.png"
-              alt="Admin dashboard analytics preview"
+              alt="Admin dashboard analytics preview in light mode"
               fill
-              priority
+              fetchPriority="high"
               sizes="(max-width: 1024px) 100vw, 60vw"
               className="object-contain object-center p-6 sm:p-8 lg:p-10 xl:p-12 dark:hidden"
             />
             <Image
               src="/Admin-Dashboard-Dark.png"
-              alt="Admin dashboard analytics preview"
+              alt="Admin dashboard analytics preview in dark mode"
               fill
-              priority
+              fetchPriority="high"
               sizes="(max-width: 1024px) 100vw, 60vw"
               className="hidden object-contain object-center p-6 sm:p-8 lg:p-10 xl:p-12 dark:block"
             />
           </div>
         </aside>
 
-        <section className="flex items-center justify-center px-6 py-10 sm:px-10 lg:px-12 xl:px-16">
+        <section className="flex items-center justify-center px-4 py-8 sm:px-10 sm:py-10 lg:px-12 xl:px-16">
           {children}
         </section>
       </div>

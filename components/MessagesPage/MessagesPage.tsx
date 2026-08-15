@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { PAGE_CONTENT_CLASSNAME } from "@/constants/layout";
 import { getLocalizedMessages } from "@/lib/localizedContent";
 import { Conversation } from "@/types/messages";
 import { Card, CardContent } from "@/components/ui/card";
@@ -92,12 +93,12 @@ const MessagesPage = () => {
   };
 
   return (
-    <main className="space-y-6 p-6">
+    <main className={PAGE_CONTENT_CLASSNAME}>
       {conversations && <MessagesStats conversations={conversations} />}
 
       <Card className="overflow-hidden border-border shadow-sm">
         <CardContent className="p-0">
-          <div className="grid min-h-[620px] lg:grid-cols-[360px_minmax(0,1fr)]">
+          <div className="grid min-h-[min(620px,calc(100dvh-12rem))] lg:min-h-[620px] lg:grid-cols-[360px_minmax(0,1fr)]">
             <div
               className={cn(
                 "min-h-[420px] lg:block",

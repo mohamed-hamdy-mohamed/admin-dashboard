@@ -36,15 +36,15 @@ const SecuritySection = ({ security, onChange }: SecuritySectionProps) => {
           <Button
             type="button"
             variant="outline"
-            className="h-11 rounded-xl"
+            className="h-11 w-full rounded-xl sm:w-auto"
             onClick={() => setPasswordOpen(true)}
           >
             {t("settings.security.password.changePassword")}
           </Button>
         </div>
 
-        <div className="mt-4 flex items-center justify-between gap-4 border-t border-border pt-4">
-          <div>
+        <div className="mt-4 flex items-start justify-between gap-4 border-t border-border pt-4 sm:items-center">
+          <div className="min-w-0">
             <p className="font-medium text-foreground">
               {t("settings.security.twoFactor.title")}
             </p>
@@ -54,6 +54,7 @@ const SecuritySection = ({ security, onChange }: SecuritySectionProps) => {
           </div>
 
           <Switch
+            className="shrink-0"
             checked={security.twoFactorEnabled}
             onCheckedChange={(twoFactorEnabled) =>
               onChange({ ...security, twoFactorEnabled })

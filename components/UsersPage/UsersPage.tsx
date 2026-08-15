@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { PAGE_CONTENT_CLASSNAME } from "@/constants/layout";
 import { usePagination } from "@/hooks/usePagination";
 import { useGetUsers } from "@/hooks/useGetUsers";
 import StatsCardsSkeleton from "../ui/StatsCardsSkeleton";
@@ -97,7 +98,7 @@ const UsersPage = () => {
   };
 
   return (
-    <main className="space-y-6 p-6">
+    <main className={PAGE_CONTENT_CLASSNAME}>
       {isLoading ? (
         <StatsCardsSkeleton cards={4} />
       ) : (

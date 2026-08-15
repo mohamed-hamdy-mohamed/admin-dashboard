@@ -75,7 +75,7 @@ const TablePagination = ({
   const paginationItems = getPaginationItems(currentPage, totalPages);
 
   return (
-    <Pagination className="mt-4" label={t("pagination.label")}>
+    <Pagination className="mt-4 overflow-x-auto" label={t("pagination.label")}>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious

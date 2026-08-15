@@ -46,7 +46,7 @@ const HelpPage = () => {
         <Button
           type="button"
           onClick={() => setContactOpen(true)}
-          className="h-11 rounded-xl bg-primary px-6 text-primary-foreground hover:bg-primary/90"
+          className="h-11 w-full rounded-xl bg-primary px-6 text-primary-foreground hover:bg-primary/90 sm:w-auto"
         >
           <Mail data-icon="inline-start" />
           {t("help.contactSupport")}

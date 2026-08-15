@@ -9,10 +9,10 @@ interface StatsCardsSkeletonProps {
 
 const StatsCardsSkeleton = ({ cards = 4 }: StatsCardsSkeletonProps) => {
   return (
-    <section className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
+    <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
       {Array.from({ length: cards }).map((_, index) => (
         <Card key={index} className="border-0 shadow-sm">
-          <CardContent className="p-6">
+          <CardContent className="p-4 sm:p-6">
             <div className="flex items-start justify-between">
               <div className="space-y-3">
                 <Skeleton className="h-4 w-28" />

@@ -44,6 +44,11 @@ export const ar = {
     adminUser: "مستخدم الإدارة",
     countryFlagAlt: "علم الدولة",
     profilePictureAlt: "صورة ملف المستخدم الإداري",
+    userMenu: {
+      language: "اللغة",
+      theme: "السمة",
+      logout: "تسجيل الخروج",
+    },
   },
   notifications: {
     title: "الإشعارات",
@@ -731,7 +736,9 @@ export const ar = {
   },
   aria: {
     toggleSidebar: "تبديل الشريط الجانبي",
+    closeSidebar: "إغلاق الشريط الجانبي",
     notifications: "الإشعارات",
+    openUserMenu: "فتح قائمة المستخدم",
     backToConversations: "العودة إلى المحادثات",
     sendMessage: "إرسال رسالة",
     loading: "جاري التحميل",

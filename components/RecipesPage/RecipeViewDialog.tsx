@@ -58,9 +58,9 @@ const RecipeViewDialog = ({
               </DialogDescription>
             </DialogHeader>
 
-            <div className="flex items-center gap-4">
+            <div className="flex min-w-0 items-center gap-4">
               <Avatar className="h-16 w-16 rounded-lg">
-                <AvatarImage src={recipe.image} alt={recipe.name} />
+                <AvatarImage src={recipe.image} alt={recipe.name} sizes="64px" />
                 <AvatarFallback>{recipe.name.charAt(0)}</AvatarFallback>
               </Avatar>
 

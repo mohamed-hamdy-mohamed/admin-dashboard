@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Image, { type ImageProps } from "next/image"
 import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar"
 
 import { cn } from "@/lib/utils"
@@ -25,14 +26,37 @@ function Avatar({
   )
 }
 
-function AvatarImage({ className, ...props }: AvatarPrimitive.Image.Props) {
+function AvatarImage({
+  className,
+  alt = "",
+  sizes = "40px",
+  src,
+  onError,
+  ...props
+}: Omit<ImageProps, "fill" | "width" | "height">) {
+  const [failedSrc, setFailedSrc] = React.useState<ImageProps["src"] | null>(
+    null,
+  )
+
+  if (!src || failedSrc === src) {
+    return null
+  }
+
   return (
-    <AvatarPrimitive.Image
+    <Image
       data-slot="avatar-image"
+      src={src}
+      alt={alt}
+      fill
+      sizes={sizes}
       className={cn(
-        "aspect-square size-full rounded-full object-cover",
+        "aspect-square size-full rounded-[inherit] object-cover",
         className
       )}
+      onError={(event) => {
+        setFailedSrc(src)
+        onError?.(event)
+      }}
       {...props}
     />
   )

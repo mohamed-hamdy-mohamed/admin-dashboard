@@ -31,7 +31,7 @@ const ProfileSection = ({ profile, onSave }: ProfileSectionProps) => {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
             <Avatar className="h-16 w-16 border shadow-sm">
-              <AvatarImage src={profile.avatar} alt={profile.name} />
+              <AvatarImage src={profile.avatar} alt={profile.name} sizes="64px" />
               <AvatarFallback>
                 {profile.name
                   .split(" ")
@@ -52,7 +52,7 @@ const ProfileSection = ({ profile, onSave }: ProfileSectionProps) => {
           <Button
             type="button"
             variant="outline"
-            className="h-11 rounded-xl"
+            className="h-11 w-full rounded-xl sm:w-auto"
             onClick={() => setEditOpen(true)}
           >
             {t("settings.profile.editProfile")}

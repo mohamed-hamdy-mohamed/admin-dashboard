@@ -69,12 +69,13 @@ const ConversationPanel = ({
 
   return (
     <div className="flex h-full min-h-0 flex-col">
-      <div className="flex items-center gap-3 border-b border-border px-4 py-4">
+      <div className="flex min-w-0 items-center gap-3 border-b border-border px-3 py-3 sm:px-4 sm:py-4">
         {showBackButton && (
           <Button
             type="button"
             variant="ghost"
             size="icon"
+            className="lg:hidden"
             onClick={onBack}
             aria-label={t("aria.backToConversations")}
           >
@@ -86,6 +87,7 @@ const ConversationPanel = ({
           <AvatarImage
             src={conversation.avatar}
             alt={conversation.userName}
+            sizes="40px"
           />
           <AvatarBadge
             className={cn(
@@ -97,8 +99,8 @@ const ConversationPanel = ({
           />
         </Avatar>
 
-        <div>
-          <p className="font-semibold text-foreground">{conversation.userName}</p>
+        <div className="min-w-0">
+          <p className="truncate font-semibold text-foreground">{conversation.userName}</p>
           <p className="text-sm capitalize text-muted-foreground">
             {conversation.status === "online"
               ? t("common.online")
@@ -118,13 +120,13 @@ const ConversationPanel = ({
 
       <form
         onSubmit={handleSubmit}
-        className="flex items-center gap-2 border-t border-border p-4"
+        className="flex min-w-0 items-center gap-2 border-t border-border p-3 sm:p-4"
       >
         <Input
           value={draft}
           onChange={(event) => setDraft(event.target.value)}
           placeholder={t("messages.panel.messagePlaceholder")}
-          className="h-11 rounded-xl"
+          className="h-11 min-w-0 flex-1 rounded-xl"
         />
 
         <Button

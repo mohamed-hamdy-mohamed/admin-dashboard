@@ -1,11 +1,11 @@
 "use client";
 
-import { useTheme } from "next-themes";
 import {
   AppearanceSettings,
   LanguageOption,
-  ThemeOption,
 } from "@/types/settings";
+import { LANGUAGE_OPTIONS } from "@/constants/appearance";
+import ThemeSelect from "@/components/Appearance/ThemeSelect";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useThemeSetting } from "@/hooks/useThemeSetting";
 import SettingsSection from "./SettingsSection";
 import { useTranslation } from "@/providers/LanguageProvider";
 import { Locale } from "@/types/i18n";
@@ -23,23 +24,19 @@ interface AppearanceSectionProps {
   onChange: (appearance: AppearanceSettings) => void;
 }
 
-const themeOptions: ThemeOption[] = ["light", "dark", "system"];
-const languageOptions: LanguageOption[] = ["en", "ar"];
-
 const AppearanceSection = ({
   appearance,
   onChange,
 }: AppearanceSectionProps) => {
-  const { setTheme } = useTheme();
   const { setLocale, t } = useTranslation();
-
-  const handleThemeChange = (value: ThemeOption) => {
-    setTheme(value);
-    onChange({
-      ...appearance,
-      theme: value,
-    });
-  };
+  const { setThemeSetting } = useThemeSetting({
+    onThemeChange: (theme) => {
+      onChange({
+        ...appearance,
+        theme,
+      });
+    },
+  });
 
   const handleLanguageChange = (value: LanguageOption) => {
     setLocale(value as Locale);
@@ -49,19 +46,10 @@ const AppearanceSection = ({
     });
   };
 
-  const themeLabels: Record<ThemeOption, string> = {
-    light: t("settings.appearance.themes.light"),
-    dark: t("settings.appearance.themes.dark"),
-    system: t("settings.appearance.themes.system"),
-  };
-
   const languageLabels: Record<LanguageOption, string> = {
     en: t("settings.appearance.languages.en"),
     ar: t("settings.appearance.languages.ar"),
   };
-
-  const getThemeLabel = (value: ThemeOption | null) =>
-    value ? themeLabels[value] : null;
 
   const getLanguageLabel = (value: LanguageOption | null) =>
     value ? languageLabels[value] : null;
@@ -72,26 +60,10 @@ const AppearanceSection = ({
       description={t("settings.appearance.description")}
     >
       <div className="grid gap-5 sm:grid-cols-2">
-        <div className="grid gap-2">
-          <Label htmlFor="theme">{t("settings.appearance.theme")}</Label>
-          <Select
-            value={appearance.theme}
-            onValueChange={(value) => handleThemeChange(value as ThemeOption)}
-          >
-            <SelectTrigger id="theme" className="h-11 w-full rounded-xl">
-              <SelectValue placeholder={t("settings.appearance.selectTheme")}>
-                {(value) => getThemeLabel(value as ThemeOption | null)}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {themeOptions.map((option) => (
-                <SelectItem key={option} value={option}>
-                  {themeLabels[option]}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+        <ThemeSelect
+          value={appearance.theme}
+          onValueChange={setThemeSetting}
+        />
 
         <div className="grid gap-2">
           <Label htmlFor="language">{t("settings.appearance.language")}</Label>
@@ -107,7 +79,7 @@ const AppearanceSection = ({
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
-              {languageOptions.map((option) => (
+              {LANGUAGE_OPTIONS.map((option) => (
                 <SelectItem key={option} value={option}>
                   {languageLabels[option]}
                 </SelectItem>

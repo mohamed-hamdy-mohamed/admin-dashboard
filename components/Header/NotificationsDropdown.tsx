@@ -66,7 +66,7 @@ const AppNotifications = () => {
       <DropdownMenuContent
         align="end"
         sideOffset={8}
-        className="h-full w-96 rounded-xl border border-border p-0 shadow-lg"
+        className="h-full w-[min(24rem,calc(100vw-1.5rem))] rounded-xl border border-border p-0 shadow-lg"
       >
         <div className="flex items-center justify-between border-b border-border px-4 py-3">
           <div>

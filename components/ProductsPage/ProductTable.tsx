@@ -21,7 +21,7 @@ const ProductTable = ({ products }: ProductTableProps) => {
   const { t } = useTranslation();
 
   return (
-    <div className="rounded-xl border bg-card shadow-sm overflow-hidden">
+    <div className="overflow-x-auto rounded-xl border bg-card shadow-sm">
       <Table>
         <TableHeader>
           <TableRow>

@@ -3,6 +3,8 @@
 import { useMemo } from "react";
 import { getOrderDistributionChart } from "@/lib/chartData";
 import { chartLegendStyle, chartTooltipContentStyle } from "@/constants/chart-theme";
+import { MEDIA_QUERIES } from "@/constants/breakpoints";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useTranslation } from "@/providers/LanguageProvider";
 import {
   createChartPieLabelFormatter,
@@ -20,6 +22,7 @@ import {
 
 const OrderDistributionChart = () => {
   const { locale, t } = useTranslation();
+  const isMdUp = useMediaQuery(MEDIA_QUERIES.md, true);
   const orderDistribution = useMemo(
     () => getOrderDistributionChart(locale),
     [locale],
@@ -38,11 +41,11 @@ const OrderDistributionChart = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2, duration: 0.5 }}
-      className="rounded-xl bg-card border border-border shadow-sm p-6"
+      className="min-w-0 rounded-xl border border-border bg-card p-4 shadow-sm sm:p-6"
     >
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h2 className="text-lg font-semibold text-foreground">
+      <div className="mb-4 flex items-center justify-between sm:mb-6">
+        <div className="min-w-0">
+          <h2 className="text-base font-semibold text-foreground sm:text-lg">
             {t("charts.orderStatus.title")}
           </h2>
           <p className="text-sm text-muted-foreground">
@@ -51,18 +54,18 @@ const OrderDistributionChart = () => {
         </div>
       </div>
 
-      <div className="h-64 md:h-80">
+      <div className="h-56 sm:h-64 md:h-80">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
-              outerRadius={85}
-              innerRadius={45}
+              outerRadius={isMdUp ? 85 : 70}
+              innerRadius={isMdUp ? 45 : 36}
               data={orderDistribution}
               cx="50%"
               cy="50%"
               labelLine={false}
               dataKey="value"
-              label={pieLabelFormatter}
+              label={isMdUp ? pieLabelFormatter : false}
             >
               {orderDistribution.map((category, idx) => (
                 <Cell key={`cell-${idx}`} fill={category.color} />

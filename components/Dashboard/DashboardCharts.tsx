@@ -28,7 +28,7 @@ const ProductPerformanceChart = dynamic(
 
 const DashboardCharts = () => {
   return (
-    <div className="grid grid-cols-2 gap-6 lg:grid-cols-2">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
       <DashboardSalesChart />
       <CategoryDistributionChart />
       <OrderDistributionChart />

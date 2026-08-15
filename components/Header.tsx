@@ -1,42 +1,41 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Image from "next/image";
-import AdminPic from "@/public/Profile-picture.png";
+import { Menu } from "lucide-react";
 import { useTranslation } from "@/providers/LanguageProvider";
 
 const AppNotifications = dynamic(
   () => import("./Header/NotificationsDropdown"),
 );
 
-const Header = () => {
-  const { locale, t } = useTranslation();
+const UserMenuDropdown = dynamic(() => import("./Header/UserMenuDropdown"));
+
+interface HeaderProps {
+  onOpenMobileSidebar: () => void;
+}
+
+const Header = ({ onOpenMobileSidebar }: HeaderProps) => {
+  const { t } = useTranslation();
 
   return (
     <header className="mx-4 mb-2 mt-4 rounded-lg border border-sidebar-border bg-sidebar sm:mx-6 lg:mx-8">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
-        <h1 className="text-2xl font-semibold text-foreground">
-          {t("header.dashboardTitle")}
-        </h1>
-        <div className="flex items-center gap-3 sm:gap-6">
-          <span
-            className="cursor-pointer text-xl leading-none shadow-md transition-transform hover:scale-105"
-            aria-label={t("header.countryFlagAlt")}
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-4 sm:px-6">
+        <div className="flex min-w-0 items-center gap-2">
+          <button
+            type="button"
+            aria-label={t("aria.toggleSidebar")}
+            className="shrink-0 cursor-pointer rounded-xl p-2 text-foreground hover:bg-muted lg:hidden"
+            onClick={onOpenMobileSidebar}
           >
-            {locale === "en" ? "🇬🇧" : "🇪🇬"}
-          </span>
+            <Menu className="size-5" />
+          </button>
+          <h1 className="truncate text-lg font-semibold text-foreground sm:text-2xl">
+            {t("header.dashboardTitle")}
+          </h1>
+        </div>
+        <div className="flex shrink-0 items-center gap-2 sm:gap-4">
           <AppNotifications />
-          <Image
-            src={AdminPic}
-            alt={t("header.profilePictureAlt")}
-            width={32}
-            height={32}
-            sizes="32px"
-            className="size-8 rounded-full object-cover ring-1 ring-border"
-          />
-          <span className="font-semibold text-foreground">
-            {t("header.adminUser")}
-          </span>
+          <UserMenuDropdown />
         </div>
       </div>
     </header>

@@ -11,7 +11,7 @@ interface SearchInputProps {
 
 const SearchInput = ({ value, onChange, placeholder }: SearchInputProps) => {
   return (
-    <div className="relative w-full max-w-sm">
+    <div className="relative w-full lg:max-w-sm">
       <Search
         size={18}
         className="absolute start-3 top-1/2 -translate-y-1/2 text-muted-foreground"

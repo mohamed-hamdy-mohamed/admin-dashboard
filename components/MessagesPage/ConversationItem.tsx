@@ -31,7 +31,11 @@ const ConversationItem = ({
       )}
     >
       <Avatar size="lg" className="relative">
-        <AvatarImage src={conversation.avatar} alt={conversation.userName} />
+        <AvatarImage
+          src={conversation.avatar}
+          alt={conversation.userName}
+          sizes="40px"
+        />
         <AvatarBadge
           className={cn(
             "size-3 ring-2 ring-card",

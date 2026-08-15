@@ -17,7 +17,7 @@ const HelpFaqSection = ({ faqs }: HelpFaqSectionProps) => {
   const { t } = useTranslation();
 
   return (
-    <section className="w-full rounded-xl border border-border bg-card p-6 shadow-sm sm:p-8">
+    <section className="w-full rounded-xl border border-border bg-card p-4 shadow-sm sm:p-6 lg:p-8">
       <div className="mb-6 text-center">
         <h2 className="text-xl font-semibold text-foreground">
           {t("help.faq.title")}

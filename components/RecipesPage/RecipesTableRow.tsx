@@ -27,7 +27,7 @@ const RecipesTableRow = ({ recipe, onView, onEdit }: RecipesTableRowProps) => {
       <TableCell>
         <div className="flex items-center gap-3">
           <Avatar className="h-12 w-12 rounded-lg">
-            <AvatarImage src={recipe.image} />
+            <AvatarImage src={recipe.image} alt={recipe.name} sizes="48px" />
 
             <AvatarFallback>{recipe.name.charAt(0)}</AvatarFallback>
           </Avatar>

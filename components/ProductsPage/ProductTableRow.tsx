@@ -35,7 +35,8 @@ const ProductTableRow = ({ product }: ProductTableRowProps) => {
           alt={product.title}
           width={50}
           height={50}
-          className="rounded-lg object-cover"
+          sizes="50px"
+          className="size-[50px] rounded-lg object-cover"
         />
       </TableCell>
 

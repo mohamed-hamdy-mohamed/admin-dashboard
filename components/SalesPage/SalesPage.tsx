@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { PAGE_CONTENT_CLASSNAME } from "@/constants/layout";
 import { usePagination } from "@/hooks/usePagination";
 import { useGetSales } from "@/hooks/useGetSales";
 import SalesStats from "./SalesStats";
@@ -38,7 +39,7 @@ const SalesPage = () => {
   });
 
   return (
-    <main className="space-y-6 p-6">
+    <main className={PAGE_CONTENT_CLASSNAME}>
       {isLoading && <StatsCardsSkeleton />}
       {isError && <p>{t("sales.errorLoading")}</p>}
       {sales && <SalesStats data={sales} />}

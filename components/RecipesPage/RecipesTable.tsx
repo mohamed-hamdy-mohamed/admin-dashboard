@@ -26,7 +26,7 @@ const RecipesTable = ({
   const { t } = useTranslation();
 
   return (
-    <div className="overflow-hidden rounded-xl border bg-card shadow-sm">
+    <div className="overflow-x-auto rounded-xl border bg-card shadow-sm">
       <Table>
         <TableHeader>
           <TableRow>

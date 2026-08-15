@@ -44,6 +44,11 @@ export const en = {
     adminUser: "Admin User",
     countryFlagAlt: "country flag",
     profilePictureAlt: "Admin Profile Picture",
+    userMenu: {
+      language: "Language",
+      theme: "Theme",
+      logout: "Log out",
+    },
   },
   notifications: {
     title: "Notifications",
@@ -732,7 +737,9 @@ export const en = {
   },
   aria: {
     toggleSidebar: "Toggle Sidebar",
+    closeSidebar: "Close sidebar",
     notifications: "Notifications",
+    openUserMenu: "Open user menu",
     backToConversations: "Back to conversations",
     sendMessage: "Send message",
     loading: "Loading",

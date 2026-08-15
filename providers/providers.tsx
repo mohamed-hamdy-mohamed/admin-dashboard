@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
 import { useState } from "react";
 import LanguageSync from "@/components/LanguageSync";
+import BlockingInitScripts from "@/components/BlockingInitScripts";
 import ThemeSync from "@/components/ThemeSync";
 import {
   THEME_DEFAULT,
@@ -41,6 +42,7 @@ export const Providers = ({
         storageKey={THEME_STORAGE_KEY}
         disableTransitionOnChange
       >
+        <BlockingInitScripts />
         <LanguageProvider initialLocale={initialLocale}>
           <ThemeSync />
           <LanguageSync />
