@@ -4,6 +4,7 @@ import { env } from "./env";
 
 const CONNECT_OPTIONS = {
   serverSelectionTimeoutMS: 5000,
+  authSource: "admin",
 } as const;
 
 const MAX_CONNECT_ATTEMPTS = 10;

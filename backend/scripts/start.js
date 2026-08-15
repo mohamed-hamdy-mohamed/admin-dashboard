@@ -4,6 +4,7 @@ const net = require("net");
 const path = require("path");
 const { execFileSync, spawn } = require("child_process");
 const dotenv = require("dotenv");
+const mongoose = require("mongoose");
 
 const backendRoot = path.resolve(__dirname, "..");
 dotenv.config({ path: path.join(backendRoot, ".env") });
@@ -32,16 +33,26 @@ const isReachable = (host, port, timeoutMs = 1000) =>
     socket.once("error", () => finish(false));
   });
 
-const parseMongoAddress = (uri) => {
-  try {
-    const { hostname, port } = new URL(uri);
-    if (!hostname) {
-      return null;
-    }
+const verifyDatabase = async () => {
+  if (!MONGODB_URI) {
+    console.error("MONGODB_URI is not defined");
+    process.exit(1);
+  }
 
-    return { host: hostname, port: Number(port) || 27017 };
-  } catch {
-    return null;
+  mongoose.set("strictQuery", true);
+
+  try {
+    await mongoose.connect(MONGODB_URI, {
+      serverSelectionTimeoutMS: 5000,
+      authSource: "admin",
+    });
+  } catch (err) {
+    console.error(err instanceof Error ? err.message : err);
+    process.exit(1);
+  } finally {
+    if (mongoose.connection.readyState !== 0) {
+      await mongoose.disconnect();
+    }
   }
 };
 
@@ -169,16 +180,7 @@ const runServer = () => {
 };
 
 const start = async () => {
-  const mongo = parseMongoAddress(MONGODB_URI);
-  if (!mongo) {
-    console.error("MONGODB_URI is not defined");
-    process.exit(1);
-  }
-
-  if (!(await isReachable(mongo.host, mongo.port))) {
-    console.error(`MongoDB is not available at ${mongo.host}:${mongo.port}`);
-    process.exit(1);
-  }
+  await verifyDatabase();
 
   const portInUse = await isReachable("127.0.0.1", PORT);
   if (portInUse) {
