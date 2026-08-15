@@ -13,8 +13,10 @@ import ProfileSection from "./ProfileSection";
 import AppearanceSection from "./AppearanceSection";
 import NotificationsSection from "./NotificationsSection";
 import SecuritySection from "./SecuritySection";
+import { useTranslation } from "@/providers/LanguageProvider";
 
 const SettingsPage = () => {
+  const { t } = useTranslation();
   const [settings, setSettings] = useState<SettingsData>(() => loadSettings());
 
   const updateSettings = (nextSettings: SettingsData) => {
@@ -57,11 +59,10 @@ const SettingsPage = () => {
       <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-8">
         <section className="max-w-2xl text-center">
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Settings
+            {t("settings.title")}
           </h1>
           <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-            Manage your profile, preferences, notifications, and security
-            settings.
+            {t("settings.intro")}
           </p>
         </section>
 

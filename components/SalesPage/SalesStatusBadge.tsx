@@ -2,6 +2,7 @@
 
 import { Badge } from "@/components/ui/badge";
 import { SaleStatus } from "@/types/sales";
+import { useTranslation } from "@/providers/LanguageProvider";
 
 interface SaleStatusBadgeProps {
   status: SaleStatus;
@@ -18,10 +19,19 @@ const variants = {
   Refunded: "bg-muted text-foreground hover:bg-muted border-border",
 };
 
+const statusKeyMap = {
+  Completed: "sales.status.completed",
+  Pending: "sales.status.pending",
+  Cancelled: "sales.status.cancelled",
+  Refunded: "sales.status.refunded",
+} as const;
+
 const SaleStatusBadge = ({ status }: SaleStatusBadgeProps) => {
+  const { t } = useTranslation();
+
   return (
     <Badge variant="outline" className={variants[status]}>
-      {status}
+      {t(statusKeyMap[status])}
     </Badge>
   );
 };

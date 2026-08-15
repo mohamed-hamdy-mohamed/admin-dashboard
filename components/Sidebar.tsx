@@ -1,6 +1,7 @@
 "use client";
 import { sidebarRoutes } from "@/constants/sidebar-routes";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "@/providers/LanguageProvider";
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -9,15 +10,17 @@ import { useState } from "react";
 const Sidebar = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(true);
   const pathname = usePathname();
+  const { t } = useTranslation();
+
   return (
     <aside
       className={cn(
-        "h-screen border-r border-sidebar-border bg-sidebar px-2 py-5 text-sidebar-foreground transition-all duration-300",
+        "h-screen border-e border-sidebar-border bg-sidebar px-2 py-5 text-sidebar-foreground transition-all duration-300",
         isSideBarOpen ? "w-64" : "w-20",
       )}
     >
       <button
-        aria-label="Toggle Sidebar"
+        aria-label={t("aria.toggleSidebar")}
         className="mb-4 cursor-pointer rounded-xl px-3 py-3 text-lg font-semibold hover:bg-sidebar-accent"
         onClick={() => setIsSideBarOpen((prev) => !prev)}
       >
@@ -36,7 +39,7 @@ const Sidebar = () => {
                 )}
               >
                 <route.icon
-                  className={cn("h-5 w-5", isSideBarOpen ? "mr-2" : "mx-auto")}
+                  className={cn("h-5 w-5", isSideBarOpen ? "me-2" : "mx-auto")}
                 />
                 <span
                   className={cn(
@@ -44,7 +47,7 @@ const Sidebar = () => {
                     isSideBarOpen ? "w-auto opacity-100" : "w-0 opacity-0",
                   )}
                 >
-                  {route.label}
+                  {t(route.labelKey)}
                 </span>
               </Link>
             </li>

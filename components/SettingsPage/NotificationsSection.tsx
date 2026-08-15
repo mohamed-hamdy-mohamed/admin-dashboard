@@ -3,6 +3,7 @@
 import { NotificationSettings } from "@/types/settings";
 import { Switch } from "@/components/ui/switch";
 import SettingsSection from "./SettingsSection";
+import { useTranslation } from "@/providers/LanguageProvider";
 
 interface NotificationsSectionProps {
   notifications: NotificationSettings;
@@ -38,21 +39,23 @@ const NotificationsSection = ({
   notifications,
   onChange,
 }: NotificationsSectionProps) => {
+  const { t } = useTranslation();
+
   return (
     <SettingsSection
-      title="Notifications"
-      description="Choose which updates you want to receive."
+      title={t("settings.notifications.title")}
+      description={t("settings.notifications.description")}
     >
       <NotificationToggle
-        title="Email"
-        description="Receive email alerts for important account activity."
+        title={t("settings.notifications.email.title")}
+        description={t("settings.notifications.email.description")}
         checked={notifications.email}
         onCheckedChange={(email) => onChange({ ...notifications, email })}
       />
 
       <NotificationToggle
-        title="Messages"
-        description="Get notified when new inbox messages arrive."
+        title={t("settings.notifications.messages.title")}
+        description={t("settings.notifications.messages.description")}
         checked={notifications.messages}
         onCheckedChange={(messages) =>
           onChange({ ...notifications, messages })
@@ -60,8 +63,8 @@ const NotificationsSection = ({
       />
 
       <NotificationToggle
-        title="Orders"
-        description="Stay updated on new and completed sales orders."
+        title={t("settings.notifications.orders.title")}
+        description={t("settings.notifications.orders.description")}
         checked={notifications.orders}
         onCheckedChange={(orders) => onChange({ ...notifications, orders })}
       />

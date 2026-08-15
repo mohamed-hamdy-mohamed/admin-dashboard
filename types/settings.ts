@@ -1,6 +1,6 @@
 export type ThemeOption = "light" | "dark" | "system";
 
-export type LanguageOption = "en" | "ar" | "fr";
+export type LanguageOption = "en" | "ar";
 
 export interface ProfileSettings {
   name: string;

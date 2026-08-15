@@ -20,9 +20,11 @@ import {
   persistUserEdits,
   UserEditsMap,
 } from "@/util/userEdits";
+import { useTranslation } from "@/providers/LanguageProvider";
 
 const UsersPage = () => {
   const [search, setSearch] = useState<string>("");
+  const { t } = useTranslation();
   const [userEdits, setUserEdits] = useState<UserEditsMap>(() => loadUserEdits());
   const [activeUser, setActiveUser] = useState<User | null>(null);
   const [viewOpen, setViewOpen] = useState(false);
@@ -103,9 +105,15 @@ const UsersPage = () => {
       )}
       {isFetching && <AppLoader />}
       <DataTableLayout
-        title="User List"
-        description="Browse, search and manage your users."
-        toolbar={<SearchInput value={search} onChange={setSearch} />}
+        title={t("users.listTitle")}
+        description={t("users.listDescription")}
+        toolbar={
+          <SearchInput
+            value={search}
+            onChange={setSearch}
+            placeholder={t("users.searchPlaceholder")}
+          />
+        }
       >
         <UsersTable
           users={paginatedData}

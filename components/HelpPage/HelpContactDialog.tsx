@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "@/providers/LanguageProvider";
 
 interface HelpContactDialogProps {
   open: boolean;
@@ -34,6 +35,7 @@ const initialFormValues: ContactFormValues = {
 };
 
 const HelpContactDialog = ({ open, onOpenChange }: HelpContactDialogProps) => {
+  const { t } = useTranslation();
   const [formValues, setFormValues] =
     useState<ContactFormValues>(initialFormValues);
 
@@ -53,18 +55,18 @@ const HelpContactDialog = ({ open, onOpenChange }: HelpContactDialogProps) => {
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="rounded-xl border-border sm:max-w-lg">
+      <DialogContent className="rounded-xl border-border sm:max-w-lg" closeLabel={t("common.close")}>
         <form onSubmit={handleSubmit}>
           <DialogHeader>
-            <DialogTitle>Contact Support</DialogTitle>
+            <DialogTitle>{t("help.contactDialog.title")}</DialogTitle>
             <DialogDescription>
-              Send us a message and our team will get back to you shortly.
+              {t("help.contactDialog.description")}
             </DialogDescription>
           </DialogHeader>
 
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
-              <Label htmlFor="supportName">Name</Label>
+              <Label htmlFor="supportName">{t("help.contactDialog.name")}</Label>
               <Input
                 id="supportName"
                 value={formValues.name}
@@ -80,7 +82,7 @@ const HelpContactDialog = ({ open, onOpenChange }: HelpContactDialogProps) => {
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="supportEmail">Email</Label>
+              <Label htmlFor="supportEmail">{t("help.contactDialog.email")}</Label>
               <Input
                 id="supportEmail"
                 type="email"
@@ -97,7 +99,7 @@ const HelpContactDialog = ({ open, onOpenChange }: HelpContactDialogProps) => {
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="supportSubject">Subject</Label>
+              <Label htmlFor="supportSubject">{t("help.contactDialog.subject")}</Label>
               <Input
                 id="supportSubject"
                 value={formValues.subject}
@@ -113,7 +115,7 @@ const HelpContactDialog = ({ open, onOpenChange }: HelpContactDialogProps) => {
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="supportMessage">Message</Label>
+              <Label htmlFor="supportMessage">{t("help.contactDialog.message")}</Label>
               <textarea
                 id="supportMessage"
                 value={formValues.message}
@@ -137,13 +139,13 @@ const HelpContactDialog = ({ open, onOpenChange }: HelpContactDialogProps) => {
               variant="outline"
               onClick={() => handleOpenChange(false)}
             >
-              Cancel
+              {t("common.cancel")}
             </Button>
             <Button
               type="submit"
               className="bg-primary text-primary-foreground hover:bg-primary/90"
             >
-              Send Message
+              {t("common.sendMessage")}
             </Button>
           </DialogFooter>
         </form>

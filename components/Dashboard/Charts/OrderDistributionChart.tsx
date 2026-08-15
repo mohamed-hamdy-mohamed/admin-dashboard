@@ -1,9 +1,14 @@
 "use client";
 
-import { orderDistribution } from "@/constants/analytics-charts";
+import { useMemo } from "react";
+import { getOrderDistributionChart } from "@/lib/chartData";
 import { chartLegendStyle, chartTooltipContentStyle } from "@/constants/chart-theme";
+import { useTranslation } from "@/providers/LanguageProvider";
+import {
+  createChartPieLabelFormatter,
+  createChartTooltipPercentFormatter,
+} from "@/util/chartFormat";
 import { motion } from "framer-motion";
-
 import {
   Cell,
   Legend,
@@ -14,6 +19,20 @@ import {
 } from "recharts";
 
 const OrderDistributionChart = () => {
+  const { locale, t } = useTranslation();
+  const orderDistribution = useMemo(
+    () => getOrderDistributionChart(locale),
+    [locale],
+  );
+  const pieLabelFormatter = useMemo(
+    () => createChartPieLabelFormatter(locale),
+    [locale],
+  );
+  const tooltipFormatter = useMemo(
+    () => createChartTooltipPercentFormatter(locale),
+    [locale],
+  );
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -23,14 +42,15 @@ const OrderDistributionChart = () => {
     >
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-lg font-semibold text-foreground">Order Status</h2>
+          <h2 className="text-lg font-semibold text-foreground">
+            {t("charts.orderStatus.title")}
+          </h2>
           <p className="text-sm text-muted-foreground">
-            Current order processing status
+            {t("charts.orderStatus.subtitle")}
           </p>
         </div>
       </div>
 
-      {/* Order Distribution Chart */}
       <div className="h-64 md:h-80">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
@@ -42,16 +62,14 @@ const OrderDistributionChart = () => {
               cy="50%"
               labelLine={false}
               dataKey="value"
-              label={({ name, percent }) =>
-                `${name} ${((percent ?? 0) * 100).toFixed(0)}%`
-              }
+              label={pieLabelFormatter}
             >
               {orderDistribution.map((category, idx) => (
                 <Cell key={`cell-${idx}`} fill={category.color} />
               ))}
             </Pie>
             <Tooltip
-              formatter={(value, name) => [`${value}%`, `${name}`]}
+              formatter={tooltipFormatter}
               contentStyle={chartTooltipContentStyle}
             />
             <Legend

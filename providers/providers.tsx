@@ -1,11 +1,24 @@
 "use client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ThemeProvider } from "next-themes";
 import { useState } from "react";
+import LanguageSync from "@/components/LanguageSync";
 import ThemeSync from "@/components/ThemeSync";
-import { ThemeProvider } from "@/providers/ThemeProvider";
+import {
+  THEME_DEFAULT,
+  THEME_STORAGE_KEY,
+} from "@/constants/theme";
+import { LanguageProvider } from "@/providers/LanguageProvider";
+import { Locale } from "@/types/i18n";
 
-export const Providers = ({ children }: { children: React.ReactNode }) => {
+export const Providers = ({
+  children,
+  initialLocale,
+}: {
+  children: React.ReactNode;
+  initialLocale: Locale;
+}) => {
   const [client] = useState(
     () =>
       new QueryClient({
@@ -21,9 +34,18 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <QueryClientProvider client={client}>
-      <ThemeProvider disableTransitionOnChange>
-        <ThemeSync />
-        {children}
+      <ThemeProvider
+        attribute="class"
+        defaultTheme={THEME_DEFAULT}
+        enableSystem
+        storageKey={THEME_STORAGE_KEY}
+        disableTransitionOnChange
+      >
+        <LanguageProvider initialLocale={initialLocale}>
+          <ThemeSync />
+          <LanguageSync />
+          {children}
+        </LanguageProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

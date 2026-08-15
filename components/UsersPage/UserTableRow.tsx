@@ -9,6 +9,7 @@ import UserStatusBadge from "./UserStatusBadge";
 import UserRoleBadge from "./UserRoleBadge";
 import RowActions from "../ui/RowActions";
 import { Eye, Pencil } from "lucide-react";
+import { useTranslation } from "@/providers/LanguageProvider";
 
 interface UserTableRowProps {
   user: User;
@@ -17,9 +18,10 @@ interface UserTableRowProps {
 }
 
 const UserTableRow = ({ user, onView, onEdit }: UserTableRowProps) => {
+  const { t } = useTranslation();
+
   return (
     <TableRow className="cursor-pointer transition-colors hover:bg-muted/40">
-      {/* User */}
       <TableCell>
         <div className="flex items-center gap-3">
           <Avatar className="h-11 w-11 border shadow-sm">
@@ -41,11 +43,9 @@ const UserTableRow = ({ user, onView, onEdit }: UserTableRowProps) => {
           </div>
         </div>
       </TableCell>
-      {/* Role */}
       <TableCell className="align-middle">
         <UserRoleBadge role={user.role} />
       </TableCell>
-      {/* Company */}
       <TableCell>
         <div className="space-y-1">
           <p className="max-w-[180px] truncate font-medium">
@@ -54,7 +54,6 @@ const UserTableRow = ({ user, onView, onEdit }: UserTableRowProps) => {
           <p className="text-xs text-muted-foreground">{user.company.title}</p>
         </div>
       </TableCell>
-      {/* Location */}
       <TableCell>
         <div className="space-y-1">
           <p className="max-w-[150px] truncate font-medium">
@@ -63,26 +62,25 @@ const UserTableRow = ({ user, onView, onEdit }: UserTableRowProps) => {
           <p className="text-xs text-muted-foreground">{user.address.city}</p>
         </div>
       </TableCell>
-      {/* Age */}
       <TableCell>
-        <Badge variant="outline">{user.age} yrs</Badge>
+        <Badge variant="outline">
+          {t("users.dialogs.view.ageValue", { age: user.age })}
+        </Badge>
       </TableCell>
-      {/* Status */}
       <TableCell>
         <UserStatusBadge id={user.id} />
       </TableCell>
-      {/* Actions */}
-      <TableCell className="w-[120px] text-right">
+      <TableCell className="w-[120px] text-end">
         <RowActions
-          ariaLabel="User actions"
+          ariaLabel={t("rowActions.user")}
           actions={[
             {
-              label: "View",
+              label: t("rowActions.view"),
               icon: Eye,
               onClick: () => onView(user),
             },
             {
-              label: "Edit",
+              label: t("rowActions.edit"),
               icon: Pencil,
               onClick: () => onEdit(user),
             },

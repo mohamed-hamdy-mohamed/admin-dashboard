@@ -11,24 +11,27 @@ import {
 
 import { Product } from "@/types/products";
 import ProductTableRow from "./ProductTableRow";
+import { useTranslation } from "@/providers/LanguageProvider";
 
 interface ProductTableProps {
   products: Product[];
 }
 
 const ProductTable = ({ products }: ProductTableProps) => {
+  const { t } = useTranslation();
+
   return (
     <div className="rounded-xl border bg-card shadow-sm overflow-hidden">
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[70px]">Image</TableHead>
-            <TableHead>Product</TableHead>
-            <TableHead>Category</TableHead>
-            <TableHead>Price</TableHead>
-            <TableHead>Stock</TableHead>
-            <TableHead>Rating</TableHead>
-            <TableHead>Status</TableHead>
+            <TableHead className="w-[70px]">{t("products.table.image")}</TableHead>
+            <TableHead>{t("products.table.product")}</TableHead>
+            <TableHead>{t("products.table.category")}</TableHead>
+            <TableHead>{t("products.table.price")}</TableHead>
+            <TableHead>{t("products.table.stock")}</TableHead>
+            <TableHead>{t("products.table.rating")}</TableHead>
+            <TableHead>{t("products.table.status")}</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -40,7 +43,7 @@ const ProductTable = ({ products }: ProductTableProps) => {
           ) : (
             <TableRow>
               <TableCell colSpan={7} className="h-24 text-center text-muted-foreground">
-                No products found.
+                {t("products.empty")}
               </TableCell>
             </TableRow>
           )}

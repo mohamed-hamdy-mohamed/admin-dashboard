@@ -7,12 +7,26 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 
 import { Product } from "@/types/products";
+import { useTranslation } from "@/providers/LanguageProvider";
+import { formatPrice } from "@/util/formatPrice";
+import { formatDecimal, formatNumber } from "@/util/formatNumber";
 
 interface ProductTableRowProps {
   product: Product;
 }
 
+const statusKeyMap = {
+  "In Stock": "products.status.inStock",
+  "Low Stock": "products.status.lowStock",
+  "Out of Stock": "products.status.outOfStock",
+} as const;
+
 const ProductTableRow = ({ product }: ProductTableRowProps) => {
+  const { locale, t } = useTranslation();
+  const statusKey =
+    statusKeyMap[product.availabilityStatus as keyof typeof statusKeyMap];
+  const translatedStatus = statusKey ? t(statusKey) : product.availabilityStatus;
+
   return (
     <TableRow className="hover:bg-muted/50 transition-colors">
       <TableCell>
@@ -35,11 +49,13 @@ const ProductTableRow = ({ product }: ProductTableRowProps) => {
 
       <TableCell>{product.category}</TableCell>
 
-      <TableCell>${product.price}</TableCell>
+      <TableCell>{formatPrice(product.price, locale)}</TableCell>
 
-      <TableCell>{product.stock}</TableCell>
+      <TableCell>{formatNumber(product.stock, locale)}</TableCell>
 
-      <TableCell>⭐ {product.rating}</TableCell>
+      <TableCell>
+        ⭐ {formatDecimal(product.rating, locale, 1)}
+      </TableCell>
 
       <TableCell>
         <Badge
@@ -47,7 +63,7 @@ const ProductTableRow = ({ product }: ProductTableRowProps) => {
             product.availabilityStatus === "In Stock" ? "default" : "secondary"
           }
         >
-          {product.availabilityStatus}
+          {translatedStatus}
         </Badge>
       </TableCell>
     </TableRow>

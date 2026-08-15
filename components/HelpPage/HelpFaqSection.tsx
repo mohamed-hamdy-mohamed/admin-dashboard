@@ -1,3 +1,5 @@
+"use client";
+
 import { HelpFaqItem } from "@/types/help";
 import {
   Accordion,
@@ -5,20 +7,23 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useTranslation } from "@/providers/LanguageProvider";
 
 interface HelpFaqSectionProps {
   faqs: HelpFaqItem[];
 }
 
 const HelpFaqSection = ({ faqs }: HelpFaqSectionProps) => {
+  const { t } = useTranslation();
+
   return (
     <section className="w-full rounded-xl border border-border bg-card p-6 shadow-sm sm:p-8">
       <div className="mb-6 text-center">
         <h2 className="text-xl font-semibold text-foreground">
-          Frequently Asked Questions
+          {t("help.faq.title")}
         </h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          Quick answers to common admin dashboard questions.
+          {t("help.faq.subtitle")}
         </p>
       </div>
 
@@ -30,7 +35,7 @@ const HelpFaqSection = ({ faqs }: HelpFaqSectionProps) => {
               value={faq.id}
               className="border-border"
             >
-              <AccordionTrigger className="py-4 text-left text-base font-medium text-foreground hover:no-underline">
+              <AccordionTrigger className="py-4 text-start text-base font-medium text-foreground hover:no-underline">
                 {faq.question}
               </AccordionTrigger>
               <AccordionContent className="pb-4 text-sm leading-relaxed text-muted-foreground">
@@ -41,7 +46,7 @@ const HelpFaqSection = ({ faqs }: HelpFaqSectionProps) => {
         </Accordion>
       ) : (
         <p className="py-8 text-center text-sm text-muted-foreground">
-          No FAQs match your search.
+          {t("help.faq.empty")}
         </p>
       )}
     </section>

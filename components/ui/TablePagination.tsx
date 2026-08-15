@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Pagination,
   PaginationContent,
@@ -8,6 +10,8 @@ import {
   PaginationPrevious,
 } from "@/components/ui/Pagination";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "@/providers/LanguageProvider";
+import { formatNumber } from "@/util/formatNumber";
 
 interface TablePaginationProps {
   currentPage: number;
@@ -60,6 +64,8 @@ const TablePagination = ({
   onPrevious,
   onNext,
 }: TablePaginationProps) => {
+  const { locale, t } = useTranslation();
+
   if (totalPages <= 1) {
     return null;
   }
@@ -69,11 +75,13 @@ const TablePagination = ({
   const paginationItems = getPaginationItems(currentPage, totalPages);
 
   return (
-    <Pagination className="mt-4">
+    <Pagination className="mt-4" label={t("pagination.label")}>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
             href="#"
+            text={t("pagination.previous")}
+            ariaLabel={t("pagination.goToPreviousPage")}
             aria-disabled={isFirstPage}
             className={cn(isFirstPage && "pointer-events-none opacity-50")}
             onClick={(event) => {
@@ -88,7 +96,7 @@ const TablePagination = ({
         {paginationItems.map((item, index) =>
           item === "ellipsis" ? (
             <PaginationItem key={`ellipsis-${index}`}>
-              <PaginationEllipsis />
+              <PaginationEllipsis morePagesLabel={t("pagination.morePages")} />
             </PaginationItem>
           ) : (
             <PaginationItem key={item}>
@@ -100,7 +108,7 @@ const TablePagination = ({
                   onPageChange(item);
                 }}
               >
-                {item}
+                {formatNumber(item, locale)}
               </PaginationLink>
             </PaginationItem>
           ),
@@ -109,6 +117,8 @@ const TablePagination = ({
         <PaginationItem>
           <PaginationNext
             href="#"
+            text={t("pagination.next")}
+            ariaLabel={t("pagination.goToNextPage")}
             aria-disabled={isLastPage}
             className={cn(isLastPage && "pointer-events-none opacity-50")}
             onClick={(event) => {

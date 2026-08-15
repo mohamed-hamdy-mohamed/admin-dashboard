@@ -5,15 +5,20 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Sale } from "@/types/sales";
 import SaleStatusBadge from "./SalesStatusBadge";
+import { useTranslation } from "@/providers/LanguageProvider";
+import { formatPrice } from "@/util/formatPrice";
+import { formatNumber } from "@/util/formatNumber";
+import { localizeDigitsInString } from "@/util/formatLocale";
 
 interface Props {
   sale: Sale;
 }
 
 const SalesTableRow = ({ sale }: Props) => {
+  const { locale } = useTranslation();
+
   return (
     <TableRow className="transition-colors hover:bg-muted/40">
-      {/* Customer */}
       <TableCell>
         <div className="flex items-center gap-3">
           <Avatar className="h-11 w-11">
@@ -26,29 +31,25 @@ const SalesTableRow = ({ sale }: Props) => {
           </div>
         </div>
       </TableCell>
-      {/* Product */}
       <TableCell>
         <div>
           <p className="font-medium">{sale.product}</p>
           <p className="text-xs text-muted-foreground">{sale.category}</p>
         </div>
       </TableCell>
-      {/* Amount */}
       <TableCell>
-        <span className="font-semibold">${sale.amount}</span>
+        <span className="font-semibold">
+          {formatPrice(sale.amount, locale)}
+        </span>
       </TableCell>
-      {/* Quantity */}
       <TableCell>
-        <Badge variant="outline">{sale.quantity}</Badge>
+        <Badge variant="outline">{formatNumber(sale.quantity, locale)}</Badge>
       </TableCell>
-      {/* Payment */}
       <TableCell>{sale.paymentMethod}</TableCell>
-      {/* Status */}
       <TableCell>
         <SaleStatusBadge status={sale.status} />
       </TableCell>
-      {/* Date */}
-      <TableCell>{sale.date}</TableCell>
+      <TableCell>{localizeDigitsInString(sale.date, locale)}</TableCell>
     </TableRow>
   );
 };

@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
+import { useTheme } from "next-themes";
 import { THEME_STORAGE_KEY } from "@/constants/theme";
-import { useTheme } from "@/providers/ThemeProvider";
 import { loadSettings } from "@/util/settingsStorage";
 
 const ThemeSync = () => {

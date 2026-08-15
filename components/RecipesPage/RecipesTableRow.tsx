@@ -10,6 +10,8 @@ import { Eye, Pencil, Star } from "lucide-react";
 import { Recipe } from "@/types/recipes";
 import RowActions from "../ui/RowActions";
 import RecipeDifficultyBadge from "./RecipeDifficultyBadge";
+import { useTranslation } from "@/providers/LanguageProvider";
+import { formatDecimal, formatNumber } from "@/util/formatNumber";
 
 interface RecipesTableRowProps {
   recipe: Recipe;
@@ -18,10 +20,10 @@ interface RecipesTableRowProps {
 }
 
 const RecipesTableRow = ({ recipe, onView, onEdit }: RecipesTableRowProps) => {
+  const { locale, t } = useTranslation();
+
   return (
     <TableRow className="transition-colors hover:bg-muted/40">
-      {/* Recipe */}
-
       <TableCell>
         <div className="flex items-center gap-3">
           <Avatar className="h-12 w-12 rounded-lg">
@@ -40,53 +42,43 @@ const RecipesTableRow = ({ recipe, onView, onEdit }: RecipesTableRowProps) => {
         </div>
       </TableCell>
 
-      {/* Cuisine */}
-
       <TableCell>{recipe.cuisine}</TableCell>
-
-      {/* Difficulty */}
 
       <TableCell>
         <RecipeDifficultyBadge difficulty={recipe.difficulty} />
       </TableCell>
 
-      {/* Rating */}
-
       <TableCell>
         <div className="flex items-center gap-1">
           <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
 
-          {recipe.rating}
+          {formatDecimal(recipe.rating, locale, 1)}
         </div>
       </TableCell>
 
-      {/* Reviews */}
-
-      <TableCell>{recipe.reviewCount}</TableCell>
-
-      {/* Servings */}
+      <TableCell>{formatNumber(recipe.reviewCount, locale)}</TableCell>
 
       <TableCell>
-        <Badge variant="outline">{recipe.servings}</Badge>
+        <Badge variant="outline">{formatNumber(recipe.servings, locale)}</Badge>
       </TableCell>
 
-      {/* Calories */}
+      <TableCell>
+        {t("recipes.dialogs.view.caloriesValue", {
+          value: recipe.caloriesPerServing,
+        })}
+      </TableCell>
 
-      <TableCell>{recipe.caloriesPerServing} kcal</TableCell>
-
-      {/* Actions */}
-
-      <TableCell className="text-right">
+      <TableCell className="text-end">
         <RowActions
-          ariaLabel="Recipe actions"
+          ariaLabel={t("rowActions.recipe")}
           actions={[
             {
-              label: "View",
+              label: t("rowActions.view"),
               icon: Eye,
               onClick: () => onView(recipe),
             },
             {
-              label: "Edit",
+              label: t("rowActions.edit"),
               icon: Pencil,
               onClick: () => onEdit(recipe),
             },

@@ -11,6 +11,7 @@ import {
 
 import UserTableRow from "./UserTableRow";
 import { User } from "@/types/users";
+import { useTranslation } from "@/providers/LanguageProvider";
 
 interface UsersTableProps {
   users: User[];
@@ -19,18 +20,20 @@ interface UsersTableProps {
 }
 
 const UsersTable = ({ users, onViewUser, onEditUser }: UsersTableProps) => {
+  const { t } = useTranslation();
+
   return (
     <div className="rounded-xl border bg-card shadow-sm overflow-hidden">
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>User</TableHead>
-            <TableHead>Role</TableHead>
-            <TableHead>Company</TableHead>
-            <TableHead>Location</TableHead>
-            <TableHead>Age</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Action</TableHead>
+            <TableHead>{t("users.table.user")}</TableHead>
+            <TableHead>{t("users.table.role")}</TableHead>
+            <TableHead>{t("users.table.company")}</TableHead>
+            <TableHead>{t("users.table.location")}</TableHead>
+            <TableHead>{t("users.table.age")}</TableHead>
+            <TableHead>{t("users.table.status")}</TableHead>
+            <TableHead>{t("users.table.action")}</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -47,7 +50,7 @@ const UsersTable = ({ users, onViewUser, onEditUser }: UsersTableProps) => {
           ) : (
             <TableRow>
               <TableCell colSpan={7} className="h-24 text-center text-muted-foreground">
-                No users found.
+                {t("users.empty")}
               </TableCell>
             </TableRow>
           )}

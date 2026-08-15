@@ -11,9 +11,11 @@ import StatsCardsSkeleton from "../ui/StatsCardsSkeleton";
 import DataTableLayout from "../ui/DataTableLayout";
 import AppLoader from "../ui/AppLoader";
 import TablePagination from "../ui/TablePagination";
+import { useTranslation } from "@/providers/LanguageProvider";
 
 const ProductsPage = () => {
   const [search, setSearch] = useState<string>("");
+  const { t } = useTranslation();
   const { data, isLoading, isFetching } = useGetProducts();
 
   const filteredProducts = useMemo(
@@ -45,9 +47,15 @@ const ProductsPage = () => {
       )}
       {isFetching && <AppLoader />}
       <DataTableLayout
-        title="Product List"
-        description="Browse, search and manage your products."
-        toolbar={<SearchInput value={search} onChange={setSearch} />}
+        title={t("products.listTitle")}
+        description={t("products.listDescription")}
+        toolbar={
+          <SearchInput
+            value={search}
+            onChange={setSearch}
+            placeholder={t("products.searchPlaceholder")}
+          />
+        }
       >
         <ProductTable products={paginatedData} />
         <TablePagination

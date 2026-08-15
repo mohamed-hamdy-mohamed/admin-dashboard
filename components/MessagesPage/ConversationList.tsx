@@ -1,6 +1,9 @@
+"use client";
+
 import { Conversation } from "@/types/messages";
 import MessageSearch from "./MessageSearch";
 import ConversationItem from "./ConversationItem";
+import { useTranslation } from "@/providers/LanguageProvider";
 
 interface ConversationListProps {
   conversations: Conversation[];
@@ -17,8 +20,10 @@ const ConversationList = ({
   onSearchChange,
   onSelectConversation,
 }: ConversationListProps) => {
+  const { t } = useTranslation();
+
   return (
-    <div className="flex h-full min-h-0 flex-col border-border lg:border-r">
+    <div className="flex h-full min-h-0 flex-col border-border lg:border-e">
       <div className="border-b border-border p-4">
         <MessageSearch value={search} onChange={onSearchChange} />
       </div>
@@ -35,7 +40,7 @@ const ConversationList = ({
           ))
         ) : (
           <div className="px-4 py-10 text-center text-sm text-muted-foreground">
-            No conversations found.
+            {t("messages.emptyConversations")}
           </div>
         )}
       </div>

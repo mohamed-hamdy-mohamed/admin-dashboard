@@ -38,7 +38,7 @@ const RowActions = ({
 
           return (
             <DropdownMenuItem key={action.label} onClick={action.onClick}>
-              <Icon className="mr-2 h-4 w-4" />
+              <Icon className="me-2 h-4 w-4" />
               {action.label}
             </DropdownMenuItem>
           );

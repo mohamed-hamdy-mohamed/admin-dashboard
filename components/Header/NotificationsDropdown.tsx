@@ -1,10 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Bell } from "lucide-react";
-import { notificationsData } from "@/constants/notifications";
+import { getLocalizedNotifications } from "@/lib/localizedContent";
 import { Notification } from "@/types/notifications";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "@/providers/LanguageProvider";
+import { formatNumber } from "@/util/formatNumber";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,9 +15,14 @@ import {
 import { Button } from "@/components/ui/button";
 
 const AppNotifications = () => {
-  const [notifications, setNotifications] = useState<Notification[]>(
-    notificationsData.notifications,
+  const { locale, t } = useTranslation();
+  const [notifications, setNotifications] = useState<Notification[]>(() =>
+    getLocalizedNotifications(locale).notifications,
   );
+
+  useEffect(() => {
+    setNotifications(getLocalizedNotifications(locale).notifications);
+  }, [locale]);
 
   const unreadCount = useMemo(
     () => notifications.filter((notification) => !notification.read).length,
@@ -45,13 +52,13 @@ const AppNotifications = () => {
     <DropdownMenu>
       <DropdownMenuTrigger
         className="relative cursor-pointer rounded-full p-2 transition-colors hover:bg-muted"
-        aria-label="Notifications"
+        aria-label={t("aria.notifications")}
       >
         <Bell className="h-5 w-5 cursor-pointer text-foreground" />
 
         {unreadCount > 0 && (
-          <span className="absolute top-1 right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold text-white">
-            {unreadCount}
+          <span className="absolute end-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold text-white">
+            {formatNumber(unreadCount, locale)}
           </span>
         )}
       </DropdownMenuTrigger>
@@ -59,15 +66,17 @@ const AppNotifications = () => {
       <DropdownMenuContent
         align="end"
         sideOffset={8}
-        className="w-96 h-full rounded-xl border border-border p-0 shadow-lg"
+        className="h-full w-96 rounded-xl border border-border p-0 shadow-lg"
       >
         <div className="flex items-center justify-between border-b border-border px-4 py-3">
           <div>
-            <p className="text-sm font-semibold text-foreground">Notifications</p>
+            <p className="text-sm font-semibold text-foreground">
+              {t("notifications.title")}
+            </p>
             <p className="text-xs text-muted-foreground">
               {unreadCount > 0
-                ? `${unreadCount} unread`
-                : "You're all caught up"}
+                ? t("notifications.unread", { count: unreadCount })
+                : t("notifications.allCaughtUp")}
             </p>
           </div>
 
@@ -79,7 +88,7 @@ const AppNotifications = () => {
               className="h-8 text-xs text-muted-foreground hover:text-foreground"
               onClick={handleMarkAllAsRead}
             >
-              Mark all as read
+              {t("notifications.markAllAsRead")}
             </Button>
           )}
         </div>
@@ -92,7 +101,7 @@ const AppNotifications = () => {
                 type="button"
                 onClick={() => handleMarkAsRead(notification.id)}
                 className={cn(
-                  "mb-2 w-full rounded-xl border border-border p-3 text-left transition-colors last:mb-0 hover:opacity-90",
+                  "mb-2 w-full rounded-xl border border-border p-3 text-start transition-colors last:mb-0 hover:opacity-90",
                   notification.read ? "bg-secondary" : "bg-accent",
                 )}
               >
@@ -107,12 +116,14 @@ const AppNotifications = () => {
                 <p className="mt-1 text-sm text-muted-foreground">
                   {notification.message}
                 </p>
-                <p className="mt-2 text-xs text-muted-foreground">{notification.time}</p>
+                <p className="mt-2 text-xs text-muted-foreground">
+                  {notification.time}
+                </p>
               </button>
             ))
           ) : (
             <div className="px-2 py-6 text-center text-sm text-muted-foreground">
-              No notifications yet.
+              {t("notifications.empty")}
             </div>
           )}
         </div>

@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
+import { cookies } from "next/headers";
 import "./globals.css";
-import Header from "@/components/Header";
-import Sidebar from "@/components/Sidebar";
-import { themeInitScript } from "@/constants/theme";
+import AppShell from "@/components/AppShell";
+import { languageInitScript } from "@/constants/language";
 import { Providers } from "@/providers/providers";
+import { getLocaleDirection, normalizeLocale } from "@/lib/i18n";
+import { LOCALE_COOKIE } from "@/util/localeStorage";
+import { Locale } from "@/types/i18n";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,41 +15,41 @@ const geistSans = Geist({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Admin Dashboard",
-  description: "Admin Dashboard",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const locale = normalizeLocale(cookieStore.get(LOCALE_COOKIE)?.value) as Locale;
 
-export default function RootLayout({
+  return {
+    title: locale === "ar" ? "لوحة تحكم المسؤول" : "Admin Dashboard",
+    description: locale === "ar" ? "لوحة تحكم المسؤول" : "Admin Dashboard",
+  };
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const locale = normalizeLocale(cookieStore.get(LOCALE_COOKIE)?.value);
+  const direction = getLocaleDirection(locale);
+
   return (
     <html
-      lang="en"
+      lang={locale}
+      dir={direction}
       suppressHydrationWarning
       className={`${geistSans.variable} h-full antialiased`}
     >
       <head>
         <script
           suppressHydrationWarning
-          dangerouslySetInnerHTML={{ __html: themeInitScript }}
+          dangerouslySetInnerHTML={{ __html: languageInitScript }}
         />
       </head>
       <body suppressHydrationWarning className="h-full overflow-hidden bg-background">
-        <Providers>
-          <div className="flex h-screen overflow-hidden">
-            <Sidebar />
-
-            <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
-              <Header />
-
-              <main className="min-h-0 flex-1 overflow-y-auto">
-                {children}
-              </main>
-            </div>
-          </div>
+        <Providers initialLocale={locale}>
+          <AppShell>{children}</AppShell>
         </Providers>
       </body>
     </html>

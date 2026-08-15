@@ -21,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useTranslation } from "@/providers/LanguageProvider";
 
 interface RecipeEditDialogProps {
   recipe: Recipe | null;
@@ -38,6 +39,7 @@ interface RecipeEditFormProps {
 const difficultyOptions: Recipe["difficulty"][] = ["Easy", "Medium", "Hard"];
 
 const RecipeEditForm = ({ recipe, onSave, onCancel }: RecipeEditFormProps) => {
+  const { t } = useTranslation();
   const [name, setName] = useState(recipe.name);
   const [cuisine, setCuisine] = useState(recipe.cuisine);
   const [difficulty, setDifficulty] = useState<Recipe["difficulty"]>(
@@ -61,18 +63,24 @@ const RecipeEditForm = ({ recipe, onSave, onCancel }: RecipeEditFormProps) => {
     });
   };
 
+  const difficultyLabels: Record<Recipe["difficulty"], string> = {
+    Easy: t("recipes.difficulty.easy"),
+    Medium: t("recipes.difficulty.medium"),
+    Hard: t("recipes.difficulty.hard"),
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <DialogHeader>
-        <DialogTitle>Edit Recipe</DialogTitle>
+        <DialogTitle>{t("recipes.dialogs.edit.title")}</DialogTitle>
         <DialogDescription>
-          Update the recipe details. Changes are saved locally.
+          {t("recipes.dialogs.edit.description")}
         </DialogDescription>
       </DialogHeader>
 
       <div className="grid gap-4 py-4">
         <div className="grid gap-2">
-          <Label htmlFor="recipeName">Name</Label>
+          <Label htmlFor="recipeName">{t("recipes.dialogs.edit.name")}</Label>
           <Input
             id="recipeName"
             value={name}
@@ -82,7 +90,7 @@ const RecipeEditForm = ({ recipe, onSave, onCancel }: RecipeEditFormProps) => {
         </div>
 
         <div className="grid gap-2">
-          <Label htmlFor="cuisine">Cuisine</Label>
+          <Label htmlFor="cuisine">{t("recipes.dialogs.edit.cuisine")}</Label>
           <Input
             id="cuisine"
             value={cuisine}
@@ -92,7 +100,7 @@ const RecipeEditForm = ({ recipe, onSave, onCancel }: RecipeEditFormProps) => {
         </div>
 
         <div className="grid gap-2">
-          <Label htmlFor="difficulty">Difficulty</Label>
+          <Label htmlFor="difficulty">{t("recipes.dialogs.edit.difficulty")}</Label>
           <Select
             value={difficulty}
             onValueChange={(value) =>
@@ -100,12 +108,12 @@ const RecipeEditForm = ({ recipe, onSave, onCancel }: RecipeEditFormProps) => {
             }
           >
             <SelectTrigger id="difficulty" className="h-11 w-full rounded-xl">
-              <SelectValue placeholder="Select difficulty" />
+              <SelectValue placeholder={t("recipes.dialogs.edit.selectDifficulty")} />
             </SelectTrigger>
             <SelectContent>
               {difficultyOptions.map((option) => (
                 <SelectItem key={option} value={option}>
-                  {option}
+                  {difficultyLabels[option]}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -115,9 +123,9 @@ const RecipeEditForm = ({ recipe, onSave, onCancel }: RecipeEditFormProps) => {
 
       <DialogFooter>
         <Button type="button" variant="outline" onClick={onCancel}>
-          Cancel
+          {t("common.cancel")}
         </Button>
-        <Button type="submit">Save Changes</Button>
+        <Button type="submit">{t("common.saveChanges")}</Button>
       </DialogFooter>
     </form>
   );
@@ -129,9 +137,11 @@ const RecipeEditDialog = ({
   onOpenChange,
   onSave,
 }: RecipeEditDialogProps) => {
+  const { t } = useTranslation();
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md" closeLabel={t("common.close")}>
         {recipe && open ? (
           <RecipeEditForm
             key={recipe.id}

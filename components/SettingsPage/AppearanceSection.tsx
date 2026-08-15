@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useTheme } from "@/providers/ThemeProvider";
+import { useTheme } from "next-themes";
 import {
   AppearanceSettings,
   LanguageOption,
@@ -16,34 +15,23 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import SettingsSection from "./SettingsSection";
+import { useTranslation } from "@/providers/LanguageProvider";
+import { Locale } from "@/types/i18n";
 
 interface AppearanceSectionProps {
   appearance: AppearanceSettings;
   onChange: (appearance: AppearanceSettings) => void;
 }
 
-const themeOptions: { value: ThemeOption; label: string }[] = [
-  { value: "light", label: "Light" },
-  { value: "dark", label: "Dark" },
-  { value: "system", label: "System" },
-];
-
-const languageOptions: { value: LanguageOption; label: string }[] = [
-  { value: "en", label: "English" },
-  { value: "ar", label: "Arabic" },
-  { value: "fr", label: "French" },
-];
+const themeOptions: ThemeOption[] = ["light", "dark", "system"];
+const languageOptions: LanguageOption[] = ["en", "ar"];
 
 const AppearanceSection = ({
   appearance,
   onChange,
 }: AppearanceSectionProps) => {
-  const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const { setTheme } = useTheme();
+  const { setLocale, t } = useTranslation();
 
   const handleThemeChange = (value: ThemeOption) => {
     setTheme(value);
@@ -53,25 +41,52 @@ const AppearanceSection = ({
     });
   };
 
+  const handleLanguageChange = (value: LanguageOption) => {
+    setLocale(value as Locale);
+    onChange({
+      ...appearance,
+      language: value,
+    });
+  };
+
+  const themeLabels: Record<ThemeOption, string> = {
+    light: t("settings.appearance.themes.light"),
+    dark: t("settings.appearance.themes.dark"),
+    system: t("settings.appearance.themes.system"),
+  };
+
+  const languageLabels: Record<LanguageOption, string> = {
+    en: t("settings.appearance.languages.en"),
+    ar: t("settings.appearance.languages.ar"),
+  };
+
+  const getThemeLabel = (value: ThemeOption | null) =>
+    value ? themeLabels[value] : null;
+
+  const getLanguageLabel = (value: LanguageOption | null) =>
+    value ? languageLabels[value] : null;
+
   return (
     <SettingsSection
-      title="Appearance"
-      description="Customize how the dashboard looks and reads."
+      title={t("settings.appearance.title")}
+      description={t("settings.appearance.description")}
     >
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="grid gap-2">
-          <Label htmlFor="theme">Theme</Label>
+          <Label htmlFor="theme">{t("settings.appearance.theme")}</Label>
           <Select
-            value={mounted ? (theme as ThemeOption) : appearance.theme}
+            value={appearance.theme}
             onValueChange={(value) => handleThemeChange(value as ThemeOption)}
           >
             <SelectTrigger id="theme" className="h-11 w-full rounded-xl">
-              <SelectValue placeholder="Select theme" />
+              <SelectValue placeholder={t("settings.appearance.selectTheme")}>
+                {(value) => getThemeLabel(value as ThemeOption | null)}
+              </SelectValue>
             </SelectTrigger>
             <SelectContent>
               {themeOptions.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
-                  {option.label}
+                <SelectItem key={option} value={option}>
+                  {themeLabels[option]}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -79,23 +94,22 @@ const AppearanceSection = ({
         </div>
 
         <div className="grid gap-2">
-          <Label htmlFor="language">Language</Label>
+          <Label htmlFor="language">{t("settings.appearance.language")}</Label>
           <Select
             value={appearance.language}
             onValueChange={(value) =>
-              onChange({
-                ...appearance,
-                language: value as LanguageOption,
-              })
+              handleLanguageChange(value as LanguageOption)
             }
           >
             <SelectTrigger id="language" className="h-11 w-full rounded-xl">
-              <SelectValue placeholder="Select language" />
+              <SelectValue placeholder={t("settings.appearance.selectLanguage")}>
+                {(value) => getLanguageLabel(value as LanguageOption | null)}
+              </SelectValue>
             </SelectTrigger>
             <SelectContent>
               {languageOptions.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
-                  {option.label}
+                <SelectItem key={option} value={option}>
+                  {languageLabels[option]}
                 </SelectItem>
               ))}
             </SelectContent>

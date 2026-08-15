@@ -1,17 +1,19 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { messagesData } from "@/constants/messages";
+import { useEffect, useMemo, useState } from "react";
+import { getLocalizedMessages } from "@/lib/localizedContent";
 import { Conversation } from "@/types/messages";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import ConversationList from "./ConversationList";
 import ConversationPanel from "./ConversationPanel";
 import MessagesStats from "./MessagesStats";
+import { useTranslation } from "@/providers/LanguageProvider";
 
 const MessagesPage = () => {
-  const [conversations, setConversations] = useState<Conversation[]>(
-    messagesData.conversations,
+  const { locale } = useTranslation();
+  const [conversations, setConversations] = useState<Conversation[]>(() =>
+    getLocalizedMessages(locale).conversations,
   );
   const [selectedConversationId, setSelectedConversationId] = useState<
     string | null
@@ -19,7 +21,11 @@ const MessagesPage = () => {
   const [search, setSearch] = useState<string>("");
   const [mobileView, setMobileView] = useState<"list" | "conversation">("list");
 
-
+  useEffect(() => {
+    setConversations(getLocalizedMessages(locale).conversations);
+    setSelectedConversationId(null);
+    setMobileView("list");
+  }, [locale]);
 
   const filteredConversations = useMemo(
     () =>

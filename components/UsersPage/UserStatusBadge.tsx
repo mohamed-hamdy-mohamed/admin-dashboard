@@ -1,20 +1,22 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
+import { useTranslation } from "@/providers/LanguageProvider";
 
 interface UserStatusBadgeProps {
   id: number;
 }
 
 const UserStatusBadge = ({ id }: UserStatusBadgeProps) => {
+  const { t } = useTranslation();
   const isActive = id % 3 !== 0;
 
   return isActive ? (
     <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-100">
-      ● Active
+      ● {t("users.badges.active")}
     </Badge>
   ) : (
-    <Badge variant="secondary">● Offline</Badge>
+    <Badge variant="secondary">● {t("users.badges.offline")}</Badge>
   );
 };
 

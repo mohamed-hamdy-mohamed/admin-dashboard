@@ -21,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useTranslation } from "@/providers/LanguageProvider";
 
 interface UserEditDialogProps {
   user: User | null;
@@ -38,6 +39,7 @@ interface UserEditFormProps {
 const roleOptions: UserRole[] = ["admin", "moderator", "user"];
 
 const UserEditForm = ({ user, onSave, onCancel }: UserEditFormProps) => {
+  const { t } = useTranslation();
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [role, setRole] = useState<UserRole>(user.role);
@@ -59,18 +61,24 @@ const UserEditForm = ({ user, onSave, onCancel }: UserEditFormProps) => {
     });
   };
 
+  const roleLabels: Record<UserRole, string> = {
+    admin: t("users.roles.admin"),
+    moderator: t("users.roles.moderator"),
+    user: t("users.roles.user"),
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <DialogHeader>
-        <DialogTitle>Edit User</DialogTitle>
+        <DialogTitle>{t("users.dialogs.edit.title")}</DialogTitle>
         <DialogDescription>
-          Update the user name and role. Changes are saved locally.
+          {t("users.dialogs.edit.description")}
         </DialogDescription>
       </DialogHeader>
 
       <div className="grid gap-4 py-4">
         <div className="grid gap-2">
-          <Label htmlFor="firstName">First Name</Label>
+          <Label htmlFor="firstName">{t("users.dialogs.edit.firstName")}</Label>
           <Input
             id="firstName"
             value={firstName}
@@ -80,7 +88,7 @@ const UserEditForm = ({ user, onSave, onCancel }: UserEditFormProps) => {
         </div>
 
         <div className="grid gap-2">
-          <Label htmlFor="lastName">Last Name</Label>
+          <Label htmlFor="lastName">{t("users.dialogs.edit.lastName")}</Label>
           <Input
             id="lastName"
             value={lastName}
@@ -90,18 +98,18 @@ const UserEditForm = ({ user, onSave, onCancel }: UserEditFormProps) => {
         </div>
 
         <div className="grid gap-2">
-          <Label htmlFor="role">Role</Label>
+          <Label htmlFor="role">{t("users.dialogs.edit.role")}</Label>
           <Select
             value={role}
             onValueChange={(value) => setRole(value as UserRole)}
           >
             <SelectTrigger id="role" className="h-11 w-full rounded-xl">
-              <SelectValue placeholder="Select a role" />
+              <SelectValue placeholder={t("users.dialogs.edit.selectRole")} />
             </SelectTrigger>
             <SelectContent>
               {roleOptions.map((option) => (
                 <SelectItem key={option} value={option}>
-                  {option.charAt(0).toUpperCase() + option.slice(1)}
+                  {roleLabels[option]}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -111,9 +119,9 @@ const UserEditForm = ({ user, onSave, onCancel }: UserEditFormProps) => {
 
       <DialogFooter>
         <Button type="button" variant="outline" onClick={onCancel}>
-          Cancel
+          {t("common.cancel")}
         </Button>
-        <Button type="submit">Save Changes</Button>
+        <Button type="submit">{t("common.saveChanges")}</Button>
       </DialogFooter>
     </form>
   );
@@ -125,9 +133,11 @@ const UserEditDialog = ({
   onOpenChange,
   onSave,
 }: UserEditDialogProps) => {
+  const { t } = useTranslation();
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md" closeLabel={t("common.close")}>
         {user && open ? (
           <UserEditForm
             key={user.id}

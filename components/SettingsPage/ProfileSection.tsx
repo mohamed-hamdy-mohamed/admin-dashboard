@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import SettingsSection from "./SettingsSection";
 import EditProfileDialog from "./EditProfileDialog";
+import { useTranslation } from "@/providers/LanguageProvider";
 
 interface ProfileSectionProps {
   profile: ProfileSettings;
@@ -13,6 +14,7 @@ interface ProfileSectionProps {
 }
 
 const ProfileSection = ({ profile, onSave }: ProfileSectionProps) => {
+  const { t } = useTranslation();
   const [editOpen, setEditOpen] = useState(false);
 
   const handleSave = (nextProfile: ProfileSettings) => {
@@ -23,8 +25,8 @@ const ProfileSection = ({ profile, onSave }: ProfileSectionProps) => {
   return (
     <>
       <SettingsSection
-        title="Profile"
-        description="Manage your account profile information."
+        title={t("settings.profile.title")}
+        description={t("settings.profile.description")}
       >
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
@@ -53,7 +55,7 @@ const ProfileSection = ({ profile, onSave }: ProfileSectionProps) => {
             className="h-11 rounded-xl"
             onClick={() => setEditOpen(true)}
           >
-            Edit Profile
+            {t("settings.profile.editProfile")}
           </Button>
         </div>
       </SettingsSection>

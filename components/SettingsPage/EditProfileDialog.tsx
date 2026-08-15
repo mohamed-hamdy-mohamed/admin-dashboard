@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useTranslation } from "@/providers/LanguageProvider";
 
 interface EditProfileDialogProps {
   profile: ProfileSettings;
@@ -32,6 +33,7 @@ const EditProfileForm = ({
   onSave,
   onCancel,
 }: EditProfileFormProps) => {
+  const { t } = useTranslation();
   const [name, setName] = useState(profile.name);
   const [email, setEmail] = useState(profile.email);
 
@@ -55,15 +57,15 @@ const EditProfileForm = ({
   return (
     <form onSubmit={handleSubmit}>
       <DialogHeader>
-        <DialogTitle>Edit Profile</DialogTitle>
+        <DialogTitle>{t("settings.profile.dialog.title")}</DialogTitle>
         <DialogDescription>
-          Update your profile details. Changes are saved locally.
+          {t("settings.profile.dialog.description")}
         </DialogDescription>
       </DialogHeader>
 
       <div className="grid gap-4 py-4">
         <div className="grid gap-2">
-          <Label htmlFor="profileName">Name</Label>
+          <Label htmlFor="profileName">{t("settings.profile.dialog.name")}</Label>
           <Input
             id="profileName"
             value={name}
@@ -73,7 +75,7 @@ const EditProfileForm = ({
         </div>
 
         <div className="grid gap-2">
-          <Label htmlFor="profileEmail">Email</Label>
+          <Label htmlFor="profileEmail">{t("settings.profile.dialog.email")}</Label>
           <Input
             id="profileEmail"
             type="email"
@@ -86,13 +88,13 @@ const EditProfileForm = ({
 
       <DialogFooter>
         <Button type="button" variant="outline" onClick={onCancel}>
-          Cancel
+          {t("common.cancel")}
         </Button>
         <Button
           type="submit"
           className="bg-primary text-primary-foreground hover:bg-primary/90"
         >
-          Save Changes
+          {t("common.saveChanges")}
         </Button>
       </DialogFooter>
     </form>
@@ -105,9 +107,11 @@ const EditProfileDialog = ({
   onOpenChange,
   onSave,
 }: EditProfileDialogProps) => {
+  const { t } = useTranslation();
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="rounded-xl border-border sm:max-w-md">
+      <DialogContent className="rounded-xl border-border sm:max-w-md" closeLabel={t("common.close")}>
         {open ? (
           <EditProfileForm
             key={`${profile.name}-${profile.email}`}

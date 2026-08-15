@@ -20,9 +20,11 @@ import {
   persistRecipeEdits,
   RecipeEditsMap,
 } from "@/util/recipeEdits";
+import { useTranslation } from "@/providers/LanguageProvider";
 
 const RecipesPage = () => {
   const [search, setSearch] = useState<string>("");
+  const { t } = useTranslation();
   const [recipeEdits, setRecipeEdits] = useState<RecipeEditsMap>(() =>
     loadRecipeEdits(),
   );
@@ -109,9 +111,15 @@ const RecipesPage = () => {
       {isFetching && <AppLoader />}
 
       <DataTableLayout
-        title="Recipes List"
-        description="Track and manage recipes."
-        toolbar={<SearchInput value={search} onChange={setSearch} />}
+        title={t("recipes.listTitle")}
+        description={t("recipes.listDescription")}
+        toolbar={
+          <SearchInput
+            value={search}
+            onChange={setSearch}
+            placeholder={t("recipes.searchPlaceholder")}
+          />
+        }
       >
         <RecipesTable
           recipes={paginatedData}

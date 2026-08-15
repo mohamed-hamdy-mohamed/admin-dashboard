@@ -1,6 +1,6 @@
 "use client";
 
-import {  FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { ArrowLeft, Send } from "lucide-react";
 import { Conversation } from "@/types/messages";
 import { cn } from "@/lib/utils";
@@ -8,6 +8,7 @@ import { Avatar, AvatarBadge, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import MessageBubble from "./MessageBubble";
+import { useTranslation } from "@/providers/LanguageProvider";
 
 interface ConversationPanelProps {
   conversation: Conversation | undefined;
@@ -22,6 +23,7 @@ const ConversationPanel = ({
   onBack,
   onSendMessage,
 }: ConversationPanelProps) => {
+  const { t } = useTranslation();
   const [draft, setDraft] = useState<string>("");
   const messagesContainerRef = useRef<HTMLDivElement | null>(null);
 
@@ -47,18 +49,18 @@ const ConversationPanel = ({
     }
 
     onSendMessage(trimmedDraft);
-    setDraft("");  
+    setDraft("");
   };
 
-  if (!conversation ) {
+  if (!conversation) {
     return (
       <div className="flex h-full min-h-[420px] items-center justify-center px-6 text-center">
         <div>
           <p className="text-lg font-semibold text-foreground">
-            Select a conversation
+            {t("messages.panel.selectTitle")}
           </p>
           <p className="mt-2 text-sm text-muted-foreground">
-            Choose a conversation from the list to start messaging.
+            {t("messages.panel.selectDescription")}
           </p>
         </div>
       </div>
@@ -74,7 +76,7 @@ const ConversationPanel = ({
             variant="ghost"
             size="icon"
             onClick={onBack}
-            aria-label="Back to conversations"
+            aria-label={t("aria.backToConversations")}
           >
             <ArrowLeft />
           </Button>
@@ -98,7 +100,9 @@ const ConversationPanel = ({
         <div>
           <p className="font-semibold text-foreground">{conversation.userName}</p>
           <p className="text-sm capitalize text-muted-foreground">
-            {conversation.status}
+            {conversation.status === "online"
+              ? t("common.online")
+              : t("common.offline")}
           </p>
         </div>
       </div>
@@ -119,7 +123,7 @@ const ConversationPanel = ({
         <Input
           value={draft}
           onChange={(event) => setDraft(event.target.value)}
-          placeholder="Type your message..."
+          placeholder={t("messages.panel.messagePlaceholder")}
           className="h-11 rounded-xl"
         />
 
@@ -127,7 +131,7 @@ const ConversationPanel = ({
           type="submit"
           size="icon"
           className="size-11 shrink-0 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90"
-          aria-label="Send message"
+          aria-label={t("aria.sendMessage")}
         >
           <Send />
         </Button>

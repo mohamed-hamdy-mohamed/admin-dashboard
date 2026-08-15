@@ -1,8 +1,12 @@
+"use client";
+
 import { Conversation } from "@/types/messages";
 import { cn } from "@/lib/utils";
 import { formatConversationTime } from "@/util/formatMessageTime";
+import { formatNumber } from "@/util/formatNumber";
 import { Avatar, AvatarBadge, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { useTranslation } from "@/providers/LanguageProvider";
 
 interface ConversationItemProps {
   conversation: Conversation;
@@ -15,13 +19,15 @@ const ConversationItem = ({
   isSelected,
   onSelect,
 }: ConversationItemProps) => {
+  const { locale } = useTranslation();
+
   return (
     <button
       type="button"
       onClick={() => onSelect(conversation.id)}
       className={cn(
-        "flex w-full items-start gap-3 border-b border-border px-4 py-4 text-left transition-colors hover:bg-muted",
-        isSelected && "border-l-4 border-l-primary bg-muted",
+        "flex w-full items-start gap-3 border-b border-border px-4 py-4 text-start transition-colors hover:bg-muted",
+        isSelected && "border-s-4 border-s-primary bg-muted",
       )}
     >
       <Avatar size="lg" className="relative">
@@ -42,7 +48,7 @@ const ConversationItem = ({
             {conversation.userName}
           </p>
           <span className="shrink-0 text-xs text-muted-foreground">
-            {formatConversationTime(conversation.lastMessageTime)}
+            {formatConversationTime(conversation.lastMessageTime, locale)}
           </span>
         </div>
 
@@ -53,7 +59,7 @@ const ConversationItem = ({
 
           {conversation.unreadCount > 0 && (
             <Badge className="shrink-0 bg-primary text-primary-foreground hover:bg-primary">
-              {conversation.unreadCount}
+              {formatNumber(conversation.unreadCount, locale)}
             </Badge>
           )}
         </div>

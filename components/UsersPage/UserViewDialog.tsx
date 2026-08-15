@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import UserRoleBadge from "./UserRoleBadge";
+import { useTranslation } from "@/providers/LanguageProvider";
 
 interface UserViewDialogProps {
   user: User | null;
@@ -33,15 +34,17 @@ const DetailItem = ({
 };
 
 const UserViewDialog = ({ user, open, onOpenChange }: UserViewDialogProps) => {
+  const { t } = useTranslation();
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className="sm:max-w-lg" closeLabel={t("common.close")}>
         {user && (
           <>
             <DialogHeader>
-              <DialogTitle>User Details</DialogTitle>
+              <DialogTitle>{t("users.dialogs.view.title")}</DialogTitle>
               <DialogDescription>
-                Read-only profile information for this user.
+                {t("users.dialogs.view.description")}
               </DialogDescription>
             </DialogHeader>
 
@@ -68,16 +71,19 @@ const UserViewDialog = ({ user, open, onOpenChange }: UserViewDialogProps) => {
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <DetailItem label="Email" value={user.email} />
-              <DetailItem label="Phone" value={user.phone} />
-              <DetailItem label="Age" value={`${user.age} yrs`} />
-              <DetailItem label="Gender" value={user.gender} />
-              <DetailItem label="Company" value={user.company.name} />
-              <DetailItem label="Job Title" value={user.company.title} />
-              <DetailItem label="Country" value={user.address.country} />
-              <DetailItem label="City" value={user.address.city} />
-              <DetailItem label="University" value={user.university} />
-              <DetailItem label="Department" value={user.company.department} />
+              <DetailItem label={t("users.dialogs.view.email")} value={user.email} />
+              <DetailItem label={t("users.dialogs.view.phone")} value={user.phone} />
+              <DetailItem
+                label={t("users.dialogs.view.age")}
+                value={t("users.dialogs.view.ageValue", { age: user.age })}
+              />
+              <DetailItem label={t("users.dialogs.view.gender")} value={user.gender} />
+              <DetailItem label={t("users.dialogs.view.company")} value={user.company.name} />
+              <DetailItem label={t("users.dialogs.view.jobTitle")} value={user.company.title} />
+              <DetailItem label={t("users.dialogs.view.country")} value={user.address.country} />
+              <DetailItem label={t("users.dialogs.view.city")} value={user.address.city} />
+              <DetailItem label={t("users.dialogs.view.university")} value={user.university} />
+              <DetailItem label={t("users.dialogs.view.department")} value={user.company.department} />
             </div>
           </>
         )}
