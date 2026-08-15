@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { cookies } from "next/headers";
 import "./globals.css";
-import AppShell from "@/components/AppShell";
 import { languageInitScript } from "@/constants/language";
 import { Providers } from "@/providers/providers";
 import { getLocaleDirection, normalizeLocale } from "@/lib/i18n";
@@ -47,10 +46,8 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: languageInitScript }}
         />
       </head>
-      <body suppressHydrationWarning className="h-full overflow-hidden bg-background">
-        <Providers initialLocale={locale}>
-          <AppShell>{children}</AppShell>
-        </Providers>
+      <body suppressHydrationWarning className="min-h-svh bg-background antialiased">
+        <Providers initialLocale={locale}>{children}</Providers>
       </body>
     </html>
   );
