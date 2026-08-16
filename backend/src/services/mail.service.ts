@@ -1,30 +1,13 @@
-import nodemailer from "nodemailer";
 import { env } from "../config/env";
 import { AppError } from "../utils/AppError";
 
-const hasSmtpAuth = Boolean(env.smtpUser && env.smtpPass);
+const RESEND_EMAILS_URL = "https://api.resend.com/emails";
+const MAIL_TIMEOUT_MS = 10_000;
+const DEFAULT_FROM = "Admin Operations Platform <onboarding@resend.dev>";
 
-const transporter = hasSmtpAuth
-  ? nodemailer.createTransport(
-      env.smtpHost
-        ? {
-            host: env.smtpHost,
-            port: env.smtpPort,
-            secure: env.smtpPort === 465,
-            auth: {
-              user: env.smtpUser,
-              pass: env.smtpPass,
-            },
-          }
-        : {
-            service: "gmail",
-            auth: {
-              user: env.smtpUser,
-              pass: env.smtpPass,
-            },
-          }
-    )
-  : null;
+type ResendErrorBody = {
+  message?: unknown;
+};
 
 const escapeHtml = (value: string) =>
   value
@@ -34,14 +17,27 @@ const escapeHtml = (value: string) =>
     .replace(/"/g, "&quot;");
 
 const assertMailConfigured = () => {
-  if (!transporter) {
+  if (!env.resendApiKey) {
     throw new AppError(
-      "Email service is not configured. Set SMTP_USER and SMTP_PASS.",
+      "Email service is not configured. Set RESEND_API_KEY.",
       500
     );
   }
+};
 
-  return transporter;
+const getMailFrom = () => env.emailFrom || DEFAULT_FROM;
+
+const readResendErrorMessage = async (response: Response) => {
+  try {
+    const body = (await response.json()) as ResendErrorBody;
+    if (typeof body.message === "string" && body.message.trim()) {
+      return body.message;
+    }
+  } catch {
+    // Keep the generic failure message if the API body cannot be parsed.
+  }
+
+  return "Failed to send email. Please try again.";
 };
 
 const brandedEmailShell = ({
@@ -178,15 +174,37 @@ const sendMail = async ({
   text: string;
   html: string;
 }) => {
-  const mailer = assertMailConfigured();
+  assertMailConfigured();
 
-  await mailer.sendMail({
-    from: `Admin Operations Platform <${env.smtpUser}>`,
-    to,
-    subject,
-    text,
-    html,
-  });
+  let response: Response;
+
+  try {
+    response = await fetch(RESEND_EMAILS_URL, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${env.resendApiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: getMailFrom(),
+        to,
+        subject,
+        html,
+        text,
+      }),
+      signal: AbortSignal.timeout(MAIL_TIMEOUT_MS),
+    });
+  } catch (err) {
+    if (err instanceof Error && err.name === "TimeoutError") {
+      throw new AppError("Failed to send email. The request timed out.", 500);
+    }
+
+    throw new AppError("Failed to send email. Please try again.", 500);
+  }
+
+  if (!response.ok) {
+    throw new AppError(await readResendErrorMessage(response), 500);
+  }
 };
 
 type SendVerificationEmailInput = {
