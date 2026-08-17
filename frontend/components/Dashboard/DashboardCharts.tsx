@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import DashboardSalesChart from "./Charts/DashboardSalesChart";
 import CategoryDistributionChart from "./Charts/CategoryDistributionChart";
 import OrderDistributionChart from "./Charts/OrderDistributionChart";
@@ -16,4 +17,4 @@ const DashboardCharts = () => {
   );
 };
 
-export default DashboardCharts;
+export default memo(DashboardCharts);

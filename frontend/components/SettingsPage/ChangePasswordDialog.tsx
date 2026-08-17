@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FieldError from "@/components/Auth/FieldError";
@@ -15,6 +16,7 @@ import {
 import { Button } from "@/components/atoms/ui/button";
 import { Input } from "@/components/atoms/ui/input";
 import { Label } from "@/components/atoms/ui/label";
+import PasswordInput from "@/components/Auth/PasswordInput";
 import { Spinner } from "@/components/atoms/ui/spinner";
 import { changePassword } from "@/lib/authApi";
 import { getApiErrorMessage } from "@/lib/apiError";
@@ -23,6 +25,7 @@ import {
   type ChangePasswordFormValues,
 } from "@/lib/schemas/auth";
 import { useTranslation } from "@/providers/LanguageProvider";
+import { useAuth } from "@/providers/AuthProvider";
 import toast from "react-hot-toast";
 
 interface ChangePasswordDialogProps {
@@ -35,6 +38,8 @@ const ChangePasswordDialog = ({
   onOpenChange,
 }: ChangePasswordDialogProps) => {
   const { t } = useTranslation();
+  const { logout } = useAuth();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -78,7 +83,8 @@ const ChangePasswordDialog = ({
     try {
       const response = await changePassword({ currentPassword, newPassword });
       toast.success(response.message);
-      handleOpenChange(false);
+      logout();
+      router.replace("/login");
     } catch (error) {
       toast.error(getApiErrorMessage(error));
     }
@@ -116,9 +122,8 @@ const ChangePasswordDialog = ({
               <Label htmlFor="newPassword">
                 {t("settings.security.changePasswordDialog.newPassword")}
               </Label>
-              <Input
+              <PasswordInput
                 id="newPassword"
-                type="password"
                 autoComplete="new-password"
                 className="h-11 rounded-xl"
                 disabled={isSubmitting}
@@ -132,9 +137,8 @@ const ChangePasswordDialog = ({
               <Label htmlFor="confirmPassword">
                 {t("settings.security.changePasswordDialog.confirmPassword")}
               </Label>
-              <Input
+              <PasswordInput
                 id="confirmPassword"
-                type="password"
                 autoComplete="new-password"
                 className="h-11 rounded-xl"
                 disabled={isSubmitting}

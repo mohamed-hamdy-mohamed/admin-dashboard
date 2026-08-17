@@ -28,11 +28,15 @@ const RouteGuard = ({ children, requireAuth }: RouteGuardProps) => {
     }
   }, [isAuthenticated, isReady, requireAuth, router]);
 
-  if (requireAuth && (!isReady || !isAuthenticated)) {
+  if (!isReady) {
     return <AppLoader />;
   }
 
-  if (!requireAuth && isReady && isAuthenticated) {
+  if (requireAuth && !isAuthenticated) {
+    return <AppLoader />;
+  }
+
+  if (!requireAuth && isAuthenticated) {
     return <AppLoader />;
   }
 

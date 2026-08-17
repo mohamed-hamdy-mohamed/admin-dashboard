@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 import { getOrderDistributionChart } from "@/lib/chartData";
 import { chartLegendStyle, chartTooltipContentStyle } from "@/constants/chart-theme";
 import { MEDIA_QUERIES } from "@/constants/breakpoints";
@@ -12,7 +12,7 @@ import {
 } from "@/util/chartFormat";
 import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
 import ChartCard from "@/components/molecules/ChartCard";
-import MeasuredChart from "../MeasuredChart";
+import MeasuredChart, { type ChartSize } from "../MeasuredChart";
 
 const OrderDistributionChart = () => {
   const { locale, t } = useTranslation();
@@ -30,44 +30,48 @@ const OrderDistributionChart = () => {
     [locale],
   );
 
+  const renderChart = useCallback(
+    ({ width, height }: ChartSize) => (
+      <PieChart id="dashboard-orders" width={width} height={height}>
+        <Pie
+          outerRadius={isMdUp ? 85 : 70}
+          innerRadius={isMdUp ? 45 : 36}
+          data={orderDistribution}
+          cx="50%"
+          cy="50%"
+          labelLine={false}
+          dataKey="value"
+          label={isMdUp ? pieLabelFormatter : false}
+          isAnimationActive={false}
+        >
+          {orderDistribution.map((category) => (
+            <Cell key={`order-${category.name}`} fill={category.color} />
+          ))}
+        </Pie>
+        <Tooltip
+          isAnimationActive={false}
+          formatter={tooltipFormatter}
+          contentStyle={chartTooltipContentStyle}
+        />
+        <Legend
+          iconType="circle"
+          layout="horizontal"
+          wrapperStyle={chartLegendStyle}
+          align="center"
+        />
+      </PieChart>
+    ),
+    [isMdUp, orderDistribution, pieLabelFormatter, tooltipFormatter],
+  );
+
   return (
     <ChartCard
       title={t("charts.orderStatus.title")}
       subtitle={t("charts.orderStatus.subtitle")}
     >
-      <MeasuredChart>
-        {({ width, height }) => (
-          <PieChart width={width} height={height}>
-            <Pie
-              outerRadius={isMdUp ? 85 : 70}
-              innerRadius={isMdUp ? 45 : 36}
-              data={orderDistribution}
-              cx="50%"
-              cy="50%"
-              labelLine={false}
-              dataKey="value"
-              label={isMdUp ? pieLabelFormatter : false}
-              isAnimationActive={false}
-            >
-              {orderDistribution.map((category, idx) => (
-                <Cell key={`cell-${idx}`} fill={category.color} />
-              ))}
-            </Pie>
-            <Tooltip
-              formatter={tooltipFormatter}
-              contentStyle={chartTooltipContentStyle}
-            />
-            <Legend
-              iconType="circle"
-              layout="horizontal"
-              wrapperStyle={chartLegendStyle}
-              align="center"
-            />
-          </PieChart>
-        )}
-      </MeasuredChart>
+      <MeasuredChart>{renderChart}</MeasuredChart>
     </ChartCard>
   );
 };
 
-export default OrderDistributionChart;
+export default memo(OrderDistributionChart);

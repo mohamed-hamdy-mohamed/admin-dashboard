@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 import { getCategoryChart } from "@/lib/chartData";
 import { chartLegendStyle, chartTooltipContentStyle } from "@/constants/chart-theme";
 import { MEDIA_QUERIES } from "@/constants/breakpoints";
@@ -12,7 +12,7 @@ import {
 } from "@/util/chartFormat";
 import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
 import ChartCard from "@/components/molecules/ChartCard";
-import MeasuredChart from "../MeasuredChart";
+import MeasuredChart, { type ChartSize } from "../MeasuredChart";
 
 const CategoryDistributionChart = () => {
   const { locale, t } = useTranslation();
@@ -27,42 +27,46 @@ const CategoryDistributionChart = () => {
     [locale],
   );
 
+  const renderChart = useCallback(
+    ({ width, height }: ChartSize) => (
+      <PieChart id="dashboard-category" width={width} height={height}>
+        <Pie
+          data={categoryChart}
+          cx="50%"
+          cy="50%"
+          labelLine={false}
+          dataKey="value"
+          label={isMdUp ? pieLabelFormatter : false}
+          isAnimationActive={false}
+        >
+          {categoryChart.map((category, idx) => (
+            <Cell key={`category-${category.name}`} fill={category.color} />
+          ))}
+        </Pie>
+        <Tooltip
+          isAnimationActive={false}
+          formatter={tooltipFormatter}
+          contentStyle={chartTooltipContentStyle}
+        />
+        <Legend
+          iconType="circle"
+          layout="horizontal"
+          wrapperStyle={chartLegendStyle}
+          align="center"
+        />
+      </PieChart>
+    ),
+    [categoryChart, isMdUp, pieLabelFormatter, tooltipFormatter],
+  );
+
   return (
     <ChartCard
       title={t("charts.categoryDistribution.title")}
       subtitle={t("charts.categoryDistribution.subtitle")}
     >
-      <MeasuredChart>
-        {({ width, height }) => (
-          <PieChart width={width} height={height}>
-            <Pie
-              data={categoryChart}
-              cx="50%"
-              cy="50%"
-              labelLine={false}
-              dataKey="value"
-              label={isMdUp ? pieLabelFormatter : false}
-              isAnimationActive={false}
-            >
-              {categoryChart.map((category, idx) => (
-                <Cell key={`cell-${idx}`} fill={category.color} />
-              ))}
-            </Pie>
-            <Tooltip
-              formatter={tooltipFormatter}
-              contentStyle={chartTooltipContentStyle}
-            />
-            <Legend
-              iconType="circle"
-              layout="horizontal"
-              wrapperStyle={chartLegendStyle}
-              align="center"
-            />
-          </PieChart>
-        )}
-      </MeasuredChart>
+      <MeasuredChart>{renderChart}</MeasuredChart>
     </ChartCard>
   );
 };
 
-export default CategoryDistributionChart;
+export default memo(CategoryDistributionChart);

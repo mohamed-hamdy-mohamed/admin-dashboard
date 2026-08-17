@@ -2,11 +2,23 @@ export const chartAxisStroke = "var(--muted-foreground)";
 
 export const chartGridStroke = "var(--border)";
 
+export const chartTickSm = { fontSize: 10 };
+
+export const chartTickMd = { fontSize: 12 };
+
+export const chartBarTickSm = { fill: chartAxisStroke, fontSize: 10 };
+
+export const chartBarTickMd = { fill: chartAxisStroke, fontSize: 14 };
+
+export const chartBarYTickSm = { fill: chartAxisStroke, fontSize: 10 };
+
+export const chartBarYTickMd = { fill: chartAxisStroke, fontSize: 12 };
+
 export const chartTooltipContentStyle = {
   background: "var(--card)",
   border: "1px solid var(--border)",
   borderRadius: "12px",
-  boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
+  boxShadow: "none",
   color: "var(--foreground)",
   fontSize: "14px",
 };

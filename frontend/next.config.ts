@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
     },
   },
   experimental: {
-    optimizePackageImports: ["@base-ui/react"],
+    optimizePackageImports: ["@base-ui/react", "recharts"],
   },
   turbopack: {
     root: path.resolve(process.cwd()),

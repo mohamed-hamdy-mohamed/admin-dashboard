@@ -1,9 +1,13 @@
 "use client";
 
-import { useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 import { getProductPerformanceChart } from "@/lib/chartData";
 import {
   chartAxisStroke,
+  chartBarTickMd,
+  chartBarTickSm,
+  chartBarYTickMd,
+  chartBarYTickSm,
   chartGridStroke,
   chartLegendStyle,
   chartTooltipContentStyle,
@@ -22,7 +26,9 @@ import {
   YAxis,
 } from "recharts";
 import ChartCard from "@/components/molecules/ChartCard";
-import MeasuredChart from "../MeasuredChart";
+import MeasuredChart, { type ChartSize } from "../MeasuredChart";
+
+const BAR_RADIUS: [number, number, number, number] = [6, 6, 0, 0];
 
 const ProductPerformanceChart = () => {
   const { locale, t } = useTranslation();
@@ -39,67 +45,87 @@ const ProductPerformanceChart = () => {
     () => createChartTooltipNumberFormatter(locale),
     [locale],
   );
+  const xTick = isMdUp ? chartBarTickMd : chartBarTickSm;
+  const yTick = isMdUp ? chartBarYTickMd : chartBarYTickSm;
+  const ordersLabel = t("charts.legend.orders");
+  const profitLabel = t("charts.legend.profit");
+  const revenueLabel = t("charts.legend.revenue");
+
+  const renderChart = useCallback(
+    ({ width, height }: ChartSize) => (
+      <BarChart
+        id="dashboard-products"
+        width={width}
+        height={height}
+        data={productPerformance}
+        barGap={8}
+        barCategoryGap="18%"
+      >
+        <CartesianGrid stroke={chartGridStroke} strokeDasharray="4 4" />
+        <XAxis
+          dataKey="name"
+          stroke={chartAxisStroke}
+          tick={xTick}
+          axisLine={false}
+          tickLine={false}
+          interval={0}
+        />
+        <YAxis
+          stroke={chartAxisStroke}
+          tick={yTick}
+          width={isMdUp ? 40 : 32}
+          tickFormatter={tickFormatter}
+        />
+        <Tooltip
+          isAnimationActive={false}
+          contentStyle={chartTooltipContentStyle}
+          formatter={tooltipFormatter}
+        />
+        <Legend iconType="circle" wrapperStyle={chartLegendStyle} />
+        <Bar
+          dataKey="orders"
+          name={ordersLabel}
+          fill="#2563eb"
+          radius={BAR_RADIUS}
+          isAnimationActive={false}
+        />
+        <Bar
+          dataKey="profit"
+          name={profitLabel}
+          fill="#22c55e"
+          radius={BAR_RADIUS}
+          isAnimationActive={false}
+        />
+        <Bar
+          dataKey="revenue"
+          name={revenueLabel}
+          fill="#f97316"
+          radius={BAR_RADIUS}
+          isAnimationActive={false}
+        />
+      </BarChart>
+    ),
+    [
+      isMdUp,
+      ordersLabel,
+      productPerformance,
+      profitLabel,
+      revenueLabel,
+      tickFormatter,
+      tooltipFormatter,
+      xTick,
+      yTick,
+    ],
+  );
 
   return (
     <ChartCard
       title={t("charts.bestSellingMenu.title")}
       subtitle={t("charts.bestSellingMenu.subtitle")}
     >
-      <MeasuredChart>
-        {({ width, height }) => (
-          <BarChart
-            width={width}
-            height={height}
-            data={productPerformance}
-            barGap={8}
-            barCategoryGap="18%"
-          >
-            <CartesianGrid stroke={chartGridStroke} strokeDasharray="4 4" />
-            <XAxis
-              dataKey="name"
-              stroke={chartAxisStroke}
-              tick={{ fill: chartAxisStroke, fontSize: isMdUp ? 14 : 10 }}
-              axisLine={false}
-              tickLine={false}
-              interval={0}
-            />
-            <YAxis
-              stroke={chartAxisStroke}
-              tick={{ fill: chartAxisStroke, fontSize: isMdUp ? 12 : 10 }}
-              width={isMdUp ? 40 : 32}
-              tickFormatter={tickFormatter}
-            />
-            <Tooltip
-              contentStyle={chartTooltipContentStyle}
-              formatter={tooltipFormatter}
-            />
-            <Legend iconType="circle" wrapperStyle={chartLegendStyle} />
-            <Bar
-              dataKey="orders"
-              name={t("charts.legend.orders")}
-              fill="#2563eb"
-              radius={[6, 6, 0, 0]}
-              isAnimationActive={false}
-            />
-            <Bar
-              dataKey="profit"
-              name={t("charts.legend.profit")}
-              fill="#22c55e"
-              radius={[6, 6, 0, 0]}
-              isAnimationActive={false}
-            />
-            <Bar
-              dataKey="revenue"
-              name={t("charts.legend.revenue")}
-              fill="#f97316"
-              radius={[6, 6, 0, 0]}
-              isAnimationActive={false}
-            />
-          </BarChart>
-        )}
-      </MeasuredChart>
+      <MeasuredChart>{renderChart}</MeasuredChart>
     </ChartCard>
   );
 };
 
-export default ProductPerformanceChart;
+export default memo(ProductPerformanceChart);

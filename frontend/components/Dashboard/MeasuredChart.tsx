@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { memo, useEffect, useRef, useState, type ReactNode } from "react";
 
-interface ChartSize {
+export interface ChartSize {
   width: number;
   height: number;
 }
@@ -10,6 +10,8 @@ interface ChartSize {
 interface MeasuredChartProps {
   children: (size: ChartSize) => ReactNode;
 }
+
+const SIZE_SNAP = 4;
 
 const MeasuredChart = ({ children }: MeasuredChartProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -25,8 +27,8 @@ const MeasuredChart = ({ children }: MeasuredChartProps) => {
     let frame = 0;
 
     const updateSize = (width: number, height: number) => {
-      const nextWidth = Math.floor(width);
-      const nextHeight = Math.floor(height);
+      const nextWidth = Math.round(width / SIZE_SNAP) * SIZE_SNAP;
+      const nextHeight = Math.round(height / SIZE_SNAP) * SIZE_SNAP;
 
       if (nextWidth < 1 || nextHeight < 1) {
         return;
@@ -62,11 +64,17 @@ const MeasuredChart = ({ children }: MeasuredChartProps) => {
     };
   }, []);
 
+  const isReady = size.width > 0 && size.height > 0;
+
   return (
     <div ref={ref} className="h-full w-full">
-      {size.width > 0 && size.height > 0 ? children(size) : null}
+      {isReady ? (
+        children(size)
+      ) : (
+        <div className="h-full w-full rounded-lg bg-muted" aria-hidden />
+      )}
     </div>
   );
 };
 
-export default MeasuredChart;
+export default memo(MeasuredChart);

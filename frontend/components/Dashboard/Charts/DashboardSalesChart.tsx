@@ -1,10 +1,12 @@
 "use client";
 
-import { useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 import { getSalesDataChart } from "@/lib/chartData";
 import {
   chartAxisStroke,
   chartGridStroke,
+  chartTickMd,
+  chartTickSm,
   chartTooltipContentStyle,
   chartTooltipItemStyle,
 } from "@/constants/chart-theme";
@@ -24,7 +26,12 @@ import {
   YAxis,
 } from "recharts";
 import ChartCard from "@/components/molecules/ChartCard";
-import MeasuredChart from "../MeasuredChart";
+import MeasuredChart, { type ChartSize } from "../MeasuredChart";
+
+const DOT_SM = { r: 3 };
+const DOT_MD = { r: 4 };
+const ACTIVE_DOT_SM = { r: 5 };
+const ACTIVE_DOT_MD = { r: 6 };
 
 const DashboardSalesChart = () => {
   const { locale, t } = useTranslation();
@@ -38,47 +45,57 @@ const DashboardSalesChart = () => {
     () => createChartTooltipPriceFormatter(locale),
     [locale],
   );
+  const tick = isMdUp ? chartTickMd : chartTickSm;
+
+  const renderChart = useCallback(
+    ({ width, height }: ChartSize) => (
+      <LineChart
+        id="dashboard-sales"
+        width={width}
+        height={height}
+        data={salesDataChart}
+      >
+        <CartesianGrid strokeDasharray="4 4" stroke={chartGridStroke} />
+        <XAxis
+          dataKey="month"
+          stroke={chartAxisStroke}
+          tick={tick}
+          interval="preserveStartEnd"
+        />
+        <YAxis
+          stroke={chartAxisStroke}
+          tick={tick}
+          width={isMdUp ? 40 : 32}
+          tickFormatter={tickFormatter}
+        />
+        <Tooltip
+          isAnimationActive={false}
+          contentStyle={chartTooltipContentStyle}
+          itemStyle={chartTooltipItemStyle}
+          formatter={tooltipFormatter}
+        />
+        <Line
+          type="monotone"
+          dataKey="revenue"
+          stroke="#22c55e"
+          strokeWidth={3}
+          dot={isMdUp ? DOT_MD : DOT_SM}
+          activeDot={isMdUp ? ACTIVE_DOT_MD : ACTIVE_DOT_SM}
+          isAnimationActive={false}
+        />
+      </LineChart>
+    ),
+    [isMdUp, salesDataChart, tick, tickFormatter, tooltipFormatter],
+  );
 
   return (
     <ChartCard
       title={t("charts.monthlyRevenue.title")}
       subtitle={t("charts.monthlyRevenue.subtitle")}
     >
-      <MeasuredChart>
-        {({ width, height }) => (
-          <LineChart width={width} height={height} data={salesDataChart}>
-            <CartesianGrid strokeDasharray="4 4" stroke={chartGridStroke} />
-            <XAxis
-              dataKey="month"
-              stroke={chartAxisStroke}
-              tick={{ fontSize: isMdUp ? 12 : 10 }}
-              interval="preserveStartEnd"
-            />
-            <YAxis
-              stroke={chartAxisStroke}
-              tick={{ fontSize: isMdUp ? 12 : 10 }}
-              width={isMdUp ? 40 : 32}
-              tickFormatter={tickFormatter}
-            />
-            <Tooltip
-              contentStyle={chartTooltipContentStyle}
-              itemStyle={chartTooltipItemStyle}
-              formatter={tooltipFormatter}
-            />
-            <Line
-              type="monotone"
-              dataKey="revenue"
-              stroke="#22c55e"
-              strokeWidth={3}
-              dot={{ r: isMdUp ? 4 : 3 }}
-              activeDot={{ r: isMdUp ? 6 : 5 }}
-              isAnimationActive={false}
-            />
-          </LineChart>
-        )}
-      </MeasuredChart>
+      <MeasuredChart>{renderChart}</MeasuredChart>
     </ChartCard>
   );
 };
 
-export default DashboardSalesChart;
+export default memo(DashboardSalesChart);

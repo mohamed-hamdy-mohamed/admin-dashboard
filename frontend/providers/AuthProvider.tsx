@@ -12,9 +12,11 @@ import {
 import { getCurrentUser } from "@/lib/authApi";
 import type { AuthUser } from "@/types/auth";
 import {
+  applyAuthTokenFromSync,
   clearAuthToken,
   getAuthToken,
   setAuthToken,
+  subscribeAuthSync,
   subscribeUnauthorized,
 } from "@/util/authStorage";
 
@@ -59,6 +61,38 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
+    return subscribeAuthSync((message) => {
+      if (message.type === "logout") {
+        clearAuthToken({ broadcast: false });
+        setHasToken(false);
+        setUser(null);
+        return;
+      }
+
+      applyAuthTokenFromSync(message.token, message.rememberMe);
+      setHasToken(true);
+      setIsReady(true);
+
+      void getCurrentUser()
+        .then((data) => {
+          setUser(data.data.user);
+        })
+        .catch((error) => {
+          const status =
+            error && typeof error === "object" && "response" in error
+              ? (error as { response?: { status?: number } }).response?.status
+              : undefined;
+
+          if (status === 401) {
+            clearAuthToken();
+            setHasToken(false);
+            setUser(null);
+          }
+        });
+    });
+  }, []);
+
+  useEffect(() => {
     let cancelled = false;
 
     const restoreSession = async () => {
@@ -79,8 +113,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (!cancelled) {
           setUser(data.data.user);
         }
-      } catch {
-        if (!cancelled && getAuthToken() === token) {
+      } catch (error) {
+        const status =
+          error && typeof error === "object" && "response" in error
+            ? (error as { response?: { status?: number } }).response?.status
+            : undefined;
+
+        if (!cancelled && getAuthToken() === token && status === 401) {
           clearAuthToken();
           setHasToken(false);
           setUser(null);
