@@ -26,7 +26,7 @@ const RowActions = ({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        className="inline-flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring"
+        className="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg transition-colors hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring"
         aria-label={ariaLabel}
       >
         <MoreHorizontal className="h-4 w-4" />

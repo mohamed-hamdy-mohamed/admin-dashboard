@@ -123,7 +123,7 @@ const MessagesPage = () => {
               <ConversationPanel
                 key={selectedConversationId ?? "empty"}
                 conversation={selectedConversation}
-                showBackButton={mobileView === "conversation"}
+                showBackButton={Boolean(selectedConversation)}
                 onBack={() => {
                   setSelectedConversationId(null);
                   setMobileView("list");

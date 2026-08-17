@@ -75,7 +75,6 @@ const ConversationPanel = ({
             type="button"
             variant="ghost"
             size="icon"
-            className="lg:hidden"
             onClick={onBack}
             aria-label={t("aria.backToConversations")}
           >

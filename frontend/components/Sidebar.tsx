@@ -59,7 +59,7 @@ const Sidebar = ({
                 aria-label={t(route.labelKey)}
                 aria-current={pathname === route.path ? "page" : undefined}
                 className={cn(
-                  "flex items-center rounded-xl px-4 py-3 transition-colors hover:bg-sidebar-accent",
+                  "flex cursor-pointer items-center rounded-xl px-4 py-3 transition-colors hover:bg-sidebar-accent",
                   pathname === route.path ? "bg-sidebar-accent" : "",
                 )}
               >

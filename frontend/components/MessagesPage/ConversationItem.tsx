@@ -26,7 +26,7 @@ const ConversationItem = ({
       type="button"
       onClick={() => onSelect(conversation.id)}
       className={cn(
-        "flex w-full items-start gap-3 border-b border-border px-4 py-4 text-start transition-colors hover:bg-muted",
+        "flex w-full cursor-pointer items-start gap-3 border-b border-border px-4 py-4 text-start transition-colors hover:bg-muted",
         isSelected && "border-s-4 border-s-primary bg-muted",
       )}
     >

@@ -104,7 +104,7 @@ const LoginForm = () => {
 
           <button
             type="button"
-            className="text-sm font-medium text-foreground underline-offset-4 hover:underline"
+            className="cursor-pointer text-sm font-medium text-foreground underline-offset-4 hover:underline"
             onClick={() => setForgotPasswordOpen(true)}
           >
             Forgot password?

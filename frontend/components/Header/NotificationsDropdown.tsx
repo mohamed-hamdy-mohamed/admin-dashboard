@@ -101,7 +101,7 @@ const AppNotifications = () => {
                 type="button"
                 onClick={() => handleMarkAsRead(notification.id)}
                 className={cn(
-                  "mb-2 w-full rounded-xl border border-border p-3 text-start transition-colors last:mb-0 hover:opacity-90",
+                  "mb-2 w-full cursor-pointer rounded-xl border border-border p-3 text-start transition-colors last:mb-0 hover:opacity-90",
                   notification.read ? "bg-secondary" : "bg-accent",
                 )}
               >

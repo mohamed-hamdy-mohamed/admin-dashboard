@@ -135,7 +135,7 @@ const EditProfileDialog = ({
                 type="button"
                 disabled={isSaving}
                 aria-label={t("settings.profile.dialog.avatar")}
-                className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="cursor-pointer rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 onClick={() => fileInputRef.current?.click()}
               >
                 {previewUrl ? (
