@@ -2,8 +2,8 @@
 
 import { memo } from "react";
 import { TableCell, TableRow } from "@/components/atoms/ui/table";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/atoms/ui/avatar";
 import { Badge } from "@/components/atoms/ui/badge";
+import EntityIdentity from "@/components/molecules/EntityIdentity";
 import { Sale } from "@/types/sales";
 import SaleStatusBadge from "./SalesStatusBadge";
 import { useTranslation } from "@/providers/LanguageProvider";
@@ -22,21 +22,15 @@ const SalesTableRow = ({ sale, priority = false }: Props) => {
   return (
     <TableRow className="transition-colors hover:bg-muted/40">
       <TableCell>
-        <div className="flex items-center gap-3">
-          <Avatar className="h-11 w-11">
-            <AvatarImage
-              src={sale.avatar}
-              alt={sale.customer}
-              sizes="44px"
-              priority={priority}
-            />
-            <AvatarFallback>{sale.customer.charAt(0)}</AvatarFallback>
-          </Avatar>
-          <div>
-            <p className="font-semibold">{sale.customer}</p>
-            <p className="text-xs text-muted-foreground">{sale.email}</p>
-          </div>
-        </div>
+        <EntityIdentity
+          src={sale.avatar}
+          alt={sale.customer}
+          fallback={sale.customer.charAt(0)}
+          title={sale.customer}
+          subtitle={sale.email}
+          avatarClassName="h-11 w-11"
+          priority={priority}
+        />
       </TableCell>
       <TableCell>
         <div>

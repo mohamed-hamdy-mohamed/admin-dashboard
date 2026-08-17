@@ -1,3 +1,4 @@
+import { memo } from "react";
 import StatCard from "@/components/atoms/ui/StatCard";
 import type { Stats } from "@/types/stats";
 
@@ -21,4 +22,4 @@ const StatsCard = ({ stats }: StatsCardProps) => {
   );
 };
 
-export default StatsCard;
+export default memo(StatsCard);

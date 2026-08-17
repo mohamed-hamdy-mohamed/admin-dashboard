@@ -1,16 +1,12 @@
 "use client";
 
-import { useCallback, useMemo } from "react";
 import dynamic from "next/dynamic";
 import { useGetUsers } from "@/hooks/useGetUsers";
-import { useCatalogCollection } from "@/hooks/useCatalogCollection";
-import { useEntityDialog } from "@/hooks/useEntityDialog";
-import { usePersistedEdits } from "@/hooks/usePersistedEdits";
+import { useCatalogEntityPage } from "@/hooks/useCatalogEntityPage";
 import UsersTable from "./UsersTable";
 import UsersStats from "./UsersStats";
 import CatalogPageTemplate from "@/components/templates/CatalogPageTemplate";
 import { User } from "@/types/users";
-import { UserEditValues } from "@/types/user-edits";
 import {
   applyUserEdits,
   loadUserEdits,
@@ -32,22 +28,6 @@ const matchUser = (user: User, query: string) =>
 const UsersPage = () => {
   const { t } = useTranslation();
   const { data, isLoading } = useGetUsers();
-  const { mergedItems: users, saveEdit } = usePersistedEdits({
-    items: data?.users,
-    load: loadUserEdits,
-    persist: persistUserEdits,
-    apply: applyUserEdits,
-  });
-  const {
-    item: activeUser,
-    setItem: setActiveUser,
-    viewOpen,
-    setViewOpen,
-    editOpen,
-    setEditOpen,
-    openView,
-    openEdit,
-  } = useEntityDialog<User>();
   const {
     search,
     setSearch,
@@ -57,33 +37,23 @@ const UsersPage = () => {
     prevPage,
     nextPage,
     goToPage,
-  } = useCatalogCollection({
-    items: users,
+    mergedData,
+    activeItem: activeUser,
+    viewOpen,
+    setViewOpen,
+    editOpen,
+    setEditOpen,
+    openView,
+    openEdit,
+    handleSave,
+  } = useCatalogEntityPage({
+    data,
+    collectionKey: "users",
     match: matchUser,
+    load: loadUserEdits,
+    persist: persistUserEdits,
+    apply: applyUserEdits,
   });
-
-  const mergedData = useMemo(() => {
-    if (!data) {
-      return undefined;
-    }
-
-    return {
-      ...data,
-      users,
-    };
-  }, [data, users]);
-
-  const handleSaveUser = useCallback(
-    (values: UserEditValues) => {
-      if (!activeUser) {
-        return;
-      }
-
-      setActiveUser(saveEdit(activeUser, values));
-      setEditOpen(false);
-    },
-    [activeUser, saveEdit, setActiveUser, setEditOpen],
-  );
 
   return (
     <CatalogPageTemplate
@@ -111,7 +81,7 @@ const UsersPage = () => {
             user={activeUser}
             open={editOpen}
             onOpenChange={setEditOpen}
-            onSave={handleSaveUser}
+            onSave={handleSave}
           />
         </>
       }

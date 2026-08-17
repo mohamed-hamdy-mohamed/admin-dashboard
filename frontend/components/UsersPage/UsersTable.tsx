@@ -1,8 +1,7 @@
 "use client";
 
 import { memo, useMemo } from "react";
-import CatalogDataTable from "@/components/molecules/CatalogDataTable";
-import { CATALOG_PRIORITY_ROWS } from "@/constants/catalog";
+import CatalogListTable from "@/components/molecules/CatalogListTable";
 import UserTableRow from "./UserTableRow";
 import { User } from "@/types/users";
 import { useTranslation } from "@/providers/LanguageProvider";
@@ -36,23 +35,22 @@ const UsersTable = ({
   );
 
   return (
-    <CatalogDataTable
+    <CatalogListTable
+      items={users}
+      isLoading={isLoading}
       columns={columns}
       emptyMessage={t("users.empty")}
-      isLoading={isLoading}
-      isEmpty={users.length === 0}
       skeletonLeading="avatar"
-    >
-      {users.map((user, index) => (
+      renderRow={(user, priority) => (
         <UserTableRow
           key={user.id}
           user={user}
-          priority={index < CATALOG_PRIORITY_ROWS}
+          priority={priority}
           onView={onViewUser}
           onEdit={onEditUser}
         />
-      ))}
-    </CatalogDataTable>
+      )}
+    />
   );
 };
 

@@ -3,13 +3,11 @@
 import { memo } from "react";
 import { TableCell, TableRow } from "@/components/atoms/ui/table";
 import { Badge } from "@/components/atoms/ui/badge";
+import EntityIdentity from "@/components/molecules/EntityIdentity";
+import ViewEditRowActions from "@/components/molecules/ViewEditRowActions";
 import { User } from "@/types/users";
-import { Avatar, AvatarFallback, AvatarImage } from "../atoms/ui/avatar";
 import UserStatusBadge from "./UserStatusBadge";
-
 import UserRoleBadge from "./UserRoleBadge";
-import RowActions from "../atoms/ui/RowActions";
-import { Eye, Pencil } from "lucide-react";
 import { useTranslation } from "@/providers/LanguageProvider";
 
 interface UserTableRowProps {
@@ -30,30 +28,27 @@ const UserTableRow = ({
   return (
     <TableRow className="cursor-pointer transition-colors hover:bg-muted/40">
       <TableCell>
-        <div className="flex items-center gap-3">
-          <Avatar className="h-11 w-11 border shadow-sm">
-            <AvatarImage
-              src={user.image}
-              alt={`${user.firstName} ${user.lastName}`}
-              sizes="44px"
-              priority={priority}
-            />
-            <AvatarFallback>
+        <EntityIdentity
+          src={user.image}
+          alt={`${user.firstName} ${user.lastName}`}
+          fallback={
+            <>
               {user.firstName[0]}
               {user.lastName[0]}
-            </AvatarFallback>
-          </Avatar>
-
-          <div className="space-y-0.5">
-            <p className="font-semibold">
-              {user.firstName} {user.lastName}
-            </p>
-            <p className="text-xs font-medium text-primary">@{user.username}</p>
+            </>
+          }
+          title={`${user.firstName} ${user.lastName}`}
+          subtitle={`@${user.username}`}
+          meta={
             <p className="max-w-[220px] truncate text-xs text-muted-foreground">
               {user.email}
             </p>
-          </div>
-        </div>
+          }
+          avatarClassName="h-11 w-11 border shadow-sm"
+          contentClassName="space-y-0.5"
+          subtitleClassName="text-xs font-medium text-primary"
+          priority={priority}
+        />
       </TableCell>
       <TableCell className="align-middle">
         <UserRoleBadge role={user.role} />
@@ -83,20 +78,13 @@ const UserTableRow = ({
         <UserStatusBadge id={user.id} />
       </TableCell>
       <TableCell className="w-[120px] text-end">
-        <RowActions
+        <ViewEditRowActions
+          item={user}
           ariaLabel={t("rowActions.user")}
-          actions={[
-            {
-              label: t("rowActions.view"),
-              icon: Eye,
-              onClick: () => onView(user),
-            },
-            {
-              label: t("rowActions.edit"),
-              icon: Pencil,
-              onClick: () => onEdit(user),
-            },
-          ]}
+          viewLabel={t("rowActions.view")}
+          editLabel={t("rowActions.edit")}
+          onView={onView}
+          onEdit={onEdit}
         />
       </TableCell>
     </TableRow>

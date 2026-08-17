@@ -1,8 +1,7 @@
 "use client";
 
 import { memo, useMemo } from "react";
-import CatalogDataTable from "@/components/molecules/CatalogDataTable";
-import { CATALOG_PRIORITY_ROWS } from "@/constants/catalog";
+import CatalogListTable from "@/components/molecules/CatalogListTable";
 import { Recipe } from "@/types/recipes";
 import RecipesTableRow from "./RecipesTableRow";
 import { useTranslation } from "@/providers/LanguageProvider";
@@ -37,23 +36,22 @@ const RecipesTable = ({
   );
 
   return (
-    <CatalogDataTable
+    <CatalogListTable
+      items={recipes}
+      isLoading={isLoading}
       columns={columns}
       emptyMessage={t("recipes.empty")}
-      isLoading={isLoading}
-      isEmpty={recipes.length === 0}
       skeletonLeading="avatar"
-    >
-      {recipes.map((recipe, index) => (
+      renderRow={(recipe, priority) => (
         <RecipesTableRow
           key={recipe.id}
           recipe={recipe}
-          priority={index < CATALOG_PRIORITY_ROWS}
+          priority={priority}
           onView={onViewRecipe}
           onEdit={onEditRecipe}
         />
-      ))}
-    </CatalogDataTable>
+      )}
+    />
   );
 };
 

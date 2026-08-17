@@ -1,9 +1,9 @@
-import type { ReactNode } from "react";
+import { memo, type ReactNode } from "react";
 import { PAGE_CONTENT_CLASSNAME } from "@/constants/layout";
 import DataTableLayout from "@/components/atoms/ui/DataTableLayout";
 import SearchInput from "@/components/atoms/ui/SearchInput";
 import TablePagination from "@/components/atoms/ui/TablePagination";
-import { StatsCardsSkeleton } from "@/components/skeletons";
+import { LoadingState, StatsCardsSkeleton } from "@/components/skeletons";
 
 interface CatalogPageTemplateProps {
   header: ReactNode;
@@ -40,7 +40,9 @@ const CatalogPageTemplate = ({
 }: CatalogPageTemplateProps) => {
   return (
     <div className={PAGE_CONTENT_CLASSNAME}>
-      {isLoading ? <StatsCardsSkeleton /> : header}
+      <LoadingState isLoading={isLoading} fallback={<StatsCardsSkeleton />}>
+        {header}
+      </LoadingState>
       <DataTableLayout
         title={title}
         description={description}
@@ -66,4 +68,4 @@ const CatalogPageTemplate = ({
   );
 };
 
-export default CatalogPageTemplate;
+export default memo(CatalogPageTemplate);

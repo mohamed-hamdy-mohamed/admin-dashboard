@@ -29,7 +29,7 @@ const CatalogDataTable = ({
   const colSpan = columns.length;
 
   return (
-    <div aria-busy={isLoading}>
+    <div aria-busy={isLoading} role={isLoading ? "status" : undefined}>
       <CatalogTable
         colSpan={colSpan}
         emptyMessage={emptyMessage}

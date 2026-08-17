@@ -22,20 +22,22 @@ export const usePersistedEdits = <TItem extends { id: number }, TEdit>({
 
   const saveEdit = useCallback(
     (item: TItem, values: TEdit) => {
-      const nextEdits = {
-        ...edits,
-        [item.id]: values,
-      };
+      setEdits((prev) => {
+        const nextEdits = {
+          ...prev,
+          [item.id]: values,
+        };
 
-      setEdits(nextEdits);
-      persist(nextEdits);
+        persist(nextEdits);
+        return nextEdits;
+      });
 
       return {
         ...item,
         ...values,
       };
     },
-    [edits, persist],
+    [persist],
   );
 
   return {

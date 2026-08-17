@@ -9,6 +9,26 @@ interface TableRowSkeletonProps {
   leading?: TableRowSkeletonLeading;
 }
 
+const LeadingSkeleton = ({ leading }: { leading: TableRowSkeletonLeading }) => {
+  if (leading === "avatar") {
+    return (
+      <div className="flex items-center gap-3">
+        <Skeleton className="h-11 w-11 shrink-0 rounded-full" />
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-32" />
+          <Skeleton className="h-3 w-24" />
+        </div>
+      </div>
+    );
+  }
+
+  if (leading === "image") {
+    return <Skeleton className="size-[50px] rounded-lg" />;
+  }
+
+  return <Skeleton className="h-4 w-28" />;
+};
+
 const TableRowSkeleton = ({
   columns,
   leading = "line",
@@ -16,19 +36,7 @@ const TableRowSkeleton = ({
   return (
     <TableRow aria-hidden="true">
       <TableCell>
-        {leading === "avatar" ? (
-          <div className="flex items-center gap-3">
-            <Skeleton className="h-11 w-11 shrink-0 rounded-full" />
-            <div className="space-y-2">
-              <Skeleton className="h-4 w-32" />
-              <Skeleton className="h-3 w-24" />
-            </div>
-          </div>
-        ) : leading === "image" ? (
-          <Skeleton className="size-[50px] rounded-lg" />
-        ) : (
-          <Skeleton className="h-4 w-28" />
-        )}
+        <LeadingSkeleton leading={leading} />
       </TableCell>
       {Array.from({ length: Math.max(columns - 1, 0) }, (_, index) => (
         <TableCell key={index}>

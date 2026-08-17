@@ -1,8 +1,7 @@
 "use client";
 
 import { memo, useMemo } from "react";
-import CatalogDataTable from "@/components/molecules/CatalogDataTable";
-import { CATALOG_PRIORITY_ROWS } from "@/constants/catalog";
+import CatalogListTable from "@/components/molecules/CatalogListTable";
 import { Product } from "@/types/products";
 import ProductTableRow from "./ProductTableRow";
 import { useTranslation } from "@/providers/LanguageProvider";
@@ -29,21 +28,20 @@ const ProductTable = ({ products, isLoading = false }: ProductTableProps) => {
   );
 
   return (
-    <CatalogDataTable
+    <CatalogListTable
+      items={products}
+      isLoading={isLoading}
       columns={columns}
       emptyMessage={t("products.empty")}
-      isLoading={isLoading}
-      isEmpty={products.length === 0}
       skeletonLeading="image"
-    >
-      {products.map((product, index) => (
+      renderRow={(product, priority) => (
         <ProductTableRow
           key={product.id}
           product={product}
-          priority={index < CATALOG_PRIORITY_ROWS}
+          priority={priority}
         />
-      ))}
-    </CatalogDataTable>
+      )}
+    />
   );
 };
 
