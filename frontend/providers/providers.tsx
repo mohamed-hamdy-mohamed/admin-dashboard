@@ -10,6 +10,7 @@ import {
 } from "@/constants/theme";
 import { LanguageProvider } from "@/providers/LanguageProvider";
 import { AuthProvider } from "@/providers/AuthProvider";
+import QueryProvider from "@/providers/QueryProvider";
 import { Locale } from "@/types/i18n";
 
 const AppToaster = dynamic(() => import("@/components/atoms/ui/AppToaster"), {
@@ -33,10 +34,12 @@ export const Providers = ({
         disableTransitionOnChange
       >
         <LanguageProvider initialLocale={initialLocale}>
-          <ThemeSync />
-          <LanguageSync />
-          <AppToaster />
-          {children}
+          <QueryProvider>
+            <ThemeSync />
+            <LanguageSync />
+            <AppToaster />
+            {children}
+          </QueryProvider>
         </LanguageProvider>
       </ThemeProvider>
     </AuthProvider>

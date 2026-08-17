@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { User } from "@/types/users";
 import {
   DialogDescription,
@@ -40,12 +41,7 @@ const UserViewDialog = ({ user, open, onOpenChange }: UserViewDialogProps) => {
           <EntityViewHeader
             src={user.image}
             alt={`${user.firstName} ${user.lastName}`}
-            fallback={
-              <>
-                {user.firstName[0]}
-                {user.lastName[0]}
-              </>
-            }
+            fallback={`${user.firstName[0]}${user.lastName[0]}`}
             title={`${user.firstName} ${user.lastName}`}
             subtitle={`@${user.username}`}
           >
@@ -73,4 +69,4 @@ const UserViewDialog = ({ user, open, onOpenChange }: UserViewDialogProps) => {
   );
 };
 
-export default UserViewDialog;
+export default memo(UserViewDialog);

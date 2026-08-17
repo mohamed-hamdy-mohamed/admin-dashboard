@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { memo, type ReactNode } from "react";
 import CatalogDataTable, {
   type CatalogColumn,
 } from "@/components/molecules/CatalogDataTable";
@@ -14,7 +14,7 @@ interface CatalogListTableProps<T extends { id: number }> {
   renderRow: (item: T, priority: boolean) => ReactNode;
 }
 
-const CatalogListTable = <T extends { id: number }>({
+const CatalogListTableInner = <T extends { id: number }>({
   items,
   isLoading = false,
   columns,
@@ -36,5 +36,7 @@ const CatalogListTable = <T extends { id: number }>({
     </CatalogDataTable>
   );
 };
+
+const CatalogListTable = memo(CatalogListTableInner) as typeof CatalogListTableInner;
 
 export default CatalogListTable;

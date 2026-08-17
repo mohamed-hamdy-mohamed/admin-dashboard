@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 import CatalogListTable from "@/components/molecules/CatalogListTable";
 import { Recipe } from "@/types/recipes";
 import RecipesTableRow from "./RecipesTableRow";
@@ -35,6 +35,19 @@ const RecipesTable = ({
     [t],
   );
 
+  const renderRow = useCallback(
+    (recipe: Recipe, priority: boolean) => (
+      <RecipesTableRow
+        key={recipe.id}
+        recipe={recipe}
+        priority={priority}
+        onView={onViewRecipe}
+        onEdit={onEditRecipe}
+      />
+    ),
+    [onEditRecipe, onViewRecipe],
+  );
+
   return (
     <CatalogListTable
       items={recipes}
@@ -42,15 +55,7 @@ const RecipesTable = ({
       columns={columns}
       emptyMessage={t("recipes.empty")}
       skeletonLeading="avatar"
-      renderRow={(recipe, priority) => (
-        <RecipesTableRow
-          key={recipe.id}
-          recipe={recipe}
-          priority={priority}
-          onView={onViewRecipe}
-          onEdit={onEditRecipe}
-        />
-      )}
+      renderRow={renderRow}
     />
   );
 };

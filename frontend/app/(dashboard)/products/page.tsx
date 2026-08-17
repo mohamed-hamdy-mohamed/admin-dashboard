@@ -1,11 +1,17 @@
-import QueryProvider from "@/providers/QueryProvider";
+import { HydrationBoundary } from "@tanstack/react-query";
 import ProductsPage from "@/components/ProductsPage/ProductsPage";
+import {
+  dehydrateCatalogQuery,
+  productsQueryOptions,
+} from "@/lib/catalogQueries";
 
-const Products = () => {
+const Products = async () => {
+  const state = await dehydrateCatalogQuery(productsQueryOptions());
+
   return (
-    <QueryProvider>
+    <HydrationBoundary state={state}>
       <ProductsPage />
-    </QueryProvider>
+    </HydrationBoundary>
   );
 };
 

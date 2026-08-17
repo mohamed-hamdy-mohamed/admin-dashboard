@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { Badge } from "@/components/atoms/ui/badge";
 import { SaleStatus } from "@/types/sales";
 import { useTranslation } from "@/providers/LanguageProvider";
@@ -36,4 +37,4 @@ const SaleStatusBadge = ({ status }: SaleStatusBadgeProps) => {
   );
 };
 
-export default SaleStatusBadge;
+export default memo(SaleStatusBadge);

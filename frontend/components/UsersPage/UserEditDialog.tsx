@@ -1,5 +1,6 @@
 "use client";
 
+import { memo, useCallback } from "react";
 import { User } from "@/types/users";
 import { UserEditValues } from "@/types/user-edits";
 import EntityDialog from "@/components/molecules/EntityDialog";
@@ -20,6 +21,9 @@ const UserEditDialog = ({
   onSave,
 }: UserEditDialogProps) => {
   const { t } = useTranslation();
+  const handleCancel = useCallback(() => {
+    onOpenChange(false);
+  }, [onOpenChange]);
 
   return (
     <EntityDialog
@@ -33,11 +37,11 @@ const UserEditDialog = ({
           key={user.id}
           user={user}
           onSave={onSave}
-          onCancel={() => onOpenChange(false)}
+          onCancel={handleCancel}
         />
       ) : null}
     </EntityDialog>
   );
 };
 
-export default UserEditDialog;
+export default memo(UserEditDialog);

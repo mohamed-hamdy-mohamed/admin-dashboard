@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { Badge } from "@/components/atoms/ui/badge";
 import { useTranslation } from "@/providers/LanguageProvider";
 
@@ -20,4 +21,4 @@ const UserStatusBadge = ({ id }: UserStatusBadgeProps) => {
   );
 };
 
-export default UserStatusBadge;
+export default memo(UserStatusBadge);

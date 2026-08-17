@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { Badge } from "@/components/atoms/ui/badge";
 import { useTranslation } from "@/providers/LanguageProvider";
 
@@ -24,4 +25,4 @@ const ProductStatusBadge = ({ status }: ProductStatusBadgeProps) => {
   );
 };
 
-export default ProductStatusBadge;
+export default memo(ProductStatusBadge);

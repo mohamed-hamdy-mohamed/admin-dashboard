@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { Recipe } from "@/types/recipes";
 import {
   DialogDescription,
@@ -108,4 +109,4 @@ const RecipeViewDialog = ({
   );
 };
 
-export default RecipeViewDialog;
+export default memo(RecipeViewDialog);

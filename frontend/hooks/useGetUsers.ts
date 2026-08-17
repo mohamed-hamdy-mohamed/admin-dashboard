@@ -1,11 +1,6 @@
-import { UsersResponse } from "@/types/users";
-import { useDummyJsonQuery } from "@/hooks/useDummyJsonQuery";
-
-const USERS_SELECT =
-  "id,firstName,lastName,age,gender,email,phone,username,image,university,address,company,role";
+import { useQuery } from "@tanstack/react-query";
+import { usersQueryOptions } from "@/lib/catalogQueries";
 
 export const useGetUsers = () => {
-  return useDummyJsonQuery<UsersResponse>("users", "/users", {
-    select: USERS_SELECT,
-  });
+  return useQuery(usersQueryOptions());
 };

@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import ProductTable from "./ProductTable";
 import ProductsStats from "./ProductsStats";
 import { useGetProducts } from "@/hooks/useGetProducts";
@@ -48,4 +49,4 @@ const ProductsPage = () => {
   );
 };
 
-export default ProductsPage;
+export default memo(ProductsPage);

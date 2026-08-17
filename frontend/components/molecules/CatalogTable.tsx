@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { memo, type ReactNode } from "react";
 import {
   Table,
   TableBody,
@@ -47,4 +47,4 @@ const CatalogTable = ({
   );
 };
 
-export default CatalogTable;
+export default memo(CatalogTable);

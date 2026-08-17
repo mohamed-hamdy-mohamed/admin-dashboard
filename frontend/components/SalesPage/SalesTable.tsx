@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 import CatalogListTable from "@/components/molecules/CatalogListTable";
 import { Sale } from "@/types/sales";
 import SalesTableRow from "./SalesTableRow";
@@ -27,6 +27,13 @@ const SalesTable = ({ sales, isLoading = false }: Props) => {
     [t],
   );
 
+  const renderRow = useCallback(
+    (sale: Sale, priority: boolean) => (
+      <SalesTableRow key={sale.id} sale={sale} priority={priority} />
+    ),
+    [],
+  );
+
   return (
     <CatalogListTable
       items={sales}
@@ -34,9 +41,7 @@ const SalesTable = ({ sales, isLoading = false }: Props) => {
       columns={columns}
       emptyMessage={t("sales.empty")}
       skeletonLeading="avatar"
-      renderRow={(sale, priority) => (
-        <SalesTableRow key={sale.id} sale={sale} priority={priority} />
-      )}
+      renderRow={renderRow}
     />
   );
 };

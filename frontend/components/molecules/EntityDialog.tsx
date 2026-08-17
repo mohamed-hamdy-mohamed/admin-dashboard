@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { memo, type ReactNode } from "react";
 import { Dialog, DialogContent } from "@/components/atoms/ui/dialog";
 
 interface EntityDialogProps {
@@ -25,4 +25,4 @@ const EntityDialog = ({
   );
 };
 
-export default EntityDialog;
+export default memo(EntityDialog);

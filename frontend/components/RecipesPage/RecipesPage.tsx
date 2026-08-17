@@ -1,10 +1,12 @@
 "use client";
 
+import { memo } from "react";
 import dynamic from "next/dynamic";
 import RecipesStats from "./RecipesStats";
 import RecipesTable from "./RecipesTable";
 import { useGetRecipes } from "@/hooks/useGetOrders";
 import { useCatalogEntityPage } from "@/hooks/useCatalogEntityPage";
+import { useLazyMount } from "@/hooks/useLazyMount";
 import CatalogPageTemplate from "@/components/templates/CatalogPageTemplate";
 import { Recipe } from "@/types/recipes";
 import {
@@ -55,6 +57,8 @@ const RecipesPage = () => {
     persist: persistRecipeEdits,
     apply: applyRecipeEdits,
   });
+  const viewMounted = useLazyMount(viewOpen);
+  const editMounted = useLazyMount(editOpen);
 
   return (
     <CatalogPageTemplate
@@ -72,18 +76,22 @@ const RecipesPage = () => {
       onNext={nextPage}
       footer={
         <>
-          <RecipeViewDialog
-            recipe={activeRecipe}
-            open={viewOpen}
-            onOpenChange={setViewOpen}
-          />
+          {viewMounted ? (
+            <RecipeViewDialog
+              recipe={activeRecipe}
+              open={viewOpen}
+              onOpenChange={setViewOpen}
+            />
+          ) : null}
 
-          <RecipeEditDialog
-            recipe={activeRecipe}
-            open={editOpen}
-            onOpenChange={setEditOpen}
-            onSave={handleSave}
-          />
+          {editMounted ? (
+            <RecipeEditDialog
+              recipe={activeRecipe}
+              open={editOpen}
+              onOpenChange={setEditOpen}
+              onSave={handleSave}
+            />
+          ) : null}
         </>
       }
     >
@@ -97,4 +105,4 @@ const RecipesPage = () => {
   );
 };
 
-export default RecipesPage;
+export default memo(RecipesPage);

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import CardSkeleton from "@/components/skeletons/CardSkeleton";
 import PageSectionSkeleton from "@/components/skeletons/PageSectionSkeleton";
 
@@ -15,4 +16,4 @@ const StatsCardsSkeleton = ({ cards = 4 }: StatsCardsSkeletonProps) => {
   );
 };
 
-export default StatsCardsSkeleton;
+export default memo(StatsCardsSkeleton);

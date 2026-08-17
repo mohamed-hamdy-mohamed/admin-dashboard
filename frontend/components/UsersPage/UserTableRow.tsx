@@ -5,6 +5,7 @@ import { TableCell, TableRow } from "@/components/atoms/ui/table";
 import { Badge } from "@/components/atoms/ui/badge";
 import EntityIdentity from "@/components/molecules/EntityIdentity";
 import ViewEditRowActions from "@/components/molecules/ViewEditRowActions";
+import StackedMeta from "@/components/atoms/ui/StackedMeta";
 import { User } from "@/types/users";
 import UserStatusBadge from "./UserStatusBadge";
 import UserRoleBadge from "./UserRoleBadge";
@@ -31,12 +32,7 @@ const UserTableRow = ({
         <EntityIdentity
           src={user.image}
           alt={`${user.firstName} ${user.lastName}`}
-          fallback={
-            <>
-              {user.firstName[0]}
-              {user.lastName[0]}
-            </>
-          }
+          fallback={`${user.firstName[0]}${user.lastName[0]}`}
           title={`${user.firstName} ${user.lastName}`}
           subtitle={`@${user.username}`}
           meta={
@@ -54,20 +50,18 @@ const UserTableRow = ({
         <UserRoleBadge role={user.role} />
       </TableCell>
       <TableCell>
-        <div className="space-y-1">
-          <p className="max-w-[180px] truncate font-medium">
-            {user.company.name}
-          </p>
-          <p className="text-xs text-muted-foreground">{user.company.title}</p>
-        </div>
+        <StackedMeta
+          title={user.company.name}
+          subtitle={user.company.title}
+          titleClassName="max-w-[180px] truncate"
+        />
       </TableCell>
       <TableCell>
-        <div className="space-y-1">
-          <p className="max-w-[150px] truncate font-medium">
-            {user.address.country}
-          </p>
-          <p className="text-xs text-muted-foreground">{user.address.city}</p>
-        </div>
+        <StackedMeta
+          title={user.address.country}
+          subtitle={user.address.city}
+          titleClassName="max-w-[150px] truncate"
+        />
       </TableCell>
       <TableCell>
         <Badge variant="outline">

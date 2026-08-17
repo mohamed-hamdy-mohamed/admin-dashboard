@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { useGetSales } from "@/hooks/useGetSales";
 import { useCatalogCollection } from "@/hooks/useCatalogCollection";
 import SalesStats from "./SalesStats";
@@ -54,4 +55,4 @@ const SalesPage = () => {
   );
 };
 
-export default SalesPage;
+export default memo(SalesPage);

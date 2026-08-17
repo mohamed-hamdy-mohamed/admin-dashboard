@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import SearchField from "@/components/molecules/SearchField";
 
 interface SearchInputProps {
@@ -19,4 +20,4 @@ const SearchInput = ({ value, onChange, placeholder }: SearchInputProps) => {
   );
 };
 
-export default SearchInput;
+export default memo(SearchInput);

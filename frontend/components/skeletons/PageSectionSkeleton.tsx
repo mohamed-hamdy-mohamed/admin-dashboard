@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { memo, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 interface PageSectionSkeletonProps {
@@ -24,4 +24,4 @@ const PageSectionSkeleton = ({
   );
 };
 
-export default PageSectionSkeleton;
+export default memo(PageSectionSkeleton);

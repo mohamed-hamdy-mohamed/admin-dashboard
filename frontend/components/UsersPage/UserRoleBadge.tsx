@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { Badge } from "@/components/atoms/ui/badge";
 import { useTranslation } from "@/providers/LanguageProvider";
 import { Shield, ShieldCheck, User } from "lucide-react";
@@ -38,4 +39,4 @@ const UserRoleBadge = ({ role }: UserRoleBadgeProps) => {
   }
 };
 
-export default UserRoleBadge;
+export default memo(UserRoleBadge);

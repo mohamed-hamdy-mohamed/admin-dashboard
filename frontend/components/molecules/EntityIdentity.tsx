@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { memo, type ReactNode } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/atoms/ui/avatar";
 import { cn } from "@/lib/utils";
 
@@ -63,4 +63,4 @@ const EntityIdentity = ({
   );
 };
 
-export default EntityIdentity;
+export default memo(EntityIdentity);

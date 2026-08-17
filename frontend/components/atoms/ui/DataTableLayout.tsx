@@ -1,3 +1,4 @@
+import { memo } from "react";
 import {
   Card,
   CardContent,
@@ -36,4 +37,4 @@ const DataTableLayout = ({
   );
 };
 
-export default DataTableLayout;
+export default memo(DataTableLayout);

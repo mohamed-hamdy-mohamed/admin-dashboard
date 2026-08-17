@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { Badge } from "@/components/atoms/ui/badge";
 import { useTranslation } from "@/providers/LanguageProvider";
 
@@ -35,4 +36,4 @@ const RecipeDifficultyBadge = ({ difficulty }: OrderDifficultyBadgeProps) => {
   );
 };
 
-export default RecipeDifficultyBadge;
+export default memo(RecipeDifficultyBadge);

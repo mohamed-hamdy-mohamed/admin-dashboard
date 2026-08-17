@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 import CatalogListTable from "@/components/molecules/CatalogListTable";
 import { Product } from "@/types/products";
 import ProductTableRow from "./ProductTableRow";
@@ -27,6 +27,17 @@ const ProductTable = ({ products, isLoading = false }: ProductTableProps) => {
     [t],
   );
 
+  const renderRow = useCallback(
+    (product: Product, priority: boolean) => (
+      <ProductTableRow
+        key={product.id}
+        product={product}
+        priority={priority}
+      />
+    ),
+    [],
+  );
+
   return (
     <CatalogListTable
       items={products}
@@ -34,13 +45,7 @@ const ProductTable = ({ products, isLoading = false }: ProductTableProps) => {
       columns={columns}
       emptyMessage={t("products.empty")}
       skeletonLeading="image"
-      renderRow={(product, priority) => (
-        <ProductTableRow
-          key={product.id}
-          product={product}
-          priority={priority}
-        />
-      )}
+      renderRow={renderRow}
     />
   );
 };

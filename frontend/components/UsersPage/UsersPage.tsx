@@ -1,8 +1,10 @@
 "use client";
 
+import { memo } from "react";
 import dynamic from "next/dynamic";
 import { useGetUsers } from "@/hooks/useGetUsers";
 import { useCatalogEntityPage } from "@/hooks/useCatalogEntityPage";
+import { useLazyMount } from "@/hooks/useLazyMount";
 import UsersTable from "./UsersTable";
 import UsersStats from "./UsersStats";
 import CatalogPageTemplate from "@/components/templates/CatalogPageTemplate";
@@ -54,6 +56,8 @@ const UsersPage = () => {
     persist: persistUserEdits,
     apply: applyUserEdits,
   });
+  const viewMounted = useLazyMount(viewOpen);
+  const editMounted = useLazyMount(editOpen);
 
   return (
     <CatalogPageTemplate
@@ -71,18 +75,22 @@ const UsersPage = () => {
       onNext={nextPage}
       footer={
         <>
-          <UserViewDialog
-            user={activeUser}
-            open={viewOpen}
-            onOpenChange={setViewOpen}
-          />
+          {viewMounted ? (
+            <UserViewDialog
+              user={activeUser}
+              open={viewOpen}
+              onOpenChange={setViewOpen}
+            />
+          ) : null}
 
-          <UserEditDialog
-            user={activeUser}
-            open={editOpen}
-            onOpenChange={setEditOpen}
-            onSave={handleSave}
-          />
+          {editMounted ? (
+            <UserEditDialog
+              user={activeUser}
+              open={editOpen}
+              onOpenChange={setEditOpen}
+              onSave={handleSave}
+            />
+          ) : null}
         </>
       }
     >
@@ -96,4 +104,4 @@ const UsersPage = () => {
   );
 };
 
-export default UsersPage;
+export default memo(UsersPage);

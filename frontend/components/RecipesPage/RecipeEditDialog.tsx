@@ -1,5 +1,6 @@
 "use client";
 
+import { memo, useCallback } from "react";
 import { Recipe } from "@/types/recipes";
 import { RecipeEditValues } from "@/types/recipe-edits";
 import EntityDialog from "@/components/molecules/EntityDialog";
@@ -20,6 +21,9 @@ const RecipeEditDialog = ({
   onSave,
 }: RecipeEditDialogProps) => {
   const { t } = useTranslation();
+  const handleCancel = useCallback(() => {
+    onOpenChange(false);
+  }, [onOpenChange]);
 
   return (
     <EntityDialog
@@ -33,11 +37,11 @@ const RecipeEditDialog = ({
           key={recipe.id}
           recipe={recipe}
           onSave={onSave}
-          onCancel={() => onOpenChange(false)}
+          onCancel={handleCancel}
         />
       ) : null}
     </EntityDialog>
   );
 };
 
-export default RecipeEditDialog;
+export default memo(RecipeEditDialog);

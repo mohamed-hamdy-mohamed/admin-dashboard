@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { memo, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 interface LoadingStateProps {
@@ -25,4 +25,4 @@ const LoadingState = ({
   );
 };
 
-export default LoadingState;
+export default memo(LoadingState);

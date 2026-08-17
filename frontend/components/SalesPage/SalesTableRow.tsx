@@ -4,6 +4,7 @@ import { memo } from "react";
 import { TableCell, TableRow } from "@/components/atoms/ui/table";
 import { Badge } from "@/components/atoms/ui/badge";
 import EntityIdentity from "@/components/molecules/EntityIdentity";
+import StackedMeta from "@/components/atoms/ui/StackedMeta";
 import { Sale } from "@/types/sales";
 import SaleStatusBadge from "./SalesStatusBadge";
 import { useTranslation } from "@/providers/LanguageProvider";
@@ -33,10 +34,7 @@ const SalesTableRow = ({ sale, priority = false }: Props) => {
         />
       </TableCell>
       <TableCell>
-        <div>
-          <p className="font-medium">{sale.product}</p>
-          <p className="text-xs text-muted-foreground">{sale.category}</p>
-        </div>
+        <StackedMeta title={sale.product} subtitle={sale.category} />
       </TableCell>
       <TableCell>
         <span className="font-semibold">

@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 import CatalogListTable from "@/components/molecules/CatalogListTable";
 import UserTableRow from "./UserTableRow";
 import { User } from "@/types/users";
@@ -34,6 +34,19 @@ const UsersTable = ({
     [t],
   );
 
+  const renderRow = useCallback(
+    (user: User, priority: boolean) => (
+      <UserTableRow
+        key={user.id}
+        user={user}
+        priority={priority}
+        onView={onViewUser}
+        onEdit={onEditUser}
+      />
+    ),
+    [onEditUser, onViewUser],
+  );
+
   return (
     <CatalogListTable
       items={users}
@@ -41,15 +54,7 @@ const UsersTable = ({
       columns={columns}
       emptyMessage={t("users.empty")}
       skeletonLeading="avatar"
-      renderRow={(user, priority) => (
-        <UserTableRow
-          key={user.id}
-          user={user}
-          priority={priority}
-          onView={onViewUser}
-          onEdit={onEditUser}
-        />
-      )}
+      renderRow={renderRow}
     />
   );
 };
