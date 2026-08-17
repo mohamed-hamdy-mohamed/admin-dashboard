@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useMemo } from "react";
+import { useMemo } from "react";
 import { getOrderDistributionChart } from "@/lib/chartData";
 import { chartLegendStyle, chartTooltipContentStyle } from "@/constants/chart-theme";
 import { MEDIA_QUERIES } from "@/constants/breakpoints";
@@ -14,7 +14,7 @@ import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
 import ChartCard from "@/components/molecules/ChartCard";
 import MeasuredChart from "../MeasuredChart";
 
-const OrderDistributionChart = memo(() => {
+const OrderDistributionChart = () => {
   const { locale, t } = useTranslation();
   const isMdUp = useMediaQuery(MEDIA_QUERIES.md);
   const orderDistribution = useMemo(
@@ -49,14 +49,13 @@ const OrderDistributionChart = memo(() => {
               label={isMdUp ? pieLabelFormatter : false}
               isAnimationActive={false}
             >
-              {orderDistribution.map((category) => (
-                <Cell key={category.name} fill={category.color} />
+              {orderDistribution.map((category, idx) => (
+                <Cell key={`cell-${idx}`} fill={category.color} />
               ))}
             </Pie>
             <Tooltip
               formatter={tooltipFormatter}
               contentStyle={chartTooltipContentStyle}
-              isAnimationActive={false}
             />
             <Legend
               iconType="circle"
@@ -69,8 +68,6 @@ const OrderDistributionChart = memo(() => {
       </MeasuredChart>
     </ChartCard>
   );
-});
-
-OrderDistributionChart.displayName = "OrderDistributionChart";
+};
 
 export default OrderDistributionChart;

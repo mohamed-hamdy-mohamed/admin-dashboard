@@ -30,7 +30,7 @@ const Sidebar = ({
     <aside
       className={cn(
         "flex h-screen flex-col border-e border-sidebar-border bg-sidebar px-2 py-5 text-sidebar-foreground",
-        "fixed inset-y-0 start-0 z-50 w-64 transition-[transform,width] duration-200 ease-out",
+        "fixed inset-y-0 start-0 z-50 w-64 transition-[transform,width] duration-300",
         "lg:static lg:z-auto",
         isMobileOpen
           ? "max-lg:pointer-events-auto max-lg:translate-x-0"
@@ -45,7 +45,7 @@ const Sidebar = ({
         className="mb-4 cursor-pointer rounded-xl px-3 py-3 text-lg font-semibold hover:bg-sidebar-accent"
         onClick={onToggle}
       >
-        <Menu className="size-5" />
+        <Menu />
       </button>
 
       <nav className="min-h-0 flex-1 overflow-y-auto">

@@ -6,6 +6,7 @@ export const chartTooltipContentStyle = {
   background: "var(--card)",
   border: "1px solid var(--border)",
   borderRadius: "12px",
+  boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
   color: "var(--foreground)",
   fontSize: "14px",
 };

@@ -61,17 +61,14 @@ const AppShell = ({ children }: AppShellProps) => {
 
   return (
     <div dir={direction} className="flex h-screen overflow-hidden">
+      {isMobileOpen && (
         <button
           type="button"
           aria-label={t("aria.closeSidebar")}
-          className={cn(
-            "fixed inset-0 z-40 bg-black/50 transition-opacity duration-200 ease-out lg:hidden",
-            isMobileOpen
-              ? "opacity-100"
-              : "pointer-events-none opacity-0",
-          )}
+          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
           onClick={closeMobileSidebar}
         />
+      )}
 
       <Sidebar
         isDesktop={isDesktop}

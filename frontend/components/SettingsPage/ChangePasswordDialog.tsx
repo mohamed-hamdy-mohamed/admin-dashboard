@@ -1,11 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FieldError from "@/components/Auth/FieldError";
-import PasswordInput from "@/components/Auth/PasswordInput";
 import {
   Dialog,
   DialogContent,
@@ -24,7 +22,6 @@ import {
   changePasswordSchema,
   type ChangePasswordFormValues,
 } from "@/lib/schemas/auth";
-import { useAuth } from "@/providers/AuthProvider";
 import { useTranslation } from "@/providers/LanguageProvider";
 import toast from "react-hot-toast";
 
@@ -38,8 +35,6 @@ const ChangePasswordDialog = ({
   onOpenChange,
 }: ChangePasswordDialogProps) => {
   const { t } = useTranslation();
-  const router = useRouter();
-  const { logout } = useAuth();
   const {
     register,
     handleSubmit,
@@ -84,8 +79,6 @@ const ChangePasswordDialog = ({
       const response = await changePassword({ currentPassword, newPassword });
       toast.success(response.message);
       handleOpenChange(false);
-      logout();
-      router.replace("/login");
     } catch (error) {
       toast.error(getApiErrorMessage(error));
     }
@@ -123,8 +116,9 @@ const ChangePasswordDialog = ({
               <Label htmlFor="newPassword">
                 {t("settings.security.changePasswordDialog.newPassword")}
               </Label>
-              <PasswordInput
+              <Input
                 id="newPassword"
+                type="password"
                 autoComplete="new-password"
                 className="h-11 rounded-xl"
                 disabled={isSubmitting}
@@ -138,8 +132,9 @@ const ChangePasswordDialog = ({
               <Label htmlFor="confirmPassword">
                 {t("settings.security.changePasswordDialog.confirmPassword")}
               </Label>
-              <PasswordInput
+              <Input
                 id="confirmPassword"
+                type="password"
                 autoComplete="new-password"
                 className="h-11 rounded-xl"
                 disabled={isSubmitting}

@@ -1,12 +1,11 @@
 "use client";
 
-import { memo } from "react";
 import DashboardSalesChart from "./Charts/DashboardSalesChart";
 import CategoryDistributionChart from "./Charts/CategoryDistributionChart";
 import OrderDistributionChart from "./Charts/OrderDistributionChart";
 import ProductPerformanceChart from "./Charts/ProductPerformanceChart";
 
-const DashboardCharts = memo(() => {
+const DashboardCharts = () => {
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
       <DashboardSalesChart />
@@ -15,8 +14,6 @@ const DashboardCharts = memo(() => {
       <ProductPerformanceChart />
     </div>
   );
-});
-
-DashboardCharts.displayName = "DashboardCharts";
+};
 
 export default DashboardCharts;
