@@ -1,12 +1,12 @@
 "use client";
 
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { DollarSign, ShoppingBag, Star, UtensilsCrossed } from "lucide-react";
+import { Card, CardContent } from "@/components/atoms/ui/card";
 import { useTranslation } from "@/providers/LanguageProvider";
 import { Stats } from "@/types/stats";
 import { formatDecimal, formatNumber } from "@/util/formatNumber";
 import { formatPrice } from "@/util/formatPrice";
-import StatsCard from "../atoms/ui/StatsCard";
 
 const DashboardStats = () => {
   const { locale, t } = useTranslation();
@@ -49,7 +49,38 @@ const DashboardStats = () => {
     [locale, t],
   );
 
-  return <StatsCard stats={stats} />;
+  return (
+    <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
+      {stats.map((stat) => {
+        const Icon = stat.icon;
+
+        return (
+          <Card key={stat.title} className="shadow-none">
+            <CardContent className="p-4 sm:p-6">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    {stat.title}
+                  </p>
+                  <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+                    {stat.value}
+                  </h2>
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    {stat.description}
+                  </p>
+                </div>
+                <div
+                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${stat.iconBg}`}
+                >
+                  <Icon className={`h-6 w-6 ${stat.iconColor}`} />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        );
+      })}
+    </section>
+  );
 };
 
-export default DashboardStats;
+export default memo(DashboardStats);

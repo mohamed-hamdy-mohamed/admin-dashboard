@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { getSalesDataChart } from "@/lib/chartData";
 import {
   chartAxisStroke,
@@ -26,7 +26,14 @@ import {
 import ChartCard from "@/components/molecules/ChartCard";
 import MeasuredChart from "../MeasuredChart";
 
-const DashboardSalesChart = () => {
+const TICK_STYLE_MD = { fontSize: 12 };
+const TICK_STYLE_SM = { fontSize: 10 };
+const LINE_DOT_MD = { r: 4 };
+const LINE_DOT_SM = { r: 3 };
+const LINE_ACTIVE_DOT_MD = { r: 6 };
+const LINE_ACTIVE_DOT_SM = { r: 5 };
+
+const DashboardSalesChart = memo(() => {
   const { locale, t } = useTranslation();
   const isMdUp = useMediaQuery(MEDIA_QUERIES.md);
   const salesDataChart = useMemo(() => getSalesDataChart(locale), [locale]);
@@ -38,6 +45,9 @@ const DashboardSalesChart = () => {
     () => createChartTooltipPriceFormatter(locale),
     [locale],
   );
+  const tickStyle = isMdUp ? TICK_STYLE_MD : TICK_STYLE_SM;
+  const lineDot = isMdUp ? LINE_DOT_MD : LINE_DOT_SM;
+  const lineActiveDot = isMdUp ? LINE_ACTIVE_DOT_MD : LINE_ACTIVE_DOT_SM;
 
   return (
     <ChartCard
@@ -51,12 +61,12 @@ const DashboardSalesChart = () => {
             <XAxis
               dataKey="month"
               stroke={chartAxisStroke}
-              tick={{ fontSize: isMdUp ? 12 : 10 }}
+              tick={tickStyle}
               interval="preserveStartEnd"
             />
             <YAxis
               stroke={chartAxisStroke}
-              tick={{ fontSize: isMdUp ? 12 : 10 }}
+              tick={tickStyle}
               width={isMdUp ? 40 : 32}
               tickFormatter={tickFormatter}
             />
@@ -64,14 +74,15 @@ const DashboardSalesChart = () => {
               contentStyle={chartTooltipContentStyle}
               itemStyle={chartTooltipItemStyle}
               formatter={tooltipFormatter}
+              isAnimationActive={false}
             />
             <Line
               type="monotone"
               dataKey="revenue"
               stroke="#22c55e"
               strokeWidth={3}
-              dot={{ r: isMdUp ? 4 : 3 }}
-              activeDot={{ r: isMdUp ? 6 : 5 }}
+              dot={lineDot}
+              activeDot={lineActiveDot}
               isAnimationActive={false}
             />
           </LineChart>
@@ -79,6 +90,8 @@ const DashboardSalesChart = () => {
       </MeasuredChart>
     </ChartCard>
   );
-};
+});
+
+DashboardSalesChart.displayName = "DashboardSalesChart";
 
 export default DashboardSalesChart;

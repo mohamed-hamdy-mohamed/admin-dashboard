@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { memo, useEffect, useRef, useState, type ReactNode } from "react";
 
 interface ChartSize {
   width: number;
@@ -64,9 +64,15 @@ const MeasuredChart = ({ children }: MeasuredChartProps) => {
 
   return (
     <div ref={ref} className="h-full w-full">
-      {size.width > 0 && size.height > 0 ? children(size) : null}
+      {size.width > 0 && size.height > 0 ? (
+        children(size)
+      ) : (
+        <div className="h-full w-full animate-pulse rounded-lg bg-muted" />
+      )}
     </div>
   );
 };
 
-export default MeasuredChart;
+MeasuredChart.displayName = "MeasuredChart";
+
+export default memo(MeasuredChart);

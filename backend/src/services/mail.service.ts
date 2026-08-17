@@ -1,12 +1,18 @@
 import { env } from "../config/env";
 import { AppError } from "../utils/AppError";
 
-const RESEND_EMAILS_URL = "https://api.resend.com/emails";
+const BREVO_EMAILS_URL = "https://api.brevo.com/v3/smtp/email";
 const MAIL_TIMEOUT_MS = 10_000;
-const DEFAULT_FROM = "Admin Operations Platform <onboarding@resend.dev>";
+const DEFAULT_SENDER_NAME = "Admin Operations Platform";
+const DEFAULT_SENDER_EMAIL = "adminoperationplatform@gmail.com";
 
-type ResendErrorBody = {
+type BrevoErrorBody = {
   message?: unknown;
+};
+
+type BrevoSender = {
+  name: string;
+  email: string;
 };
 
 const escapeHtml = (value: string) =>
@@ -17,19 +23,46 @@ const escapeHtml = (value: string) =>
     .replace(/"/g, "&quot;");
 
 const assertMailConfigured = () => {
-  if (!env.resendApiKey) {
+  if (!env.brevoApiKey) {
     throw new AppError(
-      "Email service is not configured. Set RESEND_API_KEY.",
+      "Email service is not configured. Set BREVO_API_KEY.",
       500
     );
   }
 };
 
-const getMailFrom = () => env.emailFrom || DEFAULT_FROM;
+const parseSender = (from: string): BrevoSender => {
+  const angled = from.match(/^(.*)<([^>]+)>\s*$/);
+  if (angled) {
+    const name = angled[1].trim();
+    const email = angled[2].trim();
+    return {
+      name: name || DEFAULT_SENDER_NAME,
+      email,
+    };
+  }
 
-const readResendErrorMessage = async (response: Response) => {
+  if (from.includes("@")) {
+    return {
+      name: DEFAULT_SENDER_NAME,
+      email: from.trim(),
+    };
+  }
+
+  return {
+    name: DEFAULT_SENDER_NAME,
+    email: DEFAULT_SENDER_EMAIL,
+  };
+};
+
+const getMailSender = (): BrevoSender =>
+  parseSender(
+    env.emailFrom || `${DEFAULT_SENDER_NAME} <${DEFAULT_SENDER_EMAIL}>`
+  );
+
+const readBrevoErrorMessage = async (response: Response) => {
   try {
-    const body = (await response.json()) as ResendErrorBody;
+    const body = (await response.json()) as BrevoErrorBody;
     if (typeof body.message === "string" && body.message.trim()) {
       return body.message;
     }
@@ -179,18 +212,19 @@ const sendMail = async ({
   let response: Response;
 
   try {
-    response = await fetch(RESEND_EMAILS_URL, {
+    response = await fetch(BREVO_EMAILS_URL, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${env.resendApiKey}`,
+        "api-key": env.brevoApiKey,
+        accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: getMailFrom(),
-        to,
+        sender: getMailSender(),
+        to: [{ email: to }],
         subject,
-        html,
-        text,
+        htmlContent: html,
+        textContent: text,
       }),
       signal: AbortSignal.timeout(MAIL_TIMEOUT_MS),
     });
@@ -203,7 +237,7 @@ const sendMail = async ({
   }
 
   if (!response.ok) {
-    throw new AppError(await readResendErrorMessage(response), 500);
+    throw new AppError(await readBrevoErrorMessage(response), 500);
   }
 };
 

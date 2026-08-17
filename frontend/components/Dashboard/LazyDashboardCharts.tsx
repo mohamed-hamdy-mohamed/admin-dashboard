@@ -13,16 +13,28 @@ const LazyDashboardCharts = () => {
   const [shouldLoad, setShouldLoad] = useState(false);
 
   useEffect(() => {
-    let innerFrame = 0;
-    const outerFrame = requestAnimationFrame(() => {
-      innerFrame = requestAnimationFrame(() => {
+    let cancelled = false;
+
+    const load = () => {
+      if (!cancelled) {
         setShouldLoad(true);
-      });
-    });
+      }
+    };
+
+    if (typeof window.requestIdleCallback === "function") {
+      const idleId = window.requestIdleCallback(load, { timeout: 200 });
+
+      return () => {
+        cancelled = true;
+        window.cancelIdleCallback(idleId);
+      };
+    }
+
+    const frame = requestAnimationFrame(load);
 
     return () => {
-      cancelAnimationFrame(outerFrame);
-      cancelAnimationFrame(innerFrame);
+      cancelled = true;
+      cancelAnimationFrame(frame);
     };
   }, []);
 
