@@ -1,40 +1,50 @@
 "use client";
 
-import { TableHead } from "@/components/atoms/ui/table";
-import CatalogTable from "@/components/molecules/CatalogTable";
+import { memo, useMemo } from "react";
+import CatalogDataTable from "@/components/molecules/CatalogDataTable";
+import { CATALOG_PRIORITY_ROWS } from "@/constants/catalog";
 import { Sale } from "@/types/sales";
 import SalesTableRow from "./SalesTableRow";
 import { useTranslation } from "@/providers/LanguageProvider";
 
 interface Props {
   sales: Sale[];
+  isLoading?: boolean;
 }
 
-const SalesTable = ({ sales }: Props) => {
+const SalesTable = ({ sales, isLoading = false }: Props) => {
   const { t } = useTranslation();
 
+  const columns = useMemo(
+    () => [
+      { label: t("sales.table.customer") },
+      { label: t("sales.table.product") },
+      { label: t("sales.table.amount") },
+      { label: t("sales.table.qty") },
+      { label: t("sales.table.payment") },
+      { label: t("sales.table.status") },
+      { label: t("sales.table.date") },
+    ],
+    [t],
+  );
+
   return (
-    <CatalogTable
-      colSpan={7}
+    <CatalogDataTable
+      columns={columns}
       emptyMessage={t("sales.empty")}
+      isLoading={isLoading}
       isEmpty={sales.length === 0}
-      columns={
-        <>
-          <TableHead>{t("sales.table.customer")}</TableHead>
-          <TableHead>{t("sales.table.product")}</TableHead>
-          <TableHead>{t("sales.table.amount")}</TableHead>
-          <TableHead>{t("sales.table.qty")}</TableHead>
-          <TableHead>{t("sales.table.payment")}</TableHead>
-          <TableHead>{t("sales.table.status")}</TableHead>
-          <TableHead>{t("sales.table.date")}</TableHead>
-        </>
-      }
+      skeletonLeading="avatar"
     >
-      {sales.map((sale) => (
-        <SalesTableRow key={sale.id} sale={sale} />
+      {sales.map((sale, index) => (
+        <SalesTableRow
+          key={sale.id}
+          sale={sale}
+          priority={index < CATALOG_PRIORITY_ROWS}
+        />
       ))}
-    </CatalogTable>
+    </CatalogDataTable>
   );
 };
 
-export default SalesTable;
+export default memo(SalesTable);

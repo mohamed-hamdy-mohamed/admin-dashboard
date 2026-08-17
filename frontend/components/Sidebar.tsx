@@ -56,12 +56,15 @@ const Sidebar = ({
                 href={route.path}
                 prefetch={false}
                 onClick={onCloseMobile}
+                aria-label={t(route.labelKey)}
+                aria-current={pathname === route.path ? "page" : undefined}
                 className={cn(
                   "flex items-center rounded-xl px-4 py-3 transition-colors hover:bg-sidebar-accent",
                   pathname === route.path ? "bg-sidebar-accent" : "",
                 )}
               >
                 <route.icon
+                  aria-hidden="true"
                   className={cn(
                     "h-5 w-5 max-lg:me-2",
                     isDesktopExpanded ? "lg:me-2" : "lg:mx-auto",

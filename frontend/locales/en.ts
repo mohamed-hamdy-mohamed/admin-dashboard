@@ -740,6 +740,7 @@ export const en = {
   aria: {
     toggleSidebar: "Toggle Sidebar",
     closeSidebar: "Close sidebar",
+    skipToMain: "Skip to main content",
     notifications: "Notifications",
     openUserMenu: "Open user menu",
     backToConversations: "Back to conversations",

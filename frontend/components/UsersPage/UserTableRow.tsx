@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { TableCell, TableRow } from "@/components/atoms/ui/table";
 import { Badge } from "@/components/atoms/ui/badge";
 import { User } from "@/types/users";
@@ -13,11 +14,17 @@ import { useTranslation } from "@/providers/LanguageProvider";
 
 interface UserTableRowProps {
   user: User;
+  priority?: boolean;
   onView: (user: User) => void;
   onEdit: (user: User) => void;
 }
 
-const UserTableRow = ({ user, onView, onEdit }: UserTableRowProps) => {
+const UserTableRow = ({
+  user,
+  priority = false,
+  onView,
+  onEdit,
+}: UserTableRowProps) => {
   const { t } = useTranslation();
 
   return (
@@ -29,6 +36,7 @@ const UserTableRow = ({ user, onView, onEdit }: UserTableRowProps) => {
               src={user.image}
               alt={`${user.firstName} ${user.lastName}`}
               sizes="44px"
+              priority={priority}
             />
             <AvatarFallback>
               {user.firstName[0]}
@@ -95,4 +103,4 @@ const UserTableRow = ({ user, onView, onEdit }: UserTableRowProps) => {
   );
 };
 
-export default UserTableRow;
+export default memo(UserTableRow);

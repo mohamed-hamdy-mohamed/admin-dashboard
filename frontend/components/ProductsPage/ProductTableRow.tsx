@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import Image from "next/image";
 
 import { TableCell, TableRow } from "@/components/atoms/ui/table";
@@ -13,6 +14,7 @@ import { formatDecimal, formatNumber } from "@/util/formatNumber";
 
 interface ProductTableRowProps {
   product: Product;
+  priority?: boolean;
 }
 
 const statusKeyMap = {
@@ -21,7 +23,7 @@ const statusKeyMap = {
   "Out of Stock": "products.status.outOfStock",
 } as const;
 
-const ProductTableRow = ({ product }: ProductTableRowProps) => {
+const ProductTableRow = ({ product, priority = false }: ProductTableRowProps) => {
   const { locale, t } = useTranslation();
   const statusKey =
     statusKeyMap[product.availabilityStatus as keyof typeof statusKeyMap];
@@ -36,6 +38,8 @@ const ProductTableRow = ({ product }: ProductTableRowProps) => {
           width={50}
           height={50}
           sizes="50px"
+          quality={70}
+          priority={priority}
           className="size-[50px] rounded-lg object-cover"
         />
       </TableCell>
@@ -71,4 +75,4 @@ const ProductTableRow = ({ product }: ProductTableRowProps) => {
   );
 };
 
-export default ProductTableRow;
+export default memo(ProductTableRow);

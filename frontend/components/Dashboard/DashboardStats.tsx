@@ -63,9 +63,9 @@ const DashboardStats = () => {
                 <p className="text-sm font-medium text-muted-foreground">
                   {stat.title}
                 </p>
-                <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+                <p className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
                   {stat.value}
-                </h2>
+                </p>
                 <p className="mt-2 text-xs text-muted-foreground">
                   {stat.description}
                 </p>

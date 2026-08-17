@@ -71,7 +71,7 @@ const MeasuredChart = ({ children }: MeasuredChartProps) => {
       {isReady ? (
         children(size)
       ) : (
-        <div className="h-full w-full rounded-lg bg-muted" aria-hidden />
+        <div className="h-full w-full rounded-lg bg-muted" aria-hidden="true" />
       )}
     </div>
   );

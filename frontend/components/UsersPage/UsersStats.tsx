@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { UsersResponse } from "@/types/users";
 import { Cake, Globe, ShieldCheck, Users } from "lucide-react";
 import StatsCard from "../atoms/ui/StatsCard";
@@ -14,19 +14,25 @@ interface UsersStatsProps {
 
 const UsersStats = ({ data }: UsersStatsProps) => {
   const { locale, t } = useTranslation();
-  const users = data?.users ?? [];
-  const totalUsers = users.length;
-  const adminUsers = users.filter((user) => user.role === "admin").length ?? 0;
-  const countries =
-    new Set(users.map((user) => user.address.country)).size ?? 0;
 
-  const averageAge =
-    totalUsers > 0
-      ? users.reduce((sum, user) => sum + user.age, 0) / totalUsers
-      : 0;
+  const stats = useMemo<Stats[]>(() => {
+    const users = data.users;
+    const totalUsers = users.length;
+    let adminUsers = 0;
+    let ageTotal = 0;
+    const countries = new Set<string>();
 
-  const stats = useMemo<Stats[]>(
-    () => [
+    for (const user of users) {
+      if (user.role === "admin") {
+        adminUsers += 1;
+      }
+      ageTotal += user.age;
+      countries.add(user.address.country);
+    }
+
+    const averageAge = totalUsers > 0 ? ageTotal / totalUsers : 0;
+
+    return [
       {
         title: t("users.stats.totalUsers.title"),
         value: formatNumber(totalUsers, locale),
@@ -45,7 +51,7 @@ const UsersStats = ({ data }: UsersStatsProps) => {
       },
       {
         title: t("users.stats.countries.title"),
-        value: formatNumber(countries, locale),
+        value: formatNumber(countries.size, locale),
         description: t("users.stats.countries.description"),
         icon: Globe,
         iconBg: "bg-emerald-100",
@@ -59,11 +65,10 @@ const UsersStats = ({ data }: UsersStatsProps) => {
         iconBg: "bg-amber-100",
         iconColor: "text-amber-600",
       },
-    ],
-    [adminUsers, averageAge, countries, locale, t, totalUsers],
-  );
+    ];
+  }, [data.users, locale, t]);
 
   return <StatsCard stats={stats} />;
 };
 
-export default UsersStats;
+export default memo(UsersStats);

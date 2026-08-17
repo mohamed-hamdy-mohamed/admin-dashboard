@@ -1,52 +1,60 @@
 "use client";
 
-import { TableHead } from "@/components/atoms/ui/table";
-import CatalogTable from "@/components/molecules/CatalogTable";
+import { memo, useMemo } from "react";
+import CatalogDataTable from "@/components/molecules/CatalogDataTable";
+import { CATALOG_PRIORITY_ROWS } from "@/constants/catalog";
 import { Recipe } from "@/types/recipes";
 import RecipesTableRow from "./RecipesTableRow";
 import { useTranslation } from "@/providers/LanguageProvider";
 
 interface RecipesTableProps {
   recipes: Recipe[];
+  isLoading?: boolean;
   onViewRecipe: (recipe: Recipe) => void;
   onEditRecipe: (recipe: Recipe) => void;
 }
 
 const RecipesTable = ({
   recipes,
+  isLoading = false,
   onViewRecipe,
   onEditRecipe,
 }: RecipesTableProps) => {
   const { t } = useTranslation();
 
+  const columns = useMemo(
+    () => [
+      { label: t("recipes.table.recipe"), className: "w-[320px]" },
+      { label: t("recipes.table.cuisine") },
+      { label: t("recipes.table.difficulty") },
+      { label: t("recipes.table.rating") },
+      { label: t("recipes.table.reviews") },
+      { label: t("recipes.table.servings") },
+      { label: t("recipes.table.calories") },
+      { label: t("recipes.table.actions"), className: "text-end" },
+    ],
+    [t],
+  );
+
   return (
-    <CatalogTable
-      colSpan={8}
+    <CatalogDataTable
+      columns={columns}
       emptyMessage={t("recipes.empty")}
+      isLoading={isLoading}
       isEmpty={recipes.length === 0}
-      columns={
-        <>
-          <TableHead className="w-[320px]">{t("recipes.table.recipe")}</TableHead>
-          <TableHead>{t("recipes.table.cuisine")}</TableHead>
-          <TableHead>{t("recipes.table.difficulty")}</TableHead>
-          <TableHead>{t("recipes.table.rating")}</TableHead>
-          <TableHead>{t("recipes.table.reviews")}</TableHead>
-          <TableHead>{t("recipes.table.servings")}</TableHead>
-          <TableHead>{t("recipes.table.calories")}</TableHead>
-          <TableHead className="text-end">{t("recipes.table.actions")}</TableHead>
-        </>
-      }
+      skeletonLeading="avatar"
     >
-      {recipes.map((recipe) => (
+      {recipes.map((recipe, index) => (
         <RecipesTableRow
           key={recipe.id}
           recipe={recipe}
+          priority={index < CATALOG_PRIORITY_ROWS}
           onView={onViewRecipe}
           onEdit={onEditRecipe}
         />
       ))}
-    </CatalogTable>
+    </CatalogDataTable>
   );
 };
 
-export default RecipesTable;
+export default memo(RecipesTable);

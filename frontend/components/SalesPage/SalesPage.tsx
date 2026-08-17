@@ -1,49 +1,43 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { usePagination } from "@/hooks/usePagination";
 import { useGetSales } from "@/hooks/useGetSales";
+import { useCatalogCollection } from "@/hooks/useCatalogCollection";
 import SalesStats from "./SalesStats";
 import SalesTable from "./SalesTable";
-import StatsCardsSkeleton from "../atoms/ui/StatsCardsSkeleton";
 import CatalogPageTemplate from "@/components/templates/CatalogPageTemplate";
 import { useTranslation } from "@/providers/LanguageProvider";
+import type { Sale } from "@/types/sales";
+
+const matchSale = (sale: Sale, query: string) =>
+  sale.customer.toLowerCase().includes(query);
 
 const SalesPage = () => {
-  const [search, setSearch] = useState<string>("");
   const { t } = useTranslation();
-  const { data: sales, isLoading, isError, isFetching } = useGetSales();
-
-  const filteredSales = useMemo(
-    () =>
-      sales?.sales.filter((sale) =>
-        sale.customer.toLowerCase().includes(search.toLowerCase()),
-      ) ?? [],
-    [sales?.sales, search],
-  );
-
+  const { data: sales, isLoading, isError } = useGetSales();
   const {
+    search,
+    setSearch,
     paginatedData,
     currentPage,
     totalPages,
     prevPage,
     nextPage,
     goToPage,
-  } = usePagination({
-    data: filteredSales,
-    itemsPerPage: 10,
+  } = useCatalogCollection({
+    items: sales?.sales,
+    match: matchSale,
   });
 
   return (
     <CatalogPageTemplate
+      isLoading={isLoading}
       header={
-        <>
-          {isLoading && <StatsCardsSkeleton />}
-          {isError && <p>{t("sales.errorLoading")}</p>}
-          {sales && <SalesStats data={sales} />}
-        </>
+        isError ? (
+          <p>{t("sales.errorLoading")}</p>
+        ) : (
+          sales && <SalesStats data={sales} />
+        )
       }
-      isFetching={isFetching}
       title={t("sales.listTitle")}
       description={t("sales.listDescription")}
       search={search}
@@ -55,7 +49,7 @@ const SalesPage = () => {
       onPrevious={prevPage}
       onNext={nextPage}
     >
-      <SalesTable sales={paginatedData} />
+      <SalesTable isLoading={isLoading} sales={paginatedData} />
     </CatalogPageTemplate>
   );
 };

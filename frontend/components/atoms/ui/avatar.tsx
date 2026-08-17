@@ -31,6 +31,7 @@ function AvatarImage({
   alt = "",
   sizes = "40px",
   src,
+  quality = 70,
   onError,
   ...props
 }: Omit<ImageProps, "fill" | "width" | "height">) {
@@ -49,10 +50,12 @@ function AvatarImage({
       alt={alt}
       fill
       sizes={sizes}
+      quality={quality}
       className={cn(
         "aspect-square size-full rounded-[inherit] object-cover",
         className
       )}
+      decoding="async"
       onError={(event) => {
         setFailedSrc(src)
         onError?.(event)

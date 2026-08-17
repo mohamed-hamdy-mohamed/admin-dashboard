@@ -6,9 +6,13 @@ import { useTranslation } from "@/providers/LanguageProvider";
 
 const AppNotifications = dynamic(
   () => import("./Header/NotificationsDropdown"),
+  { ssr: false, loading: () => <div className="size-9 shrink-0" aria-hidden /> },
 );
 
-const UserMenuDropdown = dynamic(() => import("./Header/UserMenuDropdown"));
+const UserMenuDropdown = dynamic(() => import("./Header/UserMenuDropdown"), {
+  ssr: false,
+  loading: () => <div className="h-10 w-10 shrink-0 sm:w-36" aria-hidden />,
+});
 
 interface HeaderProps {
   onOpenMobileSidebar: () => void;

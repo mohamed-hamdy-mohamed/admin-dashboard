@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { Receipt, Clock3, DollarSign, Star } from "lucide-react";
 
 import StatsCard from "../atoms/ui/StatsCard";
@@ -15,25 +15,25 @@ interface RecipesStatsProps {
 
 const RecipesStats = ({ data }: RecipesStatsProps) => {
   const { locale, t } = useTranslation();
-  const recipes = data.recipes;
-  const totalRecipes = recipes.length;
 
-  const easyRecipes = recipes.filter(
-    (recipe) => recipe.difficulty === "Easy",
-  ).length;
+  const stats = useMemo<Stats[]>(() => {
+    const recipes = data.recipes;
+    const totalRecipes = recipes.length;
+    let easyRecipes = 0;
+    let ratingTotal = 0;
+    let totalReviews = 0;
 
-  const averageRating =
-    totalRecipes > 0
-      ? recipes.reduce((sum, recipe) => sum + recipe.rating, 0) / totalRecipes
-      : 0;
+    for (const recipe of recipes) {
+      if (recipe.difficulty === "Easy") {
+        easyRecipes += 1;
+      }
+      ratingTotal += recipe.rating;
+      totalReviews += recipe.reviewCount;
+    }
 
-  const totalReviews = recipes.reduce(
-    (sum, recipe) => sum + recipe.reviewCount,
-    0,
-  );
+    const averageRating = totalRecipes > 0 ? ratingTotal / totalRecipes : 0;
 
-  const stats = useMemo<Stats[]>(
-    () => [
+    return [
       {
         title: t("recipes.stats.totalRecipes.title"),
         value: formatNumber(totalRecipes, locale),
@@ -66,11 +66,10 @@ const RecipesStats = ({ data }: RecipesStatsProps) => {
         iconBg: "bg-yellow-100",
         iconColor: "text-yellow-600",
       },
-    ],
-    [averageRating, easyRecipes, locale, t, totalRecipes, totalReviews],
-  );
+    ];
+  }, [data.recipes, locale, t]);
 
   return <StatsCard stats={stats} />;
 };
 
-export default RecipesStats;
+export default memo(RecipesStats);

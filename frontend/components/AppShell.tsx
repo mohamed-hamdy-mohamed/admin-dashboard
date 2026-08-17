@@ -61,17 +61,21 @@ const AppShell = ({ children }: AppShellProps) => {
 
   return (
     <div dir={direction} className="flex h-screen overflow-hidden">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-background focus:px-3 focus:py-2 focus:text-sm"
+      >
+        {t("aria.skipToMain")}
+      </a>
+
+      {isMobileOpen ? (
         <button
           type="button"
           aria-label={t("aria.closeSidebar")}
-          aria-hidden={!isMobileOpen}
-          tabIndex={isMobileOpen ? 0 : -1}
-          className={cn(
-            "fixed inset-0 z-40 bg-black/50 transition-opacity duration-200 ease-out lg:hidden",
-            isMobileOpen ? "opacity-100" : "pointer-events-none opacity-0",
-          )}
+          className="fixed inset-0 z-40 bg-black/50 transition-opacity duration-200 ease-out lg:hidden"
           onClick={closeMobileSidebar}
         />
+      ) : null}
 
       <Sidebar
         isDesktop={isDesktop}
@@ -85,6 +89,8 @@ const AppShell = ({ children }: AppShellProps) => {
         <Header onOpenMobileSidebar={openMobileSidebar} />
 
         <main
+          id="main-content"
+          tabIndex={-1}
           className={cn(
             "min-h-0 flex-1",
             isMobileOpen ? "overflow-hidden lg:overflow-y-auto" : "overflow-y-auto",

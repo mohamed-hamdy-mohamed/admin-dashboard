@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { SalesResponse } from "@/types/sales";
 import { DollarSign, Receipt, ShoppingBag, TrendingUp } from "lucide-react";
 import StatsCard from "../atoms/ui/StatsCard";
@@ -15,26 +15,25 @@ interface SalesStatsProps {
 
 const SalesStats = ({ data }: SalesStatsProps) => {
   const { locale, t } = useTranslation();
-  const sales = data.sales;
 
-  const totalRevenue = sales.reduce(
-    (acc, sale) => acc + sale.amount * sale.quantity,
-    0,
-  );
+  const stats = useMemo<Stats[]>(() => {
+    const sales = data.sales;
+    const totalOrders = sales.length;
+    let totalRevenue = 0;
+    let completedOrders = 0;
 
-  const totalOrders = sales.length;
+    for (const sale of sales) {
+      totalRevenue += sale.amount * sale.quantity;
+      if (sale.status === "Completed") {
+        completedOrders += 1;
+      }
+    }
 
-  const averageOrders = totalOrders > 0 ? totalRevenue / totalOrders : 0;
+    const averageOrders = totalOrders > 0 ? totalRevenue / totalOrders : 0;
+    const completionRate =
+      totalOrders > 0 ? (completedOrders / totalOrders) * 100 : 0;
 
-  const completedOrders = sales.filter(
-    (sale) => sale.status === "Completed",
-  ).length;
-
-  const completionRate =
-    totalOrders > 0 ? (completedOrders / totalOrders) * 100 : 0;
-
-  const stats = useMemo<Stats[]>(
-    () => [
+    return [
       {
         title: t("sales.stats.revenue.title"),
         value: formatPrice(totalRevenue, locale),
@@ -67,11 +66,10 @@ const SalesStats = ({ data }: SalesStatsProps) => {
         iconBg: "bg-violet-100",
         iconColor: "text-violet-600",
       },
-    ],
-    [averageOrders, completionRate, locale, t, totalOrders, totalRevenue],
-  );
+    ];
+  }, [data.sales, locale, t]);
 
   return <StatsCard stats={stats} />;
 };
 
-export default SalesStats;
+export default memo(SalesStats);

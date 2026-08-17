@@ -1,13 +1,13 @@
 import type { ReactNode } from "react";
 import { PAGE_CONTENT_CLASSNAME } from "@/constants/layout";
-import AppLoader from "@/components/atoms/ui/AppLoader";
 import DataTableLayout from "@/components/atoms/ui/DataTableLayout";
 import SearchInput from "@/components/atoms/ui/SearchInput";
 import TablePagination from "@/components/atoms/ui/TablePagination";
+import { StatsCardsSkeleton } from "@/components/skeletons";
 
 interface CatalogPageTemplateProps {
   header: ReactNode;
-  isFetching?: boolean;
+  isLoading?: boolean;
   title: string;
   description: string;
   search: string;
@@ -24,7 +24,7 @@ interface CatalogPageTemplateProps {
 
 const CatalogPageTemplate = ({
   header,
-  isFetching = false,
+  isLoading = false,
   title,
   description,
   search,
@@ -39,9 +39,8 @@ const CatalogPageTemplate = ({
   footer,
 }: CatalogPageTemplateProps) => {
   return (
-    <main className={PAGE_CONTENT_CLASSNAME}>
-      {header}
-      {isFetching && <AppLoader />}
+    <div className={PAGE_CONTENT_CLASSNAME}>
+      {isLoading ? <StatsCardsSkeleton /> : header}
       <DataTableLayout
         title={title}
         description={description}
@@ -63,7 +62,7 @@ const CatalogPageTemplate = ({
         />
       </DataTableLayout>
       {footer}
-    </main>
+    </div>
   );
 };
 

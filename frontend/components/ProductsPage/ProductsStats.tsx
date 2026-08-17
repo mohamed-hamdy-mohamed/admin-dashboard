@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { ProductsResponse } from "@/types/products";
 import { Package, TriangleAlert, Tags, Star } from "lucide-react";
 import StatsCard from "../atoms/ui/StatsCard";
@@ -14,24 +14,25 @@ export interface ProductsStatsProps {
 
 const ProductsStats = ({ data }: ProductsStatsProps) => {
   const { locale, t } = useTranslation();
-  const totalProducts = data?.products.length ?? 0;
 
-  const stockProducts = data.products.filter(
-    (product) => product.availabilityStatus === "Low Stock",
-  ).length;
+  const productStats = useMemo<Stats[]>(() => {
+    const products = data.products;
+    const totalProducts = products.length;
+    let lowStockCount = 0;
+    let ratingTotal = 0;
+    const categories = new Set<string>();
 
-  const categoryProducts = new Set(
-    data.products.map((product) => product.category),
-  ).size;
+    for (const product of products) {
+      if (product.availabilityStatus === "Low Stock") {
+        lowStockCount += 1;
+      }
+      ratingTotal += product.rating;
+      categories.add(product.category);
+    }
 
-  const averageRating =
-    totalProducts > 0
-      ? data.products.reduce((acc, product) => acc + product.rating, 0) /
-        totalProducts
-      : 0;
+    const averageRating = totalProducts > 0 ? ratingTotal / totalProducts : 0;
 
-  const productStats = useMemo<Stats[]>(
-    () => [
+    return [
       {
         title: t("products.stats.totalProducts.title"),
         value: formatNumber(totalProducts, locale),
@@ -42,7 +43,7 @@ const ProductsStats = ({ data }: ProductsStatsProps) => {
       },
       {
         title: t("products.stats.lowStockProducts.title"),
-        value: formatNumber(stockProducts, locale),
+        value: formatNumber(lowStockCount, locale),
         description: t("products.stats.lowStockProducts.description"),
         icon: TriangleAlert,
         iconBg: "bg-red-100",
@@ -50,7 +51,7 @@ const ProductsStats = ({ data }: ProductsStatsProps) => {
       },
       {
         title: t("products.stats.uniqueCategories.title"),
-        value: formatNumber(categoryProducts, locale),
+        value: formatNumber(categories.size, locale),
         description: t("products.stats.uniqueCategories.description"),
         icon: Tags,
         iconBg: "bg-sky-100",
@@ -64,11 +65,10 @@ const ProductsStats = ({ data }: ProductsStatsProps) => {
         iconBg: "bg-yellow-100",
         iconColor: "text-yellow-600",
       },
-    ],
-    [averageRating, categoryProducts, locale, stockProducts, t, totalProducts],
-  );
+    ];
+  }, [data.products, locale, t]);
 
   return <StatsCard stats={productStats} />;
 };
 
-export default ProductsStats;
+export default memo(ProductsStats);

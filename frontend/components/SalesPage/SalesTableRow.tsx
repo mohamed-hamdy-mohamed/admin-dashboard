@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { TableCell, TableRow } from "@/components/atoms/ui/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/atoms/ui/avatar";
 import { Badge } from "@/components/atoms/ui/badge";
@@ -12,9 +13,10 @@ import { localizeDigitsInString } from "@/util/formatLocale";
 
 interface Props {
   sale: Sale;
+  priority?: boolean;
 }
 
-const SalesTableRow = ({ sale }: Props) => {
+const SalesTableRow = ({ sale, priority = false }: Props) => {
   const { locale } = useTranslation();
 
   return (
@@ -22,7 +24,12 @@ const SalesTableRow = ({ sale }: Props) => {
       <TableCell>
         <div className="flex items-center gap-3">
           <Avatar className="h-11 w-11">
-            <AvatarImage src={sale.avatar} alt={sale.customer} sizes="44px" />
+            <AvatarImage
+              src={sale.avatar}
+              alt={sale.customer}
+              sizes="44px"
+              priority={priority}
+            />
             <AvatarFallback>{sale.customer.charAt(0)}</AvatarFallback>
           </Avatar>
           <div>
@@ -54,4 +61,4 @@ const SalesTableRow = ({ sale }: Props) => {
   );
 };
 
-export default SalesTableRow;
+export default memo(SalesTableRow);

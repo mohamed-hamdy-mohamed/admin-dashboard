@@ -739,6 +739,7 @@ export const ar = {
   aria: {
     toggleSidebar: "تبديل الشريط الجانبي",
     closeSidebar: "إغلاق الشريط الجانبي",
+    skipToMain: "التخطي إلى المحتوى الرئيسي",
     notifications: "الإشعارات",
     openUserMenu: "فتح قائمة المستخدم",
     backToConversations: "العودة إلى المحادثات",

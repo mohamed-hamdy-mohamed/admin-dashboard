@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { TableCell, TableRow } from "@/components/atoms/ui/table";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/atoms/ui/avatar";
@@ -15,11 +16,17 @@ import { formatDecimal, formatNumber } from "@/util/formatNumber";
 
 interface RecipesTableRowProps {
   recipe: Recipe;
+  priority?: boolean;
   onView: (recipe: Recipe) => void;
   onEdit: (recipe: Recipe) => void;
 }
 
-const RecipesTableRow = ({ recipe, onView, onEdit }: RecipesTableRowProps) => {
+const RecipesTableRow = ({
+  recipe,
+  priority = false,
+  onView,
+  onEdit,
+}: RecipesTableRowProps) => {
   const { locale, t } = useTranslation();
 
   return (
@@ -27,7 +34,12 @@ const RecipesTableRow = ({ recipe, onView, onEdit }: RecipesTableRowProps) => {
       <TableCell>
         <div className="flex items-center gap-3">
           <Avatar className="h-12 w-12 rounded-lg">
-            <AvatarImage src={recipe.image} alt={recipe.name} sizes="48px" />
+            <AvatarImage
+              src={recipe.image}
+              alt={recipe.name}
+              sizes="48px"
+              priority={priority}
+            />
 
             <AvatarFallback>{recipe.name.charAt(0)}</AvatarFallback>
           </Avatar>
@@ -89,4 +101,4 @@ const RecipesTableRow = ({ recipe, onView, onEdit }: RecipesTableRowProps) => {
   );
 };
 
-export default RecipesTableRow;
+export default memo(RecipesTableRow);

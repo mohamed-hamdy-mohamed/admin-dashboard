@@ -5,9 +5,8 @@ import { useQuery } from "@tanstack/react-query";
 export const useGetSales = () => {
   return useQuery({
     queryKey: ["sales"],
-    queryFn: async (): Promise<SalesResponse> => {
-      await new Promise((resolve) => setTimeout(resolve, 700));
-      return salesData;
-    },
+    queryFn: (): Promise<SalesResponse> => Promise.resolve(salesData),
+    staleTime: Infinity,
+    gcTime: Infinity,
   });
 };

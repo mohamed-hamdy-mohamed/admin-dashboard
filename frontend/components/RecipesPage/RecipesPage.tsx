@@ -1,13 +1,13 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { usePagination } from "@/hooks/usePagination";
-import StatsCardsSkeleton from "../atoms/ui/StatsCardsSkeleton";
+import { useCallback, useMemo } from "react";
+import dynamic from "next/dynamic";
 import RecipesStats from "./RecipesStats";
 import RecipesTable from "./RecipesTable";
 import { useGetRecipes } from "@/hooks/useGetOrders";
-import RecipeViewDialog from "./RecipeViewDialog";
-import RecipeEditDialog from "./RecipeEditDialog";
+import { useCatalogCollection } from "@/hooks/useCatalogCollection";
+import { useEntityDialog } from "@/hooks/useEntityDialog";
+import { usePersistedEdits } from "@/hooks/usePersistedEdits";
 import CatalogPageTemplate from "@/components/templates/CatalogPageTemplate";
 import { Recipe } from "@/types/recipes";
 import { RecipeEditValues } from "@/types/recipe-edits";
@@ -15,25 +15,53 @@ import {
   applyRecipeEdits,
   loadRecipeEdits,
   persistRecipeEdits,
-  RecipeEditsMap,
 } from "@/util/recipeEdits";
 import { useTranslation } from "@/providers/LanguageProvider";
 
-const RecipesPage = () => {
-  const [search, setSearch] = useState<string>("");
-  const { t } = useTranslation();
-  const [recipeEdits, setRecipeEdits] = useState<RecipeEditsMap>(() =>
-    loadRecipeEdits(),
-  );
-  const [activeRecipe, setActiveRecipe] = useState<Recipe | null>(null);
-  const [viewOpen, setViewOpen] = useState(false);
-  const [editOpen, setEditOpen] = useState(false);
-  const { data, isLoading, isFetching } = useGetRecipes();
+const RecipeViewDialog = dynamic(() => import("./RecipeViewDialog"), {
+  ssr: false,
+});
 
-  const recipes = useMemo(
-    () => applyRecipeEdits(data?.recipes ?? [], recipeEdits),
-    [data?.recipes, recipeEdits],
-  );
+const RecipeEditDialog = dynamic(() => import("./RecipeEditDialog"), {
+  ssr: false,
+});
+
+const matchRecipe = (recipe: Recipe, query: string) =>
+  recipe.name.toLowerCase().includes(query) ||
+  recipe.cuisine.toLowerCase().includes(query);
+
+const RecipesPage = () => {
+  const { t } = useTranslation();
+  const { data, isLoading } = useGetRecipes();
+  const { mergedItems: recipes, saveEdit } = usePersistedEdits({
+    items: data?.recipes,
+    load: loadRecipeEdits,
+    persist: persistRecipeEdits,
+    apply: applyRecipeEdits,
+  });
+  const {
+    item: activeRecipe,
+    setItem: setActiveRecipe,
+    viewOpen,
+    setViewOpen,
+    editOpen,
+    setEditOpen,
+    openView,
+    openEdit,
+  } = useEntityDialog<Recipe>();
+  const {
+    search,
+    setSearch,
+    paginatedData,
+    currentPage,
+    totalPages,
+    prevPage,
+    nextPage,
+    goToPage,
+  } = useCatalogCollection({
+    items: recipes,
+    match: matchRecipe,
+  });
 
   const mergedData = useMemo(() => {
     if (!data) {
@@ -46,67 +74,22 @@ const RecipesPage = () => {
     };
   }, [data, recipes]);
 
-  const filteredRecipes = useMemo(
-    () =>
-      recipes.filter(
-        (recipe) =>
-          recipe.name.toLowerCase().includes(search.toLowerCase()) ||
-          recipe.cuisine.toLowerCase().includes(search.toLowerCase()),
-      ),
-    [recipes, search],
+  const handleSaveRecipe = useCallback(
+    (values: RecipeEditValues) => {
+      if (!activeRecipe) {
+        return;
+      }
+
+      setActiveRecipe(saveEdit(activeRecipe, values));
+      setEditOpen(false);
+    },
+    [activeRecipe, saveEdit, setActiveRecipe, setEditOpen],
   );
-
-  const {
-    paginatedData,
-    currentPage,
-    totalPages,
-    prevPage,
-    nextPage,
-    goToPage,
-  } = usePagination({
-    data: filteredRecipes,
-    itemsPerPage: 10,
-  });
-
-  const handleViewRecipe = (recipe: Recipe) => {
-    setActiveRecipe(recipe);
-    setViewOpen(true);
-  };
-
-  const handleEditRecipe = (recipe: Recipe) => {
-    setActiveRecipe(recipe);
-    setEditOpen(true);
-  };
-
-  const handleSaveRecipe = (values: RecipeEditValues) => {
-    if (!activeRecipe) {
-      return;
-    }
-
-    const nextEdits: RecipeEditsMap = {
-      ...recipeEdits,
-      [activeRecipe.id]: values,
-    };
-
-    setRecipeEdits(nextEdits);
-    persistRecipeEdits(nextEdits);
-    setActiveRecipe({
-      ...activeRecipe,
-      ...values,
-    });
-    setEditOpen(false);
-  };
 
   return (
     <CatalogPageTemplate
-      header={
-        isLoading ? (
-          <StatsCardsSkeleton cards={4} />
-        ) : (
-          mergedData && <RecipesStats data={mergedData} />
-        )
-      }
-      isFetching={isFetching}
+      isLoading={isLoading}
+      header={mergedData && <RecipesStats data={mergedData} />}
       title={t("recipes.listTitle")}
       description={t("recipes.listDescription")}
       search={search}
@@ -135,9 +118,10 @@ const RecipesPage = () => {
       }
     >
       <RecipesTable
+        isLoading={isLoading}
         recipes={paginatedData}
-        onViewRecipe={handleViewRecipe}
-        onEditRecipe={handleEditRecipe}
+        onViewRecipe={openView}
+        onEditRecipe={openEdit}
       />
     </CatalogPageTemplate>
   );
