@@ -1,7 +1,7 @@
 import {
   dehydrate,
   queryOptions,
-  type QueryClient,
+  type FetchQueryOptions,
 } from "@tanstack/react-query";
 import { fetchDummyJson } from "@/lib/dummyJson";
 import { createQueryClient } from "@/lib/queryClient";
@@ -36,8 +36,13 @@ export const recipesQueryOptions = () =>
     queryFn: () => fetchDummyJson<RecipesResponse>("/recipes", RECIPES_SELECT),
   });
 
-export const dehydrateCatalogQuery = async (
-  options: Parameters<QueryClient["prefetchQuery"]>[0],
+export const dehydrateCatalogQuery = async <
+  TQueryFnData,
+  TError = Error,
+  TData = TQueryFnData,
+  TQueryKey extends readonly unknown[] = readonly unknown[],
+>(
+  options: FetchQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
 ) => {
   const queryClient = createQueryClient();
 

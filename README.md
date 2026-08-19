@@ -13,7 +13,7 @@ There is no root `package.json`. Install and run each app from its own folder.
 - Next.js 16, React 19, TypeScript
 - Tailwind CSS, Base UI / shadcn-style components
 - TanStack Query, Axios, React Hook Form, Zod
-- next-themes, react-hot-toast, Recharts
+- react-hot-toast, Recharts
 
 **Backend** (`backend/`)
 

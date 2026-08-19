@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useTheme } from "next-themes";
+import { useTheme } from "@/providers/ThemeProvider";
 import { THEME_STORAGE_KEY } from "@/constants/theme";
 import { loadSettings } from "@/util/settingsStorage";
 

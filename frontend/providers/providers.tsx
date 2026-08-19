@@ -1,6 +1,6 @@
 "use client";
 
-import { ThemeProvider } from "next-themes";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 import dynamic from "next/dynamic";
 import LanguageSync from "@/components/LanguageSync";
 import ThemeSync from "@/components/ThemeSync";

@@ -40,16 +40,14 @@ export default async function RootLayout({
   const direction = getLocaleDirection(locale);
 
   return (
-    <html
-      lang={locale}
-      dir={direction}
-      suppressHydrationWarning
-      className="h-full antialiased"
-    >
-      <body suppressHydrationWarning className="min-h-svh bg-background antialiased">
-        <Script id="theme-init" strategy="beforeInteractive">
-          {themeInitScript}
-        </Script>
+    <html lang={locale} dir={direction} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body
+        suppressHydrationWarning
+        className="h-full min-h-svh bg-background antialiased"
+      >
         <Script id="language-init" strategy="beforeInteractive">
           {languageInitScript}
         </Script>

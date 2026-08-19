@@ -2,7 +2,7 @@
 
 import { useCallback } from "react";
 import { useSyncExternalStore } from "react";
-import { useTheme } from "next-themes";
+import { useTheme } from "@/providers/ThemeProvider";
 import { ThemeOption } from "@/types/settings";
 import { loadSettings, persistSettings } from "@/util/settingsStorage";
 
