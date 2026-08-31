@@ -25,7 +25,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import ChartCard from "@/components/molecules/ChartCard";
+import ChartCard from "@/shared/molecules/ChartCard";
 import MeasuredChart, { type ChartSize } from "../MeasuredChart";
 
 const DOT_SM = { r: 3 };

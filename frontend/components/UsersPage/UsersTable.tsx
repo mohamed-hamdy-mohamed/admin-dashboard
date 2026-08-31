@@ -1,7 +1,7 @@
 "use client";
 
 import { memo, useCallback, useMemo } from "react";
-import CatalogListTable from "@/components/molecules/CatalogListTable";
+import CatalogListTable from "@/shared/molecules/CatalogListTable";
 import UserTableRow from "./UserTableRow";
 import { User } from "@/types/users";
 import { useTranslation } from "@/providers/LanguageProvider";

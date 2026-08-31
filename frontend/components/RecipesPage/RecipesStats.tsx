@@ -3,7 +3,7 @@
 import { memo, useMemo } from "react";
 import { Receipt, Clock3, DollarSign, Star } from "lucide-react";
 
-import StatsCard from "../atoms/ui/StatsCard";
+import StatsCard from "../../shared/atoms/StatsCard";
 import { RecipesResponse } from "@/types/recipes";
 import { Stats } from "@/types/stats";
 import { useTranslation } from "@/providers/LanguageProvider";

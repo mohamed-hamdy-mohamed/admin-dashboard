@@ -2,7 +2,7 @@
 
 import { useEffect, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
-import AppLoader from "@/components/atoms/ui/AppLoader";
+import AppLoader from "@/shared/atoms/AppLoader";
 import { useAuth } from "@/providers/AuthProvider";
 
 interface RouteGuardProps {

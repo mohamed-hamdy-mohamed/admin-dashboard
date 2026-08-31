@@ -3,15 +3,15 @@ import {
   Card,
   CardContent,
   CardHeader,
-} from "@/components/atoms/ui/card";
+} from "@/shared/atoms/card";
 import {
   Table,
   TableBody,
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/atoms/ui/table";
-import { Skeleton } from "@/components/atoms/ui/skeleton";
+} from "@/shared/atoms/table";
+import { Skeleton } from "@/shared/atoms/skeleton";
 import TableSkeleton from "@/components/skeletons/TableSkeleton";
 import type { TableRowSkeletonLeading } from "@/components/skeletons/TableRowSkeleton";
 

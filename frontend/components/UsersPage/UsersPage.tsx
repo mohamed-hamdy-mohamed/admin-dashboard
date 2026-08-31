@@ -7,7 +7,7 @@ import { useCatalogEntityPage } from "@/hooks/useCatalogEntityPage";
 import { useLazyMount } from "@/hooks/useLazyMount";
 import UsersTable from "./UsersTable";
 import UsersStats from "./UsersStats";
-import CatalogPageTemplate from "@/components/templates/CatalogPageTemplate";
+import CatalogPageTemplate from "@/shared/templates/CatalogPageTemplate";
 import { User } from "@/types/users";
 import {
   applyUserEdits,

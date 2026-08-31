@@ -5,11 +5,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FieldError from "@/components/Auth/FieldError";
-import AuthBrandHeader from "@/components/molecules/AuthBrandHeader";
+import AuthBrandHeader from "@/shared/molecules/AuthBrandHeader";
 import PasswordInput from "@/components/Auth/PasswordInput";
-import { Button } from "@/components/atoms/ui/button";
-import { Label } from "@/components/atoms/ui/label";
-import { Spinner } from "@/components/atoms/ui/spinner";
+import { Button } from "@/shared/atoms/button";
+import { Label } from "@/shared/atoms/label";
+import { Spinner } from "@/shared/atoms/spinner";
 import { resetPassword } from "@/lib/authApi";
 import { getApiErrorMessage } from "@/lib/apiError";
 import {

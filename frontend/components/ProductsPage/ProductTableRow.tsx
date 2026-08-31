@@ -2,7 +2,7 @@
 
 import { memo } from "react";
 import Image from "next/image";
-import { TableCell, TableRow } from "@/components/atoms/ui/table";
+import { TableCell, TableRow } from "@/shared/atoms/table";
 import { Product } from "@/types/products";
 import { useTranslation } from "@/providers/LanguageProvider";
 import { formatPrice } from "@/util/formatPrice";

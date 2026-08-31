@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import AuthSplitLayout from "@/components/Auth/AuthSplitLayout";
 import ResetPasswordForm from "@/components/Auth/ResetPasswordForm";
-import { Spinner } from "@/components/atoms/ui/spinner";
+import { Spinner } from "@/shared/atoms/spinner";
 
 export const metadata: Metadata = {
   title: "Reset password | Admin Operations Platform",

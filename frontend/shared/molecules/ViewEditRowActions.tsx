@@ -2,7 +2,7 @@
 
 import { memo, useMemo } from "react";
 import { Eye, Pencil } from "lucide-react";
-import RowActions from "@/components/atoms/ui/RowActions";
+import RowActions from "@/shared/atoms/RowActions";
 
 interface ViewEditRowActionsProps<T> {
   item: T;

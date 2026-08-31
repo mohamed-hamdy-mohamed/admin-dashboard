@@ -1,12 +1,12 @@
 "use client";
 
 import { memo } from "react";
-import { TableCell, TableRow } from "@/components/atoms/ui/table";
-import { Badge } from "@/components/atoms/ui/badge";
+import { TableCell, TableRow } from "@/shared/atoms/table";
+import { Badge } from "@/shared/atoms/badge";
 import { Star } from "lucide-react";
 import { Recipe } from "@/types/recipes";
-import EntityIdentity from "@/components/molecules/EntityIdentity";
-import ViewEditRowActions from "@/components/molecules/ViewEditRowActions";
+import EntityIdentity from "@/shared/molecules/EntityIdentity";
+import ViewEditRowActions from "@/shared/molecules/ViewEditRowActions";
 import RecipeDifficultyBadge from "./RecipeDifficultyBadge";
 import { useTranslation } from "@/providers/LanguageProvider";
 import { formatDecimal, formatNumber } from "@/util/formatNumber";

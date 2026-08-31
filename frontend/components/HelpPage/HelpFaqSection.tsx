@@ -6,7 +6,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/atoms/ui/accordion";
+} from "@/shared/atoms/accordion";
 import { useTranslation } from "@/providers/LanguageProvider";
 
 interface HelpFaqSectionProps {

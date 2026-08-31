@@ -1,7 +1,7 @@
 "use client";
 
 import { NotificationSettings } from "@/types/settings";
-import { Switch } from "@/components/atoms/ui/switch";
+import { Switch } from "@/shared/atoms/switch";
 import SettingsSection from "./SettingsSection";
 import { useTranslation } from "@/providers/LanguageProvider";
 

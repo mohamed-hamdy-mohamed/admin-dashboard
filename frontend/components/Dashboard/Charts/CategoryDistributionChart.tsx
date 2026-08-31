@@ -11,7 +11,7 @@ import {
   createChartTooltipPercentFormatter,
 } from "@/util/chartFormat";
 import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
-import ChartCard from "@/components/molecules/ChartCard";
+import ChartCard from "@/shared/molecules/ChartCard";
 import MeasuredChart, { type ChartSize } from "../MeasuredChart";
 
 const CategoryDistributionChart = () => {

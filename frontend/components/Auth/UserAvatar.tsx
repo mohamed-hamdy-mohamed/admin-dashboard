@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/atoms/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/shared/atoms/avatar";
 import { cn } from "@/lib/utils";
 import { getAvatarSrc } from "@/util/avatar";
 import { getFullName } from "@/util/getFullName";

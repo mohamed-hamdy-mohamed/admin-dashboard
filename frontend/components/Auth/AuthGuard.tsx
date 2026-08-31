@@ -1,6 +1,6 @@
 "use client";
 
-import RouteGuard from "@/components/organisms/RouteGuard";
+import RouteGuard from "@/shared/organisms/RouteGuard";
 
 const AuthGuard = ({ children }: { children: React.ReactNode }) => {
   return <RouteGuard requireAuth>{children}</RouteGuard>;

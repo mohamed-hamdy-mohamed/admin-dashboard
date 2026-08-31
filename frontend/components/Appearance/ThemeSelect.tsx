@@ -3,14 +3,14 @@
 import { THEME_OPTIONS } from "@/constants/appearance";
 import { useTranslation } from "@/providers/LanguageProvider";
 import { ThemeOption } from "@/types/settings";
-import { Label } from "@/components/atoms/ui/label";
+import { Label } from "@/shared/atoms/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/atoms/ui/select";
+} from "@/shared/atoms/select";
 import { cn } from "@/lib/utils";
 
 interface ThemeSelectProps {

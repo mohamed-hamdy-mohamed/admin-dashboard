@@ -1,6 +1,6 @@
 import { memo } from "react";
-import { TableCell, TableRow } from "@/components/atoms/ui/table";
-import { Skeleton } from "@/components/atoms/ui/skeleton";
+import { TableCell, TableRow } from "@/shared/atoms/table";
+import { Skeleton } from "@/shared/atoms/skeleton";
 
 export type TableRowSkeletonLeading = "line" | "avatar" | "image";
 

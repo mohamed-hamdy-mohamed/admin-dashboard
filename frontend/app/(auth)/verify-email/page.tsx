@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import VerifyEmail from "@/components/Auth/VerifyEmail";
-import { Spinner } from "@/components/atoms/ui/spinner";
+import { Spinner } from "@/shared/atoms/spinner";
 
 export const metadata: Metadata = {
   title: "Verify email | Admin Operations Platform",

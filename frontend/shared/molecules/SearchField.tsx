@@ -1,7 +1,7 @@
 "use client";
 
 import { Search } from "lucide-react";
-import { Input } from "@/components/atoms/ui/input";
+import { Input } from "@/shared/atoms/input";
 import { cn } from "@/lib/utils";
 
 interface SearchFieldProps {

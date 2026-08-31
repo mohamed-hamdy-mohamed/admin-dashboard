@@ -5,7 +5,7 @@ import { useGetSales } from "@/hooks/useGetSales";
 import { useCatalogCollection } from "@/hooks/useCatalogCollection";
 import SalesStats from "./SalesStats";
 import SalesTable from "./SalesTable";
-import CatalogPageTemplate from "@/components/templates/CatalogPageTemplate";
+import CatalogPageTemplate from "@/shared/templates/CatalogPageTemplate";
 import { useTranslation } from "@/providers/LanguageProvider";
 import type { Sale } from "@/types/sales";
 

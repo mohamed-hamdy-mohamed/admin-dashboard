@@ -1,5 +1,5 @@
 import { memo, type ReactNode } from "react";
-import { Dialog, DialogContent } from "@/components/atoms/ui/dialog";
+import { Dialog, DialogContent } from "@/shared/atoms/dialog";
 
 interface EntityDialogProps {
   open: boolean;

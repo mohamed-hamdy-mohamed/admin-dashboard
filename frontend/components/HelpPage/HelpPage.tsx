@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { Mail } from "lucide-react";
 import { getLocalizedFaqs } from "@/lib/localizedContent";
-import { Button } from "@/components/atoms/ui/button";
+import { Button } from "@/shared/atoms/button";
 import HelpSearch from "./HelpSearch";
 import HelpFaqSection from "./HelpFaqSection";
 import HelpContactDialog from "./HelpContactDialog";

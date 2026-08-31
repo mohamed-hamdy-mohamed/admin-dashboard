@@ -1,5 +1,5 @@
 import { memo, type ReactNode } from "react";
-import EntityIdentity from "@/components/molecules/EntityIdentity";
+import EntityIdentity from "@/shared/molecules/EntityIdentity";
 
 interface EntityViewHeaderProps {
   src: string;

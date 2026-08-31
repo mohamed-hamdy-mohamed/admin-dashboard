@@ -12,12 +12,12 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/atoms/ui/dialog";
-import { Button } from "@/components/atoms/ui/button";
-import { Input } from "@/components/atoms/ui/input";
-import { Label } from "@/components/atoms/ui/label";
+} from "@/shared/atoms/dialog";
+import { Button } from "@/shared/atoms/button";
+import { Input } from "@/shared/atoms/input";
+import { Label } from "@/shared/atoms/label";
 import PasswordInput from "@/components/Auth/PasswordInput";
-import { Spinner } from "@/components/atoms/ui/spinner";
+import { Spinner } from "@/shared/atoms/spinner";
 import { changePassword } from "@/lib/authApi";
 import { getApiErrorMessage } from "@/lib/apiError";
 import {

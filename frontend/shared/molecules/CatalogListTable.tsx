@@ -1,7 +1,7 @@
 import { memo, type ReactNode } from "react";
 import CatalogDataTable, {
   type CatalogColumn,
-} from "@/components/molecules/CatalogDataTable";
+} from "@/shared/molecules/CatalogDataTable";
 import { CATALOG_PRIORITY_ROWS } from "@/constants/catalog";
 import type { TableRowSkeletonLeading } from "@/components/skeletons/TableRowSkeleton";
 

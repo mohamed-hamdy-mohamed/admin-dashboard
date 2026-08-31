@@ -5,7 +5,7 @@ import {
   TableCell,
   TableHeader,
   TableRow,
-} from "@/components/atoms/ui/table";
+} from "@/shared/atoms/table";
 
 interface CatalogTableProps {
   columns: ReactNode;

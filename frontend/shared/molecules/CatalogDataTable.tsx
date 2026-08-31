@@ -1,6 +1,6 @@
 import { memo, type ReactNode } from "react";
-import { TableHead } from "@/components/atoms/ui/table";
-import CatalogTable from "@/components/molecules/CatalogTable";
+import { TableHead } from "@/shared/atoms/table";
+import CatalogTable from "@/shared/molecules/CatalogTable";
 import { TableSkeleton } from "@/components/skeletons";
 import type { TableRowSkeletonLeading } from "@/components/skeletons/TableRowSkeleton";
 

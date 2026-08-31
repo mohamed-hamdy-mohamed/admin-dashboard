@@ -4,9 +4,9 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { ArrowLeft, Send } from "lucide-react";
 import { Conversation } from "@/types/messages";
 import { cn } from "@/lib/utils";
-import { Avatar, AvatarBadge, AvatarImage } from "@/components/atoms/ui/avatar";
-import { Button } from "@/components/atoms/ui/button";
-import { Input } from "@/components/atoms/ui/input";
+import { Avatar, AvatarBadge, AvatarImage } from "@/shared/atoms/avatar";
+import { Button } from "@/shared/atoms/button";
+import { Input } from "@/shared/atoms/input";
 import MessageBubble from "./MessageBubble";
 import { useTranslation } from "@/providers/LanguageProvider";
 

@@ -3,7 +3,7 @@
 import { memo, useCallback } from "react";
 import { Recipe } from "@/types/recipes";
 import { RecipeEditValues } from "@/types/recipe-edits";
-import EntityDialog from "@/components/molecules/EntityDialog";
+import EntityDialog from "@/shared/molecules/EntityDialog";
 import { useTranslation } from "@/providers/LanguageProvider";
 import RecipeEditForm from "./RecipeEditForm";
 

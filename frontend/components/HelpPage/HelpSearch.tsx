@@ -1,6 +1,6 @@
 "use client";
 
-import SearchField from "@/components/molecules/SearchField";
+import SearchField from "@/shared/molecules/SearchField";
 import { useTranslation } from "@/providers/LanguageProvider";
 
 interface HelpSearchProps {

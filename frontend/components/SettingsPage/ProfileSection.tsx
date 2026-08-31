@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Pencil } from "lucide-react";
 import UserAvatar from "@/components/Auth/UserAvatar";
-import { Button } from "@/components/atoms/ui/button";
+import { Button } from "@/shared/atoms/button";
 import SettingsSection from "./SettingsSection";
 import EditProfileDialog from "./EditProfileDialog";
 import { useTranslation } from "@/providers/LanguageProvider";

@@ -1,7 +1,7 @@
 "use client";
 
 import { memo } from "react";
-import SearchField from "@/components/molecules/SearchField";
+import SearchField from "@/shared/molecules/SearchField";
 
 interface SearchInputProps {
   value: string;

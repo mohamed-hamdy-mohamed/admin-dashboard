@@ -7,17 +7,17 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/atoms/ui/dialog";
-import { Input } from "@/components/atoms/ui/input";
+} from "@/shared/atoms/dialog";
+import { Input } from "@/shared/atoms/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/atoms/ui/select";
-import DialogFormActions from "@/components/atoms/ui/DialogFormActions";
-import FormField from "@/components/atoms/ui/FormField";
+} from "@/shared/atoms/select";
+import DialogFormActions from "@/shared/atoms/DialogFormActions";
+import FormField from "@/shared/atoms/FormField";
 import { useTranslation } from "@/providers/LanguageProvider";
 
 interface UserEditFormProps {

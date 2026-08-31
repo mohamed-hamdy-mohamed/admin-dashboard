@@ -8,7 +8,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/atoms/ui/Pagination";
+} from "@/shared/atoms/Pagination";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "@/providers/LanguageProvider";
 import { formatNumber } from "@/util/formatNumber";

@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { cn } from "@/lib/utils";
-import { Card, CardContent } from "@/components/atoms/ui/card";
-import { Skeleton } from "@/components/atoms/ui/skeleton";
+import { Card, CardContent } from "@/shared/atoms/card";
+import { Skeleton } from "@/shared/atoms/skeleton";
 
 type CardSkeletonVariant = "stat" | "chart" | "plain";
 

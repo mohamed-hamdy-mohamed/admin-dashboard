@@ -6,14 +6,14 @@ import {
 } from "@/types/settings";
 import { LANGUAGE_OPTIONS } from "@/constants/appearance";
 import ThemeSelect from "@/components/Appearance/ThemeSelect";
-import { Label } from "@/components/atoms/ui/label";
+import { Label } from "@/shared/atoms/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/atoms/ui/select";
+} from "@/shared/atoms/select";
 import { useThemeSetting } from "@/hooks/useThemeSetting";
 import SettingsSection from "./SettingsSection";
 import { useTranslation } from "@/providers/LanguageProvider";

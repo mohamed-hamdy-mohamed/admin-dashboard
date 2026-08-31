@@ -1,5 +1,5 @@
 import { memo } from "react";
-import StatCard from "@/components/atoms/ui/StatCard";
+import StatCard from "@/shared/atoms/StatCard";
 import type { Stats } from "@/types/stats";
 
 interface StatsCardProps {

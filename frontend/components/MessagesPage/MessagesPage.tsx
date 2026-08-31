@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { PAGE_CONTENT_CLASSNAME } from "@/constants/layout";
 import { getLocalizedMessages } from "@/lib/localizedContent";
 import { Conversation } from "@/types/messages";
-import { Card, CardContent } from "@/components/atoms/ui/card";
+import { Card, CardContent } from "@/shared/atoms/card";
 import { cn } from "@/lib/utils";
 import ConversationList from "./ConversationList";
 import ConversationPanel from "./ConversationPanel";

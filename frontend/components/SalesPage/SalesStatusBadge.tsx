@@ -1,7 +1,7 @@
 "use client";
 
 import { memo } from "react";
-import { Badge } from "@/components/atoms/ui/badge";
+import { Badge } from "@/shared/atoms/badge";
 import { SaleStatus } from "@/types/sales";
 import { useTranslation } from "@/providers/LanguageProvider";
 

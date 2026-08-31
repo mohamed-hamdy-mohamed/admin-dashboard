@@ -1,8 +1,8 @@
 import { memo, type ReactNode } from "react";
 import { PAGE_CONTENT_CLASSNAME } from "@/constants/layout";
-import DataTableLayout from "@/components/atoms/ui/DataTableLayout";
-import SearchInput from "@/components/atoms/ui/SearchInput";
-import TablePagination from "@/components/atoms/ui/TablePagination";
+import DataTableLayout from "@/shared/atoms/DataTableLayout";
+import SearchInput from "@/shared/atoms/SearchInput";
+import TablePagination from "@/shared/atoms/TablePagination";
 import { LoadingState, StatsCardsSkeleton } from "@/components/skeletons";
 
 interface CatalogPageTemplateProps {

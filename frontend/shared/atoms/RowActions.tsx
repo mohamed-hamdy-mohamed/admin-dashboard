@@ -5,7 +5,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/atoms/ui/dropdown-menu";
+} from "@/shared/atoms/dropdown-menu";
 import { MoreHorizontal, type LucideIcon } from "lucide-react";
 
 export interface RowActionItem {

@@ -6,11 +6,11 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/atoms/ui/dialog";
-import DetailGrid from "@/components/atoms/ui/DetailGrid";
-import DetailItem from "@/components/atoms/ui/DetailItem";
-import EntityDialog from "@/components/molecules/EntityDialog";
-import EntityViewHeader from "@/components/molecules/EntityViewHeader";
+} from "@/shared/atoms/dialog";
+import DetailGrid from "@/shared/atoms/DetailGrid";
+import DetailItem from "@/shared/atoms/DetailItem";
+import EntityDialog from "@/shared/molecules/EntityDialog";
+import EntityViewHeader from "@/shared/molecules/EntityViewHeader";
 import RecipeDifficultyBadge from "./RecipeDifficultyBadge";
 import { useTranslation } from "@/providers/LanguageProvider";
 import { formatDisplayValue } from "@/util/formatLocale";

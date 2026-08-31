@@ -5,7 +5,7 @@ import ProductTable from "./ProductTable";
 import ProductsStats from "./ProductsStats";
 import { useGetProducts } from "@/hooks/useGetProducts";
 import { useCatalogCollection } from "@/hooks/useCatalogCollection";
-import CatalogPageTemplate from "@/components/templates/CatalogPageTemplate";
+import CatalogPageTemplate from "@/shared/templates/CatalogPageTemplate";
 import { useTranslation } from "@/providers/LanguageProvider";
 import type { Product } from "@/types/products";
 

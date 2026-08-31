@@ -1,5 +1,5 @@
-import { Button } from "@/components/atoms/ui/button";
-import { DialogFooter } from "@/components/atoms/ui/dialog";
+import { Button } from "@/shared/atoms/button";
+import { DialogFooter } from "@/shared/atoms/dialog";
 
 interface DialogFormActionsProps {
   cancelLabel: string;

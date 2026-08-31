@@ -12,11 +12,11 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/atoms/ui/dialog";
-import { Button } from "@/components/atoms/ui/button";
-import { Input } from "@/components/atoms/ui/input";
-import { Label } from "@/components/atoms/ui/label";
-import { Spinner } from "@/components/atoms/ui/spinner";
+} from "@/shared/atoms/dialog";
+import { Button } from "@/shared/atoms/button";
+import { Input } from "@/shared/atoms/input";
+import { Label } from "@/shared/atoms/label";
+import { Spinner } from "@/shared/atoms/spinner";
 import { useTranslation } from "@/providers/LanguageProvider";
 import type { AuthUser } from "@/types/auth";
 import {

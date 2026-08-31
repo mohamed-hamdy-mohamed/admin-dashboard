@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/atoms/ui/card";
+import { Card, CardContent } from "@/shared/atoms/card";
 import type { Stats } from "@/types/stats";
 
 interface StatCardProps {

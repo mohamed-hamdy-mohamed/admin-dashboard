@@ -7,7 +7,7 @@ import RecipesTable from "./RecipesTable";
 import { useGetRecipes } from "@/hooks/useGetOrders";
 import { useCatalogEntityPage } from "@/hooks/useCatalogEntityPage";
 import { useLazyMount } from "@/hooks/useLazyMount";
-import CatalogPageTemplate from "@/components/templates/CatalogPageTemplate";
+import CatalogPageTemplate from "@/shared/templates/CatalogPageTemplate";
 import { Recipe } from "@/types/recipes";
 import {
   applyRecipeEdits,

@@ -1,10 +1,10 @@
 "use client";
 
 import { memo } from "react";
-import { TableCell, TableRow } from "@/components/atoms/ui/table";
-import { Badge } from "@/components/atoms/ui/badge";
-import EntityIdentity from "@/components/molecules/EntityIdentity";
-import StackedMeta from "@/components/atoms/ui/StackedMeta";
+import { TableCell, TableRow } from "@/shared/atoms/table";
+import { Badge } from "@/shared/atoms/badge";
+import EntityIdentity from "@/shared/molecules/EntityIdentity";
+import StackedMeta from "@/shared/atoms/StackedMeta";
 import { Sale } from "@/types/sales";
 import SaleStatusBadge from "./SalesStatusBadge";
 import { useTranslation } from "@/providers/LanguageProvider";

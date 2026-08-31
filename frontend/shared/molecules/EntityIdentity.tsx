@@ -1,5 +1,5 @@
 import { memo, type ReactNode } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/atoms/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/shared/atoms/avatar";
 import { cn } from "@/lib/utils";
 
 interface EntityIdentityProps {

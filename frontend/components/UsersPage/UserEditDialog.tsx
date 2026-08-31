@@ -3,7 +3,7 @@
 import { memo, useCallback } from "react";
 import { User } from "@/types/users";
 import { UserEditValues } from "@/types/user-edits";
-import EntityDialog from "@/components/molecules/EntityDialog";
+import EntityDialog from "@/shared/molecules/EntityDialog";
 import { useTranslation } from "@/providers/LanguageProvider";
 import UserEditForm from "./UserEditForm";
 
